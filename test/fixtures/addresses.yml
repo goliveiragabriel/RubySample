@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vendor_id: MyString
+  name: MyString
+  street: MyString
+  complement: MyString
+  district: MyString
+  city: MyString
+  state: MyString
+  zipcode: MyString
+
+two:
+  vendor_id: MyString
+  name: MyString
+  street: MyString
+  complement: MyString
+  district: MyString
+  city: MyString
+  state: MyString
+  zipcode: MyString

@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  travel_type1: false
+  travel_type2: false
+  travel_type3: false
+  travel_type4: false
+  travel_type5: false
+  travel_type6: false
+  location1: false
+  location2: false
+  location3: false
+  location4: false
+  location5: false
+  location6: false
+  location7: false
+  location8: false
+  location9: false
+  location10: false
+  location11: false
+  location12: false
+
+two:
+  travel_type1: false
+  travel_type2: false
+  travel_type3: false
+  travel_type4: false
+  travel_type5: false
+  travel_type6: false
+  location1: false
+  location2: false
+  location3: false
+  location4: false
+  location5: false
+  location6: false
+  location7: false
+  location8: false
+  location9: false
+  location10: false
+  location11: false
+  location12: false

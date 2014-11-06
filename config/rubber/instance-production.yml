@@ -1,0 +1,185 @@
+---
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: db01
+  domain: bemcasados.art.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: db
+    options:
+      primary: true
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql_master
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-22085c3f
+  image_type: t1.micro
+  image_id: ami-8cd80691
+  security_groups:
+  - bemcasados_production_default
+  - bemcasados_production_db01
+  - bemcasados_production_db
+  - bemcasados_production_mysql
+  - bemcasados_production_mysql_master
+  - bemcasados_production_collectd
+  - bemcasados_production_monit
+  external_host: ec2-177-71-254-98.sa-east-1.compute.amazonaws.com
+  external_ip: 177.71.254.98
+  internal_host: ip-10-248-28-126.sa-east-1.compute.internal
+  internal_ip: 10.248.28.126
+  zone: sa-east-1b
+  platform: linux
+  root_device_type: ebs
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: app01
+  domain: bemcasados.art.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: app
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: passenger
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: apache
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-76085c6b
+  image_type: t1.micro
+  image_id: ami-8cd80691
+  security_groups:
+  - bemcasados_production_default
+  - bemcasados_production_app01
+  - bemcasados_production_app
+  - bemcasados_production_passenger
+  - bemcasados_production_apache
+  - bemcasados_production_collectd
+  - bemcasados_production_monit
+  external_host: ec2-177-71-254-102.sa-east-1.compute.amazonaws.com
+  external_ip: 177.71.254.102
+  internal_host: ip-10-248-12-31.sa-east-1.compute.internal
+  internal_ip: 10.248.12.31
+  zone: sa-east-1b
+  platform: linux
+  root_device_type: ebs
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: web01
+  domain: bemcasados.art.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: web
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: haproxy
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-e2085cff
+  image_type: t1.micro
+  image_id: ami-8cd80691
+  security_groups:
+  - bemcasados_production_default
+  - bemcasados_production_web
+  - bemcasados_production_web01
+  - bemcasados_production_haproxy
+  - bemcasados_production_collectd
+  - bemcasados_production_monit
+  external_host: ec2-177-71-254-100.sa-east-1.compute.amazonaws.com
+  external_ip: 177.71.254.100
+  internal_host: ip-10-248-18-33.sa-east-1.compute.internal
+  internal_ip: 10.248.18.33
+  zone: sa-east-1b
+  platform: linux
+  root_device_type: ebs
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: app02
+  domain: bemcasados.art.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: app
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: passenger
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: apache
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-943a1f89
+  image_type: t1.micro
+  image_id: ami-8cd80691
+  security_groups:
+  - bemcasados_production_default
+  - bemcasados_production_app02
+  - bemcasados_production_app
+  - bemcasados_production_passenger
+  - bemcasados_production_apache
+  - bemcasados_production_collectd
+  - bemcasados_production_monit
+  external_host: ec2-177-71-253-32.sa-east-1.compute.amazonaws.com
+  external_ip: 177.71.253.32
+  internal_host: ip-10-252-34-11.sa-east-1.compute.internal
+  internal_ip: 10.252.34.11
+  zone: sa-east-1a
+  platform: linux
+  root_device_type: ebs
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: app03
+  domain: bemcasados.art.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: app
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: passenger
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: apache
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-48f1c255
+  image_type: m1.medium
+  image_id: ami-8cd80691
+  security_groups:
+  - bemcasados_production_default
+  - bemcasados_production_app03
+  - bemcasados_production_app
+  - bemcasados_production_passenger
+  - bemcasados_production_apache
+  - bemcasados_production_collectd
+  - bemcasados_production_monit
+  external_host: ec2-177-71-177-23.sa-east-1.compute.amazonaws.com
+  external_ip: 177.71.177.23
+  internal_host: ip-10-248-12-40.sa-east-1.compute.internal
+  internal_ip: 10.248.12.40
+  zone: sa-east-1b
+  platform: linux
+  root_device_type: ebs
+- volumes: {}
+  static_ips: {}

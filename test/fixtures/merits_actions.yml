@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_merits_info_id: 1
+  score: 1
+  action: MyString
+
+two:
+  user_merits_info_id: 1
+  score: 1
+  action: MyString

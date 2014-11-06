@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price: MyString
+  price_details: MyText
+  style1: false
+  style2: false
+  style3: false
+  style4: false
+  package1: false
+  package2: false
+  package3: false
+  package4: false
+  package5: false
+  package6: false
+  package7: false
+  package8: false
+  package9: false
+  package10: false
+
+two:
+  price: MyString
+  price_details: MyText
+  style1: false
+  style2: false
+  style3: false
+  style4: false
+  package1: false
+  package2: false
+  package3: false
+  package4: false
+  package5: false
+  package6: false
+  package7: false
+  package8: false
+  package9: false
+  package10: false

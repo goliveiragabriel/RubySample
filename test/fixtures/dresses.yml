@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vendor_id: 1
+  name: MyString
+  brand: MyString
+  description: MyString
+  featured: false
+  share: 
+
+two:
+  vendor_id: 1
+  name: MyString
+  brand: MyString
+  description: MyString
+  featured: false
+  share: 

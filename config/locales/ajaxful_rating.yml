@@ -1,0 +1,7 @@
+pt-BR:
+  ajaxful_rating:
+    helper:
+      global_average: "Notal média: %{value} de %{max}"
+      user_rating: "Sua nota: %{value} de %{max}"
+      hover: "Nota %{value} de %{max}"
+      no_ratings: "Sem nota"

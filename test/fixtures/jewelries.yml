@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product1: false
+  product2: false
+  product3: false
+  product4: false
+  product5: false
+  product6: false
+  product7: false
+  product8: false
+  product9: false
+  product10: false
+  product11: false
+  product12: false
+  product13: false
+  product14: false
+  product15: false
+
+two:
+  product1: false
+  product2: false
+  product3: false
+  product4: false
+  product5: false
+  product6: false
+  product7: false
+  product8: false
+  product9: false
+  product10: false
+  product11: false
+  product12: false
+  product13: false
+  product14: false
+  product15: false

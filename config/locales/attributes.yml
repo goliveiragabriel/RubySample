@@ -1,0 +1,32 @@
+pt-BR:
+  activerecord:
+    models:
+      user: Usuário
+      review: Recomendação
+      vendor: Fornecedor
+      band: Musica
+    attributes:
+      review:
+        terms_of_service: Termos de serviço
+        recommendation: Recomendação
+        reviewer_type: Envolvimento no evento
+        date: Data
+        content: Descrição
+        title: Título
+      user:
+        first_name: Nome
+        last_name: Sobrenome
+        genre: Sexo
+        birth_date: Data de nascimento
+        wedding_date: Data de casamento
+        relationship_status: Relacionamento
+        number_guests: Número de convidados
+        password: Senha
+      vendor:
+        type: Categoria
+      proposal:
+        document: Arquivo
+        description: Descrição
+        date: Data
+        validity: Validade da Proposta
+        vendor_name: Nome

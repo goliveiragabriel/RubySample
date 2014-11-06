@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price: MyString
+  price_details: MyText
+  service1: false
+  service2: false
+  service3: false
+  service4: false
+  service5: false
+  service6: false
+  service7: false
+  service8: false
+  service9: false
+  service10: false
+  service11: false
+  service12: false
+  consultation: false
+  group: false
+
+two:
+  price: MyString
+  price_details: MyText
+  service1: false
+  service2: false
+  service3: false
+  service4: false
+  service5: false
+  service6: false
+  service7: false
+  service8: false
+  service9: false
+  service10: false
+  service11: false
+  service12: false
+  consultation: false
+  group: false

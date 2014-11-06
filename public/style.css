@@ -1,0 +1,357 @@
+@font-face {
+  font-family: 'Museo500-Regular';
+  src: url('http://www.bemcasados.art.br/assets/webfonts/Museo500-Regular.eot?#iefix') format('embedded-opentype'), 
+       url('http://www.bemcasados.art.br/assets/webfonts/Museo500-Regular.woff') format('woff'), 
+       url('http://www.bemcasados.art.br/assets/webfonts/Museo500-Regular.ttf')  format('truetype'),
+       url('http://www.bemcasados.art.br/assets/webfonts/Museo500-Regular.svg#Museo500-Regular') format('svg');
+}
+@font-face {
+  font-family: 'Museo-700';
+  src: url('http://www.bemcasados.art.br/assets/webfonts/Museo-700.ttf');
+}
+
+body#e404 {
+    color: #666666;
+}
+#e404 {
+    margin: 0;
+}
+body {
+    background: url("http://www.bemcasados.art.br/assets/images/pattern.png") repeat scroll 0 0 #066E7F;
+    position: relative;
+}
+
+.header-wrapper {
+    background: url("http://www.bemcasados.art.br/assets/images/white-pattern.png") repeat scroll 0 0 white;
+    height: 106px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.toolbar-wrappper {
+    background: url("http://www.bemcasados.art.br/assets/images/pattern.png") repeat scroll 0 0 #066E7F;
+    height: 36px;
+}
+.toolbar-wrappper .toolbar {
+    margin: 0 auto;
+    padding-top: 6px;
+    width: 960px;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.toolbar .socials {
+    float: left;
+}
+.toolbar ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.toolbar li {
+    color: #FFFFFF;
+    float: left;
+    margin-right: 7px;
+}
+
+.socials li.facebook a {
+    background-position: 0 0;
+}
+.socials li.twitter a {
+    background-position: -30px 0;
+}
+.socials li.rss a {
+    background-position: -59px 0;
+}
+
+.socials li.youtube a {
+    background-position: -88px 0;
+}
+
+.socials li.facebook a:hover {
+    background-position: 0 -25px;
+}
+.socials li.twitter a:hover {
+    background-position: -30px -25px;
+}
+.socials li.rss a:hover {
+    background-position: -59px -25px;
+}
+.socials li.youtube a:hover {
+    background-position: -88px -25px;
+}
+.socials li.pinterest a:hover {
+    background-position: -117px -25px;
+}
+.socials li a {
+    background: url("http://www.bemcasados.art.br/assets/images/social-icons2.png") no-repeat scroll 0 0 transparent;
+    height: 22px;
+    text-indent: -9999px;
+    width: 22px;
+}
+.toolbar li a {
+    display: block;
+}
+a {
+    background: none repeat scroll 0 0 transparent;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    vertical-align: baseline;
+}
+.header-wrapper header {
+    margin: 0 auto;
+    padding-top: 9px;
+    width: 960px;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+    display: block;
+}
+.logo {
+    background: url("http://www.bemcasados.art.br/assets/images/logo2.png") no-repeat scroll 0 0 transparent;
+    float: left;
+    margin-left: 4px;
+    text-indent: -9999px;
+}
+h1, h2, h3, h4, h5, h6, p, blockquote {
+    margin: 0;
+    padding: 0;
+}
+
+.logo a {
+    display: block;
+    height: 50px;
+    width: 94px;
+}
+
+#e404 .main-navigation {
+    float: left;
+    margin-left: 110px;
+    padding-top: 19px;
+}
+nav ul, nav ol {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-navigation li:first-child {
+    margin-left: 0;
+}
+#e404 .main-navigation li {
+    float: left;
+    margin-left: 45px;
+}
+#e404 .main-navigation li a{
+    font-family: "Museo-700" !important;
+    text-transform: uppercase;
+}
+
+.main-navigation li a:hover, .main-navigation li.current a {
+    color: #666666;
+}
+.main-navigation li a {
+    color: #006F83;
+    text-decoration: none;
+}
+.main-navigation li a {
+    color: #006F83;
+    text-decoration: none;
+}
+#home .banner-wrapper, #e404 .banner-wrapper {
+    padding: 22px 0;
+}
+
+.banner-wrapper .banner {
+    background: url("images/banner_404.png") no-repeat scroll 0 0 white;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 24px 0 #0AB1C2;
+    height: 230px;
+    margin: 0 auto;
+    padding: 30px 0 0 360px;
+    width: 600px;
+}
+#e404 .banner .banner-text {
+    color: #6D6D6D;
+    font: 18px/1 "Museo500-Regular";
+    margin-bottom: 33px;
+    margin-left: 23px;
+}
+h1, h2, h3, h4, h5, h6, p, blockquote {
+    margin: 0;
+    padding: 0;
+}
+
+#e404 .banner .banner-text a {
+    font: 15px/1 "Museo500-Regular";
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    width: 960px;
+}
+
+.content {
+    float: left;
+    width: 640px;
+}
+#e404 .about, #e404 .testimonial {
+    padding-top: 8px;
+}
+.about {
+    float: left;
+    margin-bottom: 35px;
+    padding-right: 20px;
+    text-align: inherit;
+    width: 280px;
+}
+
+.content-wrapper h3 {
+    color: #007585;
+    font: 20px/1 "Museo-700";
+    margin-bottom: 22px;
+}
+.about p {
+    font-size: 12px;
+}
+.content p {
+    color: #666666;
+    font: 12px/1.67 Arial,Helvetica,sans-serif;
+}
+
+.about #popular-quote {
+    color: #066E7F;
+    font-style: italic;
+    font-weight: bold;
+    text-align: inherit;
+}
+.about p {
+    font-size: 12px;
+}
+
+#e404 .about, #e404 .testimonial {
+    padding-top: 8px;
+}
+.testimonial {
+    float: right;
+    margin-bottom: 35px;
+    padding-left: 20px;
+    width: 320px;
+}
+
+.content-wrapper h3 {
+    color: #007585;
+    font: 20px/1 "Museo-700";
+    margin-bottom: 22px;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: none;
+}
+.content blockquote p {
+    font: italic 12px/2 Georgia,"Times New Roman",Times,serif;
+    margin-bottom: 15px;
+}
+.body {
+    background: url("http://www.bemcasados.art.br/assets/images/white-pattern.png") repeat scroll 0 0 white;
+    padding: 12px 0 35px;
+}
+
+.content blockquote cite {
+    font: bold 12px/1 Arial,Helvetica,sans-serif;
+}
+
+.sidebar {
+    float: right;
+    padding: 8px 0 0 20px;
+    width: 300px;
+}
+
+.content-wrapper h3 {
+    color: #007585;
+    font: 20px/1 "Museo-700";
+    margin-bottom: 22px;
+}
+.galleries ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.galleries li {
+    background-color: #FFFFFF;
+    border: 1px solid #E3E3E3;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 5px 0 #E3E3E3;
+    float: left;
+    height: 78px;
+    margin: 0 10px 10px 0;
+    padding: 5px;
+    width: 78px;
+}
+
+.galleries li img {
+    border-radius: 5px 5px 5px 5px;
+    display: block;
+    height: 78px;
+    width: 78px;
+}
+a img {
+    border: 0 none;
+}
+#e404 .banner h2 {
+    color: #6D6D6D;
+    font: bold 29px/1 "Museo500-Regular" !important;
+    margin-bottom: 23px;
+    margin-left: 23px;
+    font-weight: bold;
+}
+.button-link{
+    background-color: #00ADC8;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px/1 Arial,Helvetica,sans-serif;
+    padding: 8px;
+    text-align: center;
+    color: #fff;    
+    width: 170px;
+}
+.footer-wrapper {
+  height:40px;
+}
+.footer-wrapper footer{
+    margin: 0 auto;
+    width: 960px;
+    color: #fff;
+    padding: 5px 0;
+    border-top: 1px solid #fff;
+}
+footer nav li:first-child, footer nav li.copyright{
+    border-left: 0 none;
+    padding-left: 20px;    
+}
+footer nav li{
+    border-left: 1px solid #FFFFFF;
+    float: left;
+    font: 12px/1 Arial,Helvetica,sans-serif;
+    padding: 0 8px;    
+}
+.footer-wrapper footer ul li a{
+    color: #fff;
+}
+footer nav li.copyright{
+    float:right;
+}

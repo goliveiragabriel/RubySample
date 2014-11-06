@@ -1,0 +1,57 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price: MyString
+  price_details: MyText
+  music_genre1: false
+  music_genre2: false
+  music_genre3: false
+  music_genre4: false
+  music_genre5: false
+  music_genre6: false
+  music_genre7: false
+  music_genre8: false
+  music_genre9: false
+  music_genre10: false
+  music_genre11: false
+  music_genre12: false
+  music_genre13: false
+  music_genre14: false
+  music_genre15: false
+  music_genre16: false
+  music_genre17: false
+  music_genre18: false
+  music_genre19: false
+  music_genre20: false
+  music_genre21: false
+  music_genre22: false
+  music_genre23: false
+  music_genre24: false
+
+two:
+  price: MyString
+  price_details: MyText
+  music_genre1: false
+  music_genre2: false
+  music_genre3: false
+  music_genre4: false
+  music_genre5: false
+  music_genre6: false
+  music_genre7: false
+  music_genre8: false
+  music_genre9: false
+  music_genre10: false
+  music_genre11: false
+  music_genre12: false
+  music_genre13: false
+  music_genre14: false
+  music_genre15: false
+  music_genre16: false
+  music_genre17: false
+  music_genre18: false
+  music_genre19: false
+  music_genre20: false
+  music_genre21: false
+  music_genre22: false
+  music_genre23: false
+  music_genre24: false

@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price: MyString
+  price_details: MyText
+  dessert1: false
+  dessert2: false
+  dessert3: false
+  dessert4: false
+  dessert5: false
+  dessert6: false
+  dessert7: false
+  dessert8: false
+  dessert9: false
+  dessert9: false
+  service1: false
+  service2: false
+  service3: false
+  service4: false
+  service5: false
+  service6: false
+  dietary_needs1: false
+  dietary_needs2: false
+  dietary_needs3: false
+  dietary_needs4: false
+  dietary_needs5: false
+  dietary_needs6: false
+  customary_cakes: false
+
+two:
+  price: MyString
+  price_details: MyText
+  dessert1: false
+  dessert2: false
+  dessert3: false
+  dessert4: false
+  dessert5: false
+  dessert6: false
+  dessert7: false
+  dessert8: false
+  dessert9: false
+  dessert9: false
+  service1: false
+  service2: false
+  service3: false
+  service4: false
+  service5: false
+  service6: false
+  dietary_needs1: false
+  dietary_needs2: false
+  dietary_needs3: false
+  dietary_needs4: false
+  dietary_needs5: false
+  dietary_needs6: false
+  customary_cakes: false

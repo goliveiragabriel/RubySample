@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  event1: false
+  event2: false
+  event3: false
+  event4: false
+  event5: false
+  service1: false
+  service2: false
+  service3: false
+  service4: false
+  service5: false
+  service6: false
+  service7: false
+  service8: false
+  service9: false
+  service10: false
+  service11: false
+  service12: false
+  service13: false
+  service14: false
+  service15: false
+
+two:
+  event1: false
+  event2: false
+  event3: false
+  event4: false
+  event5: false
+  service1: false
+  service2: false
+  service3: false
+  service4: false
+  service5: false
+  service6: false
+  service7: false
+  service8: false
+  service9: false
+  service10: false
+  service11: false
+  service12: false
+  service13: false
+  service14: false
+  service15: false

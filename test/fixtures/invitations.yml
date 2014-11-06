@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product1: false
+  product2: false
+  product3: false
+  product4: false
+  process1: false
+  process2: false
+  process3: false
+  process4: false
+  specialty1: false
+  specialty2: false
+  specialty3: false
+  specialty4: false
+  specialty5: false
+  specialty6: false
+
+two:
+  product1: false
+  product2: false
+  product3: false
+  product4: false
+  process1: false
+  process2: false
+  process3: false
+  process4: false
+  specialty1: false
+  specialty2: false
+  specialty3: false
+  specialty4: false
+  specialty5: false
+  specialty6: false

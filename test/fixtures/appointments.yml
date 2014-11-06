@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  data: 2012-08-14
+  dress_id: 1
+  user_id: 1
+  vendor_id: 1
+
+two:
+  data: 2012-08-14
+  dress_id: 1
+  user_id: 1
+  vendor_id: 1

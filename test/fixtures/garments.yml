@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service1: false
+  service2: false
+  service3: false
+  service4: false
+  service5: false
+  service6: false
+  service7: false
+  service8: false
+  service9: false
+  service10: false
+  service11: false
+  service12: false
+  accessories1: false
+  accessories2: false
+  accessories3: false
+  accessories4: false
+  accessories5: false
+  accessories6: false
+  accessories7: false
+  accessories8: false
+  accessories9: false
+  accessories10: false
+
+two:
+  service1: false
+  service2: false
+  service3: false
+  service4: false
+  service5: false
+  service6: false
+  service7: false
+  service8: false
+  service9: false
+  service10: false
+  service11: false
+  service12: false
+  accessories1: false
+  accessories2: false
+  accessories3: false
+  accessories4: false
+  accessories5: false
+  accessories6: false
+  accessories7: false
+  accessories8: false
+  accessories9: false
+  accessories10: false

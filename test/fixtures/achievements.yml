@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_merits_info_id: 1
+  name: MyString
+  action_type: MyString
+  status: MyString
+  message: MyString
+  score: 1
+  child_id: 1
+
+two:
+  user_merits_info_id: 1
+  name: MyString
+  action_type: MyString
+  status: MyString
+  message: MyString
+  score: 1
+  child_id: 1

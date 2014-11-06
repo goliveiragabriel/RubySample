@@ -1,0 +1,23 @@
+User-agent: *
+#blog
+Disallow: /blog/cgi-bin
+Disallow: /blog/wp-admin
+Disallow: /blog/wp-includes
+Disallow: /blog/wp-content/plugins/
+Disallow: /blog/wp-content/cache/
+Disallow: /blog/wp-content/themes/
+Disallow: /blog/*/trackback/
+Disallow: /blog/*/feed/
+Disallow: /blog/*/feed/rss/$
+Disallow: /blog/category/*
+#site
+#Disallow: /fornecedores
+Disallow: /fornecedores/new
+Disallow: /fornecedores/*/edit
+#Disallow: /busca
+Disallow: /busca/new
+Disallow: /busca/*/edit
+Disallow: /reviews/
+Disallow: /authentications/
+Disallow: /u/
+Sitemap: http://www.bemcasados.art.br/sitemap_index.xml.gz

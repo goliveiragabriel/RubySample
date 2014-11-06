@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price: MyString
+  capacity: 1
+  service1: 1
+  service2: 1
+  service3: 1
+  working_hours1: 1
+  working_hours2: 1
+  working_hours3: 1
+  settings1: 1
+  settings2: 1
+  settings3: 1
+  valet_parking: 1
+  handicap_acess: 1
+  catering_onsite: 1
+  catering_outside: 1
+
+two:
+  price: MyString
+  capacity: 1
+  service1: 1
+  service2: 1
+  service3: 1
+  working_hours1: 1
+  working_hours2: 1
+  working_hours3: 1
+  settings1: 1
+  settings2: 1
+  settings3: 1
+  valet_parking: 1
+  handicap_acess: 1
+  catering_onsite: 1
+  catering_outside: 1

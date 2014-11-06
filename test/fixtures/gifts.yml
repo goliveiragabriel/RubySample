@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product1: false
+  product2: false
+  process1: false
+  process2: false
+  process3: false
+
+two:
+  product1: false
+  product2: false
+  process1: false
+  process2: false
+  process3: false
