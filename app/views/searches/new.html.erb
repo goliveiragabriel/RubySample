@@ -1,0 +1,50 @@
+<% if @likebox %>
+  <div style="display:none">
+    <a href="#fb-like-box" class="lightbox_likebox">fb-like-box</a>
+    <%= render 'shared/like_box' %>
+  </div>
+<% end %>
+
+
+<div class="content">
+
+  <section class="latest-blog">
+    <h3>Histórias Recentes no Blog</h3>
+    <ul class="clearfix">
+      <%= render partial: "post", collection: @posts %>
+    </ul>
+    <a href="http://blog.bemcasados.art.br/" class="read-more button-link">leia mais+</a>
+  </section>
+
+  <section class="most-revieweds">
+      <h3>Últimos Avaliados</h3>
+      <% @vendors = @last_reviews.collect!{|r| r.vendor}.uniq.first(3) %>
+      <%= render partial: "layouts/vendor", :collection => @vendors %>
+  </section>
+
+  <section class="about">
+    <h3>Sobre Bem Casados</h3>
+    <p>A Bem Casados existe para ajudar casais a encontrarem as empresas ideais para a sua festa de casamento.
+    O site conta com uma base completa de fornecedores especializados, muitas fotos  e a avaliação de noivas e convidados. Assim é mais fácil realizar a festa dos seus sonhos!</p>
+    <br />
+    <p id="popular-quote"> A cultura popular já diz:</p>
+    <p id="popular-quote">Bem Casados são um símbolo de união e de boa sorte!</p>
+  </section>
+
+  <section class="testimonial">
+  <h3>Recém-Casados?</h3>
+  <blockquote>
+    <p>
+      Muitas lembranças do grande dia? 
+      Envie suas fotos e lista de fornecedores para 
+      <a href="mailto:contato@bemcasados.art.br" target="_blank">contato@bemcasados.art.br</a>
+      para publicarmos em nosso blog. Sua história merece ser contada e ajudará outros casais que estão começando nessa jornada!
+    </p>
+    <cite>Vitor - Equipe Bem Casados</cite>
+  </blockquote>
+  </section>
+
+
+  <%= render 'layouts/banner' %>
+</div>
+<%= render 'layouts/sidebar' %>

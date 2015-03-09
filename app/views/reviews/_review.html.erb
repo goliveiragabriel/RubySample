@@ -1,0 +1,64 @@
+<% user = review.user %>
+<% vendor = review.vendor %>
+<% rating = user.average_rating(vendor) %>
+<section class="comment-section clearfix">
+<div class="venue-image">
+  <% if review.anonymous || user.profile_picture.nil? %>
+    <% image = review.anonymous_picture %>
+  <% else %>
+    <% image = user.profile_picture_url %>
+  <% end %>
+  <%= image_tag image %>
+</div>
+<div class="venue-comment-detail">
+  <h4>
+    <%= user.first_name unless review.anonymous %>
+    <span>
+      <%= review.noiva? ? "Casou" : "Evento" %> em 
+      <%= l review.date %>
+      <% if @count_reviews %>
+        <% unless review.anonymous %>
+          (<%= link_to(pluralize(user.reviews.size, "Recomendação"), recomendacoes_path(uid: user))%>)
+        <% end %>
+      <% else %>
+        (<%= link_to(vendor.name, vendor_seo_path(vendor)) %>)
+      <% end %>
+    </span>
+  </h4>
+  <p>
+    <b>"<%= review.title %>"</b> <br />
+    <%= simple_format(review.content) %>
+  </p>
+  <% vendor = vendor.becomes(Vendor) %>
+  <div class="general-note">
+    <table>
+      <caption>Nota Geral: <%= rating %> de 5.0</caption>
+      <tbody>
+        <tr>
+          <th>Flexibilidade</th>
+          <td><%= ratings_for vendor, user, :show_user_rating => true, :force_static => true, :dimension => :flexibility %></td>
+          <th>Custo-benefício</th>
+          <td><%= ratings_for vendor, user, :show_user_rating => true, :force_static => true, :dimension => :price %></td>
+        </tr>
+        <tr>
+          <th>Profissionalismo</th>
+          <td><%= ratings_for vendor, user, :show_user_rating => true, :force_static => true, :dimension => :professionalism %></td>
+          <th>Qualidade do serviço</th>
+          <td><%= ratings_for vendor, user, :show_user_rating => true, :force_static => true, :dimension => :quality %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%= link_to "Ler mais »", ler_mais_vendor_path(vendor), class: "expand" %>
+<div class="shared">
+  <div class="rating">
+    <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium" } %>
+    <span>Compartilhou <br /> em <%= l  review.created_at %></span>
+    <span class="venue-comment-manage">
+      <%= link_to('editar', edit_review_path(review), class: "lightbox_review") + " | " if can? :update, review %> 
+      <%= link_to('deletar', review, confirm: 'Você tem certeza?', method: :delete) if can? :destroy, review %>
+    </span>
+  </div>
+</div>
+</section>

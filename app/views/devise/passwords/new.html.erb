@@ -1,0 +1,20 @@
+<% title 'Esqueceu a sua senha?' %>
+
+<div id="login-box" class="<%= params[:popup] ? "popup" : "regular" %>">
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), html: {id: "login-form"}) do |f| %>
+    <%= devise_error_messages! %>
+    <br />
+    <h3>Esqueceu a sua senha?</h3>
+    <br />
+    <p>Insira o endereço de email cadastrado no Bem Casados no campo abaixo.
+    Em instantes você receberá um email nosso com instruções para a recuperação da sua senha.</p>
+    <br />
+    <div class="form-row clearfix">
+      <%= f.label :email %>
+      <span class="input-shadow"><%= f.text_field :email %></span>
+    </div>
+    <div class="form-row row-submit clearfix">
+      <%= f.submit "Enviar instruções" %>
+    </div>
+  <% end %>
+</div>

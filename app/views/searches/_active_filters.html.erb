@@ -1,0 +1,43 @@
+<div class="filters clearfix">
+
+  <% if @search.name? %>
+    <p class="clearfix">
+      <span class="filter-name" id="search-icon"><%= image_tag "lupa.png", width: 20 %></span>
+      <%= @search.name %>
+      <a href="Javascript:void(0)" class="remove" filter-remove="name">x</a>
+    </p>
+  <% end %>
+
+  <% if @search.service_type? %>
+    <% service_type = @search.service_type.downcase %>
+    <p class="clearfix">
+    <span class="filter-name" id="service-icon">
+      <span class="<%= service_type %>"><%= service_type %></span>
+      <%= @search.translated_service_type %>
+    </span>
+    <a href="Javascript:void(0)" class="remove" filter-remove="service_type">x</a></p>
+  <% end %>
+
+  <% if @search.address? %>
+    <p class="clearfix">
+      <span class="filter-name" id="flag-icon"><%= image_tag "flag.png", width: 16 %></span>
+      <%= @search.address %>
+      <a href="Javascript:void(0)" class="remove" filter-remove="address">x</a>
+    </p>
+  <% end %>
+
+  <% if @search.price? && @search.price != "qualquer" %>
+    <p class="clearfix"><span class="filter-name">Preço: <%= "$" * @search.price.to_i %></span>
+    <a href="Javascript:void(0)" class="remove" filter-remove="price">x</a></p>
+  <% end %>
+
+  <% if params[:filter] %>
+    <% active_filters = params[:filter].clone %>
+    <% active_filters.delete("capacity") %>
+    <% active_filters.each_pair do |key, val| %>
+      <p class="clearfix"><span class="filter-name"><%= @search.service_type.constantize.send(key + "_label") %></span>
+      <a href="Javascript:void(0)" class="remove" filter-remove="<%= key %>">x</a></p>
+    <% end %>
+  <% end %>
+
+</div>

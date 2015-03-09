@@ -1,0 +1,76 @@
+<% params[:filter] = session[:sfilter] %>
+<% active_filters = params[:filter] ? params[:filter].clone : nil %>
+<% active_filters.delete("capacity") if active_filters %>
+<% venue = Venue.new(active_filters) %>
+
+<section class="form-section" id="search-filter-capacity">
+  <h3>Capacidade (sentados):</h3>
+  <br />
+  <div class="form-row">
+    <div id="range"></div>
+    <% minmax = (params[:filter] ? params[:filter][:capacity].split("-") : ["0", "1500"]) %> 
+    <%= hidden_field_tag 'GuestCapacityMin', minmax[0], class: "slider-range-min" %>
+    <%= hidden_field_tag 'GuestCapacityMin', minmax[1], class: "slider-range-max" %>
+    <%= hidden_field_tag 'filter[capacity]', (params[:filter][:capacity] if params[:filter]) , class: "capacity-range" %>
+  </div>
+</section>
+
+<section class="form-section" id="search-filter-details">
+
+  <h3>Detalhes:</h3>
+
+  <% if venue.cerimonia? %>
+    <%= hidden_field_tag 'filter[cerimonia]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[cerimonia]', '1', venue.cerimonia? %> 
+      <%= Venue.cerimonia_label %>
+    </div>
+  <% end %>
+
+  <% if venue.ar_livre? %>
+    <%= hidden_field_tag 'filter[ar_livre]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[ar_livre]', '1', venue.ar_livre? %> 
+      <%= Venue.ar_livre_label %>
+    </div>
+  <% end %>
+
+  <% if venue.hotel? %>
+    <%= hidden_field_tag 'filter[hotel]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[hotel]', '1', venue.hotel? %> 
+      <%= Venue.hotel_label %>
+    </div>
+  <% end %>
+
+  <% if venue.restaurante? %>
+    <%= hidden_field_tag 'filter[restaurante]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[restaurante]', '1', venue.restaurante? %> 
+      <%= Venue.restaurante_label %>
+    </div>
+  <% end %>
+
+  <% if venue.praia? %>
+    <%= hidden_field_tag 'filter[praia]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[praia]', '1', venue.praia? %> 
+      <%= Venue.praia_label %>
+    </div>
+  <% end %>
+
+  <% if venue.campo? %>
+    <%= hidden_field_tag 'filter[campo]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[campo]', '1', venue.campo? %> 
+      <%= Venue.campo_label %>
+    </div>
+  <% end %>
+
+</section>

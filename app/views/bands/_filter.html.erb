@@ -1,0 +1,44 @@
+<% params[:filter] = session[:sfilter] %>
+<% band = Band.new(params[:filter]) %>
+
+<section class="form-section" id="search-filter-details">
+
+  <h3>Detalhes:</h3>
+
+  <% if band.dj? %>
+    <%= hidden_field_tag 'filter[dj]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[dj]', '1', band.dj? %> 
+      <%= Band.dj_label %>
+    </div>
+  <% end %>
+
+  <% if band.banda? %>
+    <%= hidden_field_tag 'filter[banda]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[banda]', '1', band.banda? %> 
+      <%= Band.banda_label %>
+    </div>
+  <% end %>
+
+  <% if band.coral? %>
+    <%= hidden_field_tag 'filter[coral]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[coral]', '1', band.coral? %> 
+      <%= Band.coral_label %>
+    </div>
+  <% end %>
+
+  <% if band.aluguel? %>
+    <%= hidden_field_tag 'filter[aluguel]', '1' %>
+  <% else %>
+    <div class="form-row inline-label">
+      <%= check_box_tag 'filter[aluguel]', '1', band.aluguel? %> 
+      <%= Band.aluguel_label %>
+    </div>
+  <% end %>
+
+</section>

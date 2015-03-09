@@ -1,0 +1,402 @@
+<% render( partial: "shared/tabs", :locals => { t: "Lojas", title: @vendor.title }) if false %>
+<% title @vendor.title, @vendor.name, @vendor_badge %>
+
+<% rating = @vendor.rating_average.round(1) %>
+
+<%= render 'layouts/points_notification' %>
+
+<% if params[:b] %>
+    <%= content_for :scripts do %>
+      <script type="text/javascript">
+        var urlVendor = "<%= @vendor.slug %>";
+        var widgetPosition = 1;
+      </script>
+      <%= javascript_include_tag "/widget.js" %>
+    <% end %>
+      <a id="popover-banner" rel="popover" data-content="Adicione esse selo de qualidade na sua homepage <a href='http://www.bemcasados.art.br/fornecedores/widget?v=<%= @vendor.slug %>'>clicando aqui.</a>" href="http://www.bemcasados.art.br/<%= @vendor.slug %>">
+        <div id="bemcasados-widget"></div>
+      </a>
+<% end %>
+
+<div class="page-content venue-detail-page clearfix">
+
+
+  <% if false %>
+    <div class="breadcrumb home">
+      <ul>
+        <li>
+          <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="http://www.bemcasados.art.br" itemprop="url">
+              <span itemprop="title">Início</span>
+            </a> &#187;&nbsp;
+          </div>
+        </li>
+        <li>
+          <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <%= link_to @search, :itemprop => "url" do %> 
+              <%= content_tag(:span, "Busca", :itemprop => "title") %>
+            <% end %>
+            <span> &#187;</span>&nbsp;
+          </div>
+        </li>
+        <li><%= @vendor.name %>&nbsp;</li>
+      </ul>
+    </div>
+  <% end %>
+
+  <aside class="sidebar">
+    <% if session[:sid] %>
+      <%= link_to 'Voltar para Resultados', @search, class: "new-search" %>
+    <% else %>
+      <%= link_to 'Iniciar Nova Busca', root_url, class: "new-search" %>
+    <% end %>
+    <div class="previous-results">
+      <h2 class="heading">Outros Resultados</h2>
+      <%= render partial: "vendors/vendor", :collection => @vendors_search %>
+      <div class="side-bar-results last-child"> </div>
+    </div>
+  </aside>
+
+  <div xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Review-aggregate">
+  <div class="venue-detail-wrapper" rel="v:itemreviewed">
+  <span typeof="v:Organization">
+    <div class="venue-detail-heading clearfix">
+
+        <% if @vendor.discount? %>
+          <!-- Check Favourite -->
+          <% if @vendor.name.length < 30 %>
+
+            <div class="info-header">
+              <h3 property="v:name">
+                <a id="pop-show-discount" rel="popover" href="#"><%= @vendor.name %></a>
+              </h3>
+
+              <div class="rating clearfix">
+                <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium"} %>
+                <span class="number_reviews">&#40;<%= pluralize(@vendor.number_reviews, "Recomendação") %>&#41;</span>
+              </div>
+
+              <% if current_user && current_user.bookmarked?(@vendor.becomes(Vendor)) %>
+                <% bookmark = current_user.find_bookmark(@vendor) %>
+                <%= link_to "Favourite", vendor_bookmark_path(@vendor, bookmark),  method: :delete, class: "favourite bookmarked" %>
+              <% elsif current_user %>
+                <%= link_to "Adicionar aos favoritos", new_vendor_bookmark_path(@vendor), title: "Adicionar aos favoritos", class: "favourite lightbox" %>
+              <% else %>
+                <%= link_to "Favourite", new_user_session_path(popup: 1), class: "favourite lightbox" %>
+              <% end %>
+
+            </div>
+
+          <% else %> 
+
+            <div class="info-header">
+              <h3 property="v:name">
+                <a id="pop-show-discount" rel="popover" href="#"><%= @vendor.name %></a>
+              </h3>
+
+              <% if current_user && current_user.vendors.include?(@vendor) %>
+                <% bookmark = current_user.find_bookmark(@vendor)%>
+                <%= link_to 'remover', vendor_bookmark_path(@vendor, bookmark), method: :delete, class: "favourite bookmarked no-margin-top" %>
+              <% elsif current_user %>
+                <%= link_to "Adicionar aos favoritos", new_vendor_bookmark_path(@vendor), title: "Adicionar aos favoritos", class: "favourite lightbox no-margin-top" %>
+              <% else %>
+                <%= link_to "Adicionar aos favoritos", new_user_session_path(popup: 1), title: "Adicionar aos favoritos", class: "favourite lightbox no-margin-top" %>
+              <% end %>           
+
+              <div class="rating clearfix" style="padding:0">
+                <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium"} %>
+                <span class="number_reviews">&#40;<%= pluralize(@vendor.number_reviews, "Recomendação") %>&#41;</span>
+              </div>
+
+
+            </div>
+
+           <% end %>
+
+          <% if false %>
+            <h3 class="info-header" property="v:name">
+              <a id="pop-show-discount" rel="popover" href="#"><%= truncate(@vendor.name, :length => 25, :separator => '' ) %></a>
+              <% if current_user && current_user.vendors.include?(@vendor) %>
+                <% bookmark = current_user.find_bookmark(@vendor)%>
+                <%= link_to 'remover', vendor_bookmark_path(@vendor, bookmark), method: :delete, class: "favourite bookmarked" %>
+              <% elsif current_user %>
+                <%= link_to "Adicionar aos favoritos", new_vendor_bookmark_path(@vendor), title: "Adicionar aos favoritos", class: "favourite lightbox" %>
+              <% else %>
+                <%= link_to "Adicionar aos favoritos", new_user_session_path(popup: 1), title: "Adicionar aos favoritos", class: "favourite lightbox" %>
+              <% end %>            
+            </h3>
+          <% end %>
+
+        <% else %>
+          <!-- Check Favourite -->
+          <% if @vendor.name.length < 30 %>
+
+            <div class="info-header">
+              <h3 property="v:name">
+                <a id="pop-show-vendor" rel="popover"><%= @vendor.name %></a>
+              </h3>
+
+              <div class="rating clearfix">
+                <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium"} %>
+                <span class="number_reviews">&#40;<%= pluralize(@vendor.number_reviews, "Recomendação") %>&#41;</span>
+              </div>
+
+              <% if current_user && current_user.vendors.include?(@vendor) %>
+                <% bookmark = current_user.find_bookmark(@vendor)%>
+                <%= link_to 'remover', vendor_bookmark_path(@vendor, bookmark), method: :delete, class: "favourite bookmarked" %>
+              <% elsif current_user %>
+                <%= link_to "Adicionar aos favoritos", new_vendor_bookmark_path(@vendor), title: "Adicionar aos favoritos", class: "favourite lightbox" %>
+              <% else %>
+                <%= link_to "Adicionar aos favoritos", new_user_session_path(popup: 1), title: "Adicionar aos favoritos", class: "favourite lightbox" %>
+              <% end %>           
+            </div>
+
+          <% else %> 
+
+            <div class="info-header">
+              <h3 property="v:name">
+                <a id="pop-show-vendor" rel="popover"><%= @vendor.name %></a>
+              </h3>
+
+              <% if current_user && current_user.vendors.include?(@vendor) %>
+                <% bookmark = current_user.find_bookmark(@vendor)%>
+                <%= link_to 'remover', vendor_bookmark_path(@vendor, bookmark), method: :delete, class: "favourite bookmarked no-margin-top" %>
+              <% elsif current_user %>
+                <%= link_to "Adicionar aos favoritos", new_vendor_bookmark_path(@vendor), title: "Adicionar aos favoritos", class: "favourite lightbox no-margin-top" %>
+              <% else %>
+                <%= link_to "Adicionar aos favoritos", new_user_session_path(popup: 1), title: "Adicionar aos favoritos", class: "favourite lightbox no-margin-top" %>
+              <% end %>           
+
+              <div class="rating clearfix" style="padding:0;">
+                <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium"} %>
+                <span class="number_reviews">&#40;<%= pluralize(@vendor.number_reviews, "Recomendação") %>&#41;</span>
+              </div>
+
+
+            </div>
+
+           <% end %>
+
+           <% if false %>
+              <div class="info-header">
+                <h3 property="v:name">
+                  <a id="pop-show-vendor" rel="popover"><%= @vendor.name %></a>
+                </h3>
+
+                <div class="rating clearfix">
+                  <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium"} %>
+                  <span class="number_reviews">&#40;<%= pluralize(@vendor.number_reviews, "Recomendação") %>&#41;</span>
+                </div>
+
+                <% if current_user && current_user.vendors.include?(@vendor) %>
+                  <% bookmark = current_user.find_bookmark(@vendor)%>
+                  <h4> Este fornecedor já está na sua lista de favoritos
+                  <%= link_to 'remover', vendor_bookmark_path(@vendor, bookmark), method: :delete, class: "favourite bookmarked" %>
+                <% else %>
+                  <%= link_to "Adicionar aos favoritos", new_vendor_bookmark_path(@vendor), title: "Adicionar aos favoritos", class: "favourite lightbox" %>
+                <% end %>
+              </div>
+            <% end %>
+
+        <% end %>
+
+        <address rel="v:address"><%= raw @vendor.richsnippets_address %>  &#40;<%= link_to "ver no mapa",  mapa_vendor_path, class: "lightbox_gmap" %>&#41;</address>
+        <% site = @vendor.website %>
+        <% if !site.blank? %>
+          <span class="website"><%= link_to truncate(@vendor.website, :length => 40, :separator => ''), site_vendor_path, :target => "_blank"  %></span>
+        <% end %>
+        <% phone = @vendor.phones %>
+        <% if !phone.blank? %>
+          <span class="telephone">
+              <%= link_to truncate(phone, :length => 10), telefone_vendor_path, id: "unhide_telephone" %>
+          </span>
+        <% end %>
+    </div>
+    
+    <% if @vendor.photos.size > 0 %>
+      <% @photo_counter = true %>
+      <% if @vendor.photos.size == 1 %>
+        <div id="gallery_no_thumbs"><%= render @vendor.photos %></div>
+      <% else %>
+        <div id="gallery"><%= render @vendor.photos %></div>
+      <% end %>
+    <% end %>
+
+    <div class="venue-content">
+
+      <% if can? :update, @vendor %>
+        <h3>Admin</h3>
+        <p><%= link_to 'Editar Detalhes', edit_vendor_path(@vendor) %></p>
+      <% end %>
+      <% if can? :destroy, @vendor %>
+      <p><%= link_to 'Deletar Fornecedor', vendor_path(@vendor), confirm: 'Você tem certeza?', method: :delete %></p>
+      <% end %>
+      <% if can? :create, Address %>
+        <p><%= link_to 'Gerenciar Endereços', vendor_addresses_path(@vendor) %></p>
+      <% end %>
+      <% if can? :create, Photo %>
+        <p><%= link_to 'Gerenciar Fotos', vendor_photos_path(@vendor) %></p>
+      <% end %>
+      <% if can? :read, Quotation %>
+        <p><%= link_to 'Gerenciar Orçamentos', orcamentos_path(@vendor) %></p>
+      <% end %>
+      <% if can? :read, Track %>
+        <p><%= link_to 'Gerenciar Tracks', tracks_fornecedor_path(@vendor) %></p>
+      <% end %>
+      <% if can? :read, Dress %>
+        <% unless @vendor.dresses.empty? %>
+          <p><%= link_to 'Gerenciar Vestidos', vestidos_fornecedor_path(@vendor.id) %></p>
+        <% end %>
+      <% end %>
+      <% if can? :index, Bookmark %>
+        <p><%= link_to 'Ver Favoritos', vendor_bookmarks_path(@vendor) %></p>
+      <% end %>
+      
+      
+      <% if false %>
+        <% if current_user && current_user.vendors.include?(@vendor) %>
+          <% bookmark = current_user.find_bookmark(@vendor)%>
+          <h4> Este fornecedor já está na sua lista de favoritos
+          (<%= link_to 'remover', vendor_bookmark_path(@vendor, bookmark), method: :delete %>)</h4>
+        <% else %>
+          <h4> <%= link_to "Adicionar aos favoritos", new_vendor_bookmark_path(@vendor), title: "Adicionar aos favoritos", class: "lightbox user-button" %> </h4>
+        <% end %>
+      <% end %>
+      <br />
+
+      <h3>Descrição</h3>
+      <p><%= simple_format(@vendor.description) %></p>
+
+      <br />
+      
+      <% category = @service_type.pluralize.downcase %>
+      <%= render "#{category}/faq" %>
+
+      <% if @vendor.addresses.size > 1 %>
+        <h3>Todos os endereços</h3>
+        <ul><%= render @vendor.addresses %></ul>
+      <% end %>
+
+      <% if @vendor.discount? %>
+        <div class="quotations" id ="discount">
+
+          <h4> Cortesia </h4>
+          <p><%= @vendor.name %> possui um desconto especial para você.</p>
+            <%= link_to content_tag(:span, @vendor.discount_title), new_message_path(vid: @vendor.id), :class => "discount-button lightbox_contactform" %>
+          <br />
+        </div>
+      <% end %>
+
+      <% if @vendor.email? && @vendor.featured > 0 %>
+        
+        <div id="proposal" class="clearfix">
+          <% if !current_user && @vendor.proposal%>
+
+            <h4>Orçamento Instantâneo</h4>
+
+            <p>
+              Esse é um modelo genérico de orçamento que vai te ajudar a conhecer o preço médio dos serviços de forma muito rápida e prática! Para acessá-lo faça <%= link_to 'login', new_user_session_path(popup: 1), class: 'lightbox', title: "Login" %> ou <%= link_to "cadastre-se.", new_user_registration_path, title: "Cadastro" %>
+            </p>
+          
+          <% elsif @vendor.proposal && current_user %>
+
+            <h4>Orçamento Instantâneo</h4>
+            <p>
+              Esse é um modelo genérico de orçamento que vai te ajudar a conhecer o preço médio dos serviços de forma muito rápida e prática! Se desejar, solicite um orçamento exclusivo para <%= link_to 'você', new_quotation_path(vid: @vendor.id), title: "Solicite", class: "lightbox_quotation" %>.
+            </p>
+            <%= link_to user_request_proposal_vendor_path(@vendor), class: "proposal-email" do %>
+              <span class='title'> Receber por Email </span>
+              <span class='info'><%= current_user.email %> </span>
+            <% end %>
+            <a href="<%= @vendor.proposal.document %>" class="proposal-download">
+              <span class='title'>Baixar orçamento</span>
+              <span class="info"><%= '.' << File.basename(@vendor.proposal.document.path).split('.').last %> (<%= @vendor.proposal.size_to_kb %> Kb)</span>
+            </a>
+
+            <% if false %>
+              <h4> <%= link_to "Solicite o seu orçamento!", new_quotation_path(vid: @vendor.id), title: "Solicite", class: "lightbox_quotation user-button" %> </h4>
+            <% end %>
+
+          <% elsif !@vendor.proposal %>
+            <h4>Orçamento Personalizado</h4>
+            <p>Solicite um orçamento feito exclusivamente para você.</p>
+            <%= link_to new_quotation_path(vid: @vendor.id), class: "lightbox_quotation proposal-email" do %>
+              <span class='title'>Pedir Orçamento</span>
+              <span class='info'>Para <%= truncate(@vendor.name, :length => 20) %> </span>
+            <% end %>
+            
+            
+            
+          <% end %>
+
+        </div>
+
+      <% end %>
+      
+      <div class="reviews">
+        <% if @vendor.reviews.size > 0 %>
+          <% unless current_user && current_user.reviewed?(@vendor) %>
+            <h4><%= link_to content_tag(:span, 'Deixe aqui a sua opinião!'), new_review_path(vid: @vendor), class: "review-button fright user-button lightbox_review" %></h4>
+          <% end %>
+          <div class="detailed-rating clearfix" rel="v:rating">
+            <div class="rating-box">
+              <p class="first-child">Nota geral</p>
+              <div class="overall-rating" property="v:average"><%= rating == 0 ? "-" : rating %></div>
+              <p>de <span property="v:best">5</span></p>
+            </div>
+            <table>
+              <caption><a id="pop-review" href="#"> Detalhes
+                (<span property="v:count"><%= @vendor.number_reviews %></span> <%= @vendor.number_reviews == 1 ? "Recomendação" : "Recomendações" %>)
+              </a>
+              </caption>
+              <% vendor = @vendor.becomes(Vendor) %>
+              <tbody>
+                <tr>
+                  <th>Qualidade
+                      <span class="tipsy_help", title="Qualidade do serviço, espaço, materiais, equipamentos utilizados e instalação">Help</span>
+                  </th>
+                  <td><%= ratings_for vendor, :force_static => true, :dimension => :quality %></td>
+                </tr>
+                <tr>
+                  <th>Profissionalismo
+                    <span class="tipsy_help", title="Funcionários e atendimento profissional, comunicação com os noivos foi clara e cumpriram com o combinado">Help</span>
+                  </th>
+                  <td><%= ratings_for vendor, :force_static => true, :dimension => :professionalism %></td>
+                </tr>
+                <tr>
+                  <th>Custo-benefício
+                    <span class="tipsy_help", title="O preço pago vale a qualidade do serviço?">Help</span>
+                  </th>
+                  <td><%= ratings_for vendor, :force_static => true, :dimension => :price %></td>
+                </tr>
+                <tr>
+                  <th>Flexibilidade
+                    <span class="tipsy_help", title="Quanto o fornecedor consegue ser flexível e se adaptar ao que você pediu">Help</span>
+                  </th>
+                  <td><%= ratings_for vendor, :force_static => true, :dimension => :flexibility %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <% unless current_user && current_user.reviewed?(@vendor) %>
+            <br />
+            <h4 class="title">Reviews</h4>
+            <%= link_to content_tag(:span,'Deixe aqui a sua opinião!'), new_review_path(:vid => @vendor), class: "review-button user-button lightbox_review", id: "pop-review" %>
+            <br />
+          <% end %>
+        <% end %>
+
+        <% if @reviews.size > 0 %>
+          <section id="reviews">
+            <%= render :partial => "shared/reviews", :collection => @reviews, :locals => {:type => "vendor"} %>
+          </section>
+          <%= paginate @reviews %>
+        <% end %>
+
+      </div>
+    </div>
+  </span>
+  </div>
+  </div>
+</div>

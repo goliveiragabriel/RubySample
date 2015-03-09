@@ -1,0 +1,462 @@
+<% title @vendor ? "Estatística de #{@vendor.name}" : "Estatísticas de Tracks" %>
+
+<%= content_for :scripts do %> 
+  <script type="text/javascript" charset="utf-8">
+    <% if @vendor %>
+      var chart1; // globally available
+      var data = new Date();
+      $(document).ready(function() {
+        chart1 = new Highcharts.Chart({
+           chart: {
+              renderTo: 'container',
+           },
+           title: {
+              text: 'O que mais acontece na sua página.',
+              style: {
+                color: '#595959',
+                fontWeight: 'bold',
+              }
+
+           },
+           xAxis: {
+              categories: ['Mapa', 'Quotation', 'Review', 'Website', 'Exit', 'Telefone', 'Ler Mais', 'Entry', 'Message', 'Proposal']
+           },
+           yAxis: {
+              title: {
+                 text: 'Cliques'
+              }
+           },
+           series: [{
+              type: 'pie',
+              name: 'Total de cliques',
+              data: [
+              <%= @row_pie %>
+              ]
+           }]
+        }); // -- End Pie Chart
+        chart2 = new Highcharts.Chart({
+          chart: {
+              renderTo: 'container-column',
+              type: 'line'
+          },
+          title: {
+              text: 'Número de acessos semanal',
+              style: {
+                color: '#595959',
+                fontWeight: 'bold',
+              }
+          },
+          xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: {
+                week: '%e of %b'   
+            }
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Total de acessos',
+                  style: {
+                    color: '#595959',
+                    fontWeight: 'bold',
+                  }
+
+              }
+          },
+          legend: {
+              layout: 'vertical',
+              backgroundColor: '#FFFFFF',
+              align: 'left',
+              verticalAlign: 'top',
+              x: 100,
+              y: 70,
+              floating: true,
+              shadow: true
+          },
+          tooltip: {
+              formatter: function() {
+                  return ''+
+                      this.y +' acessos';
+              }
+          },
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0
+              }
+          },
+              series: [{
+                name: 'Acessos',
+                data: [
+                  <%= @tracks.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 6.days.ago..5.days.ago).count %>,
+                  <%= @tracks.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 5.days.ago..4.days.ago).count %>,
+                  <%= @tracks.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 4.days.ago..3.days.ago).count %>,
+                  <%= @tracks.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 3.days.ago..2.days.ago).count %>,
+                  <%= @tracks.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                  <%= @tracks.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                  <%= @tracks.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ],
+                pointStart: Date.UTC(data.getFullYear(), data.getMonth(), data.getDate()-6),
+                pointInterval: 24 * 3600 * 1000 // one day                  
+        }]
+        });
+      });
+    // Estatísticas por usuários
+    <% elsif (@user) %>
+      var chart1; // globally available
+      $(document).ready(function() {
+        chart1 = new Highcharts.Chart({
+           chart: {
+              renderTo: 'container',
+           },
+           title: {
+              text: 'As suas principais ações.',
+              style: {
+                color: '#595959',
+                fontWeight: 'bold',
+              }
+
+           },
+           xAxis: {
+              categories: ['Mapa', 'Quotation', 'Review', 'Website', 'Exit', 'Telefone', 'Ler Mais', 'Entry', 'Message']
+           },
+           yAxis: {
+              title: {
+                 text: 'Cliques'
+              }
+           },
+           series: [{
+              type: 'pie',
+              name: 'Total de cliques',
+              data: [
+              <%= @row_pie %>
+              ]
+           }]
+        }); // -- End Pie Chart
+        chart2 = new Highcharts.Chart({
+          chart: {
+              renderTo: 'container-column',
+              type: 'column'
+          },
+          title: {
+              text: 'Número de visitas aos fornecedores',
+              style: {
+                color: '#595959',
+                fontWeight: 'bold',
+              }
+          },
+          xAxis: {
+            categories: ['<%=  tr = Track.joins(:vendor).where("user_id" => @user.id).select("name").group("tracks.vendor_id").pluck(:name) 
+            tr[0] %>', '<%= tr[1] %>', '<%= tr[2] %>', '<%= tr[3] %>', '<%= tr[4] %>', '<%= tr[5] %>']
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Total de acessos',
+                  style: {
+                    color: '#595959',
+                    fontWeight: 'bold',
+                  }
+
+              }
+          },
+          legend: {
+              layout: 'vertical',
+              backgroundColor: '#FFFFFF',
+              align: 'left',
+              verticalAlign: 'top',
+              x: 100,
+              y: 70,
+              floating: true,
+              shadow: true
+          },
+          tooltip: {
+              formatter: function() {
+                  return ''+
+                      this.y +' acessos';
+              }
+          },
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0
+              }
+          },
+              series: [{
+                name: 'Acessos',
+                data: [ 
+                  <%= Track.joins(:vendor).where("user_id = ? AND action = ? AND vendors.name = ? ",@user.id, 'entry', tr[0] ).count %>, 
+                  <%= Track.joins(:vendor).where("user_id = ? AND action = ? AND vendors.name = ? ",@user.id, 'entry', tr[1] ).count %>, 
+                  <%= Track.joins(:vendor).where("user_id = ? AND action = ? AND vendors.name = ? ",@user.id, 'entry', tr[2] ).count %>, 
+                  <%= Track.joins(:vendor).where("user_id = ? AND action = ? AND vendors.name = ? ",@user.id, 'entry', tr[3] ).count %>, 
+                  <%= Track.joins(:vendor).where("user_id = ? AND action = ? AND vendors.name = ? ",@user.id, 'entry', tr[4] ).count %>, 
+                  <%= Track.joins(:vendor).where("user_id = ? AND action = ? AND vendors.name = ? ",@user.id, 'entry', tr[5] ).count %>, 
+                  <%= Track.joins(:vendor).where("user_id = ? AND action = ? AND vendors.name = ? ",@user.id, 'entry', tr[6] ).count %>, 
+                  <%= Track.joins(:vendor).where("user_id = ? AND action = ? AND vendors.name = ? ",@user.id, 'entry', tr[8] ).count %>, 
+                ]
+        }]
+        });
+      }); // -- End Function
+    // Estatísticas Gerais
+    <% else %>
+      var chart1; // globally available
+      $(document).ready(function() {
+        chart1 = new Highcharts.Chart({
+           chart: {
+              renderTo: 'container',
+           },
+           title: {
+              text: 'Total de Cliques por Action'
+           },
+           xAxis: {
+              categories: ['Mapa', 'Quotation', 'Review', 'Website','Exit','Telefone', "Ler Mais", "Entry"]
+           },
+           yAxis: {
+              title: {
+                 text: 'Total de Cliques',
+                  style: {
+                    color: '#595959',
+                    fontWeight: 'bold',
+                  }
+              }
+           },
+           series: [{
+              type: 'pie',
+              name: 'Total de cliques',
+              data: [
+                <%= @row_pie %>
+              ]
+           }]
+        }); // End Pie Chart
+        chart2 = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container-column',
+                type: 'column'
+            },
+            title: {
+                text: 'Total de Cliques da semana'
+            },
+            xAxis: {
+                categories: [
+                    '<%= l(Date.today - 6) %>',
+                    '<%= l(Date.today - 5) %>',
+                    '<%= l(Date.today - 4) %>',
+                    '<%= l(Date.today - 3) %>',
+                    '<%= l(Date.today - 2) %>',
+                    'Ontem',
+                    'Hoje'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total de cliques',
+                    style: {
+                      color: '#595959',
+                      fontWeight: 'bold',
+                    }
+
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                backgroundColor: '#FFFFFF',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                shadow: true
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.x +': '+ this.y +' cliques';
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+                series: [{
+                name: 'Mapa',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[0], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[0], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[0], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[0], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[0], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[0], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[0], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+    
+            }, {
+                name: 'Quotation',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[4], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[4], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[4], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[4], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[4], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[4], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[4], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+    
+            }, {
+                name: 'Reviews',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[3], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[3], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[3], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[3], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[3], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[3], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[3], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+    
+            }, {
+                name: 'Website',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[1], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[1], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[1], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[1], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[1], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[1], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[1], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+            },{
+                name: 'Exit',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[5], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[5], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[5], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[5], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[5], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[5], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[5], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+            },{
+                name: 'Telefone',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[2], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[2], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[2], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[2], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[2], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[2], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[2], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+            },{
+                name: 'Entry',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[6], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+
+            },{
+                name: 'Message',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[8], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[8], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[8], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[8], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[8], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[8], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[8], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+            },
+            {
+                name: 'Proposal',
+                data: [
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[9], :created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[9], :created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[9], :created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[9], :created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[9], :created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[9], :created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= Track.where(:action => Track::TRACK_ACTIONS_LIST[9], :created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ]
+            }
+          ]
+        });
+      });
+    <% end %>
+  </script>
+<% end %> 
+
+<div id="container-column" style="width: 100%; height: 400px"></div>
+<div id="container" style="width: 25%; height: 400px" class="fleft"></div>
+
+<% if @vendor %>
+  <div id="report" class="fleft">
+    <h3>Usuários que mais acessam</h3>
+    <h6> Top 10 </h6>
+    <table>
+      <tr> 
+        <th> Nome</th>
+        <th> E-mail</th>
+        <th> Número de Acessos</th>
+      </tr>
+
+      <% @tf.each do |t_freq| %>
+        <tr>
+          <td><%= t_freq.first_name << " " << t_freq.last_name %></td>
+          <td><%= t_freq.email %></td>
+          <td><%= t_freq.freq %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% elsif @user %>
+  <div id="report" class="fleft">
+    <h3>Fornecedores mais acessados</h3>
+    <h6> Top 10 </h6>
+    <table>
+      <tr> 
+        <th> Nome</th>
+        <th> Email</th>
+        <th> Preço</th>
+        <th> Tipo</th>
+        <th> Número de Acessos</th>
+      </tr>
+
+      <% @tf.each do |t_freq| %>
+        <tr>
+          <td><%= t_freq.name %></td>
+          <td><%= t_freq.email %></td>
+          <td><%= t_freq.price %></td>
+          <td><%= t_freq.type %></td>
+          <td><%= t_freq.freq %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% else %>
+  <div id="report" class="fleft">
+    <h3>Fornecedores mais acessados</h3>
+    <h6>(Quotations, Entry, Exit, Reviews,etc)</h6>
+    <h6> Top 10 </h6>
+    <table>
+      <tr> 
+        <th> Nome</th>
+        <th> Email</th>
+        <th> Preço</th>
+        <th> Tipo</th>
+        <th> Número de Acessos</th>
+      </tr>
+
+      <% @tf.each do |t_freq| %>
+        <tr>
+          <td><%= link_to "#{t_freq.name}", tracks_fornecedor_path(t_freq.vendor) %></td>
+          <td><%= t_freq.email %></td>
+          <td><%= t_freq.price %></td>
+          <td><%= t_freq.type %></td>
+          <td><%= t_freq.freq %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+
+<br/>
+
+<div class="clearfix"></div>
+<%= link_to 'Voltar', tracks_path, class: 'button-link quotation-button fleft' %>

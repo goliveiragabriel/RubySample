@@ -1,0 +1,75 @@
+<% title 'Fornecedores' %>
+
+<div id="page-notification">
+  <% if flash[:alert] %>
+    <p class="flash-error"><%= flash[:alert] %></p>
+  <% end %>
+  <% if flash[:notice] %>
+    <p class="flash-notice"><%= flash[:notice] %></p>
+  <% end %>
+  <%= yield %>
+</div>
+
+<div class="search-vendor">
+  <span> Buscar Fornecedor </span>
+  <%= form_tag vendors_path, :method => 'get' do %>
+      <div class="fleft">
+        <%= text_field_tag :search, params[:search] %>
+      </div>
+      <div class="fleft form-row">
+        <%= submit_tag "Procurar", :name => nil %>
+      </div>
+  <% end %>
+</div>
+
+<span class="nro-resultados"> <%= pluralize(@vendors.size, "resultado") %></span>
+
+<table class="table-index">
+  <tr>
+    <th><%= sortable "name" , "Name" %></th>
+    <th>Website</th>
+    <th>Email</th>
+    <th>Telefones</th>
+    <th>Tipo</th>
+    <th>Descrição</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @vendors.each do |vendor| %>
+  <tr>
+    <td><%= vendor.name %></td>
+    <td><%= vendor.website %></td>
+    <td><%= vendor.email %></td>
+    <td><%= vendor.phones %></td>
+    <td><%= vendor.type %></td>
+    <td><%= link_to '', desc_vendor_path(vendor), class: "description lightbox_desc" %></td>
+    <% if can? :read, vendor %>
+      <td><%= link_to '', vendor_seo_path(vendor), class: "show-button sprites" %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <% if can? :update, vendor %>
+      <td><%= link_to '', edit_vendor_path(vendor), class: "edit-button" %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <% if can? :destroy, vendor %>
+      <td><%= link_to '', vendor_path(vendor), confirm: 'Você tem certeza?', method: :delete, class: "remove-button sprites" %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= paginate @vendors %>
+
+<% if can? :create, Vendor %>
+  <%= link_to 'Adicionar Fornecedor', new_vendor_path , class: "button-link size-button fleft"%>
+  <%= link_to "Enviar Newsletters Aos Fornecedores", send_newsletter_vendors_path, class: "button-link size-button fleft" %>
+  <%= link_to "Enviar As Reviews dos Fornecedores(email)", vendor_reviews_vendors_path, class: "button-link size-button fleft" %>
+
+<% end %>

@@ -1,0 +1,65 @@
+
+<h3><a href="#">Fornecedores Favoritos</a></h3>
+
+<div>
+  <% @favourites_type.sort.each do |tipo, favourites| %>
+    <table>
+      <caption>
+      <%= t tipo %>:
+      </caption>
+      <thead>
+        <tr>
+          <td class="vendor">Fornecedores</td>
+          <td class="status">Status</td>
+          <td class="comments">Comentários</td>
+          <td class="remove">Remover</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for favourite in favourites %>
+          <% vendor = Vendor.find(favourite.bookmarkable_id) %>
+          <tr class="<%= cycle("even", "odd") %>">
+            <td>
+              <div class="avatar">  
+                 <%= link_to image_tag(vendor.cover_photo, alt: vendor.name, height: "59", width: "59"), vendor_path(vendor) %>
+                  <% rating = vendor.rating_average.round(1) %>
+                  <%= render :partial => "shared/average_stars", :locals => { :rating => rating , :size => "mini" } %>
+                <!--<ul class="ratings">
+                  <li><a href="#" class="rating-1" ></a></li>
+                  <li><a href="#" class="rating-2" ></a></li>
+                  <li><a href="#" class="rating-3" ></a></li>
+                  <li><a href="#" class="rating-4" ></a></li>
+                  <li><a href="#" class="rating-5" ></a></li>
+                </ul> -->
+              </div>
+              <div class="post-content">
+                <h4><%= truncate(favourite.name, :length => 15, :separator => '') %></h4>
+                <p><%= vendor.phone %></p>
+              </div></td>
+            <td><form action="/" method="post" class="jqtransform">
+                <select>
+                  <option>Favorito</option>
+                </select>
+              </form></td>
+            <td>
+              <div class="user-comment"><%= truncate(favourite.comments, :length => 90, :separator => ' ') %></div>
+              <% if can?(:edit, Bookmark) && false %>
+                <%= link_to "Editar", edit_bookmark_path(favourite.bookmark_id), class: "change lightbox" %>
+              <% end %>
+            </td>
+            <td>
+              <% if can? :destroy, Bookmark %>
+                <%= link_to '', vendor_bookmark_path(vendor, favourite), confirm: 'Você tem certeza?', method: :delete, class: "remove" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  <div class="categories">
+    <h4>Encontre fornecedores nestas categorias:</h4>
+    <%= render :partial => "users/category", :locals => { :location => "vendors"} %>
+
+  </div>
+</div>

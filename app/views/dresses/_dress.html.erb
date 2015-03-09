@@ -1,0 +1,21 @@
+ <%= content_tag(:div, "ribbon", class: "ribbon") if dress.featured == 2 %>
+<div class="result">
+<!--     <%= link_to image_tag(dress.cover_photo(:medium)), dress %>
+    <%= link_to "Magnify", dress.cover_photo(:large), rel: "gallery", class: "magnify" %>
+ -->
+ 	<a href="#"><%= link_to image_tag(dress.cover_photo(:medium)), dress %><a id="dress-photo-gallery" href="#<%=dress.id%>" class="magnify" rel="gallery"> Magnify</a></a>
+ 	<div style="display:none;">
+ 		<div class="dress-gallery-content" id="<%= dress.id %>">
+ 			<%= link_to image_tag(dress.cover_photo(:large)), dress_path(dress), rel:"gallery", class: "magnify" if false%>
+ 			<%= link_to image_tag(dress.cover_photo(nil)), dress %>
+ 		</div>
+ 	</div>    
+ 	<% if current_user && current_user.bookmarked?(dress) %>
+		<% bookmark = current_user.find_bookmark(dress) %>
+		<%= link_to "Favourite", dress_bookmark_path(dress, bookmark),  method: :delete, class: "favourite bookmarked" %>
+	<% elsif current_user %>
+		<%= link_to "Favourite", dress_bookmarks_path(dress),  method: :post,  class: "favourite" %>
+	<% else current_user %>
+		<%= link_to "Favourite", new_user_session_path(popup: 1), class: "favourite lightbox" %>
+	<% end %>
+</div>

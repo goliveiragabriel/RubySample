@@ -1,0 +1,22 @@
+// Place all the styles related to the Quotations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.subtitle-toggle{
+	display: none;
+	margin-left: 5px;
+	margin-bottom: 10px;
+	width: 380px;
+}
+.readmore-toggle-guests, .readmore-toggle-comments, .readmore-toggle-telephone{
+	width: 14px;
+	height: 16px;
+	background: url(/images/plus.png);
+	display:inline-block;
+}
+.atual{
+	width: 14px;
+	height: 16px;
+	background: url(/images/plus_down.png);
+	display:inline-block;
+}

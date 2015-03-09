@@ -1,0 +1,91 @@
+<div class="new">
+  <%= form_for(@dress) do |f| %>
+    <% if @dress.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@dress.errors.count, "error") %> prohibited this dress from being saved:</h2>
+
+        <ul>
+        <% @dress.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="fleft" style="width: 45%;">
+      <h2> Informações </h2>
+      <div class="field">
+        <%= f.label :vendor_id %><br />
+        <%= f.number_field :vendor_id %>
+      </div>
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :brand %><br />
+        <%= f.text_field :brand %>
+      </div>
+      <div class="field">
+        <%= f.label :featured %><br />
+        <%= f.check_box :featured %>
+      </div>
+      <div class="field">
+        <%= f.label :share %><br />
+        <%= f.text_field :share %>
+      </div>
+<!--       <div class="field">
+        <%= f.label :description %><br />
+        <%= f.text_area :description, :cols => 32 %>
+      </div>
+ -->    
+       <div class="field">
+        <%= f.label :details,"Detalhes"%><br />
+        <%= f.text_area :details, :cols => 32 %>
+      </div>
+   </div>
+    <div class="characteristics fleft" style="margin-left: 15px">
+      <h2> Características </h2>
+      <div class="field">
+        <%= f.label :sleeve %><br />
+        <%= f.select :sleeve, Dress::SLEEVE, :include_blank => "" %>
+      </div>
+      <div class="field">
+        <%= f.label :neckline %><br />
+        <%= f.select :neckline, Dress::NECKLINE, :include_blank => "" %>
+      </div>
+      <div class="field">
+        <%= f.label :silhouette %><br />
+        <%= f.select :silhouette, Dress::SILHOUETTE, :include_blank => "" %>
+      </div>
+      <div class="field">
+        <%= f.label :fabric %><br />
+        <%= f.select :fabric, Dress::FABRIC, :include_blank => "" %>
+      </div>
+      <div class="field">
+        <%= f.label :length %><br />
+        <%= f.select :length, Dress::LENGTH, :include_blank => "" %>
+      </div>
+      <div class="field">
+        <%= f.label :train %><br />
+        <%= f.select :train, Dress::TRAIN, :include_blank => "" %>
+      </div>
+      <div class="field">
+        <%= f.label :finish %><br />
+        <%= f.select :finish, Dress::FINISH, :include_blank => "" %>
+      </div>
+<!--       <div class="field">
+        <%= f.label :weight %><br />
+        <%= f.number_field :weight %>
+      </div>
+ -->      
+      <div class="field">
+        <%= f.label :price %><br />
+        <%= f.select :price, Dress::PRICE, :include_blank => "" %>
+      </div><br />
+      <div class="actions form-row">
+        <%= f.submit %>
+      </div>
+    </div><br/>
+  <% end %>
+</div>
+<div class="clearfix"></div>

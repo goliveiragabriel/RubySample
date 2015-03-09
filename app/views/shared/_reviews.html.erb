@@ -1,0 +1,83 @@
+<% if reviews.vendor.active %>
+<section class= "comment-section" >
+
+  <% if type == "vendor" %>
+      <% if reviews.anonymous || reviews.user.profile_picture.nil? %>
+        <% image = reviews.anonymous_picture %>
+      <% else %>
+        <% image = reviews.user.profile_picture_url %>
+      <% end %>
+      <%= image_tag image %>
+  <% else %>
+    <%= link_to image_tag(reviews.vendor.cover_photo, alt: "Review Bem Casados Fornecedor #{reviews.vendor.name}"), vendor_path(reviews.vendor) %>
+  <% end %>
+
+  <div class="review-text">
+    <h5>
+    <% if type == "user" %>
+      <%= reviews.vendor.name %><span><%= reviews.vendor.translated_type %></span>
+    <% else %>
+      <% if reviews.anonymous %>
+        Depoimento Anônimo
+      <% else %>
+        <%= reviews.user.name %>
+      <% end %>
+      <span><%= reviews.noiva? ? "Casou" : "Evento" %> em <%= l reviews.date %>
+      <% if type == "collection" %>
+        (<%= link_to reviews.vendor.name, vendor_seo_path(reviews.vendor) %>)
+      <% else %>
+        <% if reviews.anonymous %>
+          (<%= pluralize(reviews.user.reviews.size, "Recomendação") %>)
+        <% else %>
+          (<%= link_to(pluralize(reviews.user.reviews.size, "Recomendação"), recomendacoes_path(uid: reviews.user) ) %>)
+        <% end %>             
+      <% end %>
+      </span>
+    <% end %>
+    </h5>
+
+   <span class="title"><%= reviews.title %></span>
+    <p><%= simple_format(reviews.content) %> </p>
+    <% vendor = reviews.vendor %>
+    <% user = reviews.user %>
+    <% rating = user.average_rating(vendor) %>
+    <% vendor = vendor.becomes(Vendor) %>
+    <div class="general-note">
+      <table>
+        <caption>Nota Geral: <%= rating %> de 5.0</caption>
+        <tbody>
+          <tr>
+            <th>Flexibilidade</th>
+            <td><%= ratings_for vendor, user, :show_user_rating => true, :force_static => true, :dimension => :flexibility %></td>
+            <th>Custo-benefício</th>
+            <td><%= ratings_for vendor, user, :show_user_rating => true, :force_static => true, :dimension => :price %></td>
+          </tr>
+          <tr>
+            <th>Profissionalismo</th>
+            <td><%= ratings_for vendor, user, :show_user_rating => true, :force_static => true, :dimension => :professionalism %></td>
+            <th>Qualidade do serviço</th>
+            <td><%= ratings_for vendor, user, :show_user_rating => true, :force_static => true, :dimension => :quality %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <a href="#" class="more expand">Ler mais >></a>
+  <div class="reviews ">
+    <% if type == "user" %>
+      <% rating = @user.average_rating(reviews.vendor) %>
+    <% end %>
+    <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium" } %>
+    <span class="compartilhou">Compartilhou em <%= l reviews.created_at %> </span>
+    <div class="options clearfix">
+        <% if can? :destroy, reviews %>
+          <%= link_to 'Editar', edit_review_path(reviews), class: "review-edit lightbox_review " %>
+          <%= link_to 'Deletar', review_path(reviews), confirm: 'Você tem certeza?', method: :delete, class: "review-delete" %>
+        <% end %>
+    </div>
+  </div>
+
+</section>
+<% end %>

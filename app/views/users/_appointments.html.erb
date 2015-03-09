@@ -1,0 +1,30 @@
+<% appointments_month = @user.appointments.group_by { |t| t.data.beginning_of_month }%>
+	<h3><a href="#">Minhas Visitas</a></h3>
+	<div>
+
+<% appointments_month.sort.each do |month, appointments| %>
+
+		<div class="heading"><h4> <%= month.strftime("%B") %> </h4></div>
+ 		<div class="list-wrapper">
+ 			<ul class="clearfix">
+ 				<% for appointment in appointments %>
+	  				<li>
+	    				<div class="date-box">
+	      					<span class="date"><%= appointment.data.strftime("%d / %b") %></span>
+	        				<span class="day"><%= appointment.data.strftime("%A") %> </span>
+	        				<span class="time"><%= appointment.data.strftime("%H : %M") %></span>
+	      				</div>
+	      				<div class="text">
+	      					<p><%= link_to appointment.dress.vendor.name, vendor_path(appointment.dress.vendor) %>:Provar <%= appointment.dress.brand %> // <%= appointment.dress.name %> </p>
+	        				<address><%= appointment.dress.vendor.address %> </address>
+	        				<span class="phone"><%= appointment.dress.vendor.phones %> </span>
+	      				</div>
+					</li>
+				<% end %>
+			</ul>
+ 		</div>
+
+<% end %>
+
+</div>
+

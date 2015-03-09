@@ -1,0 +1,68 @@
+<div class="filters clearfix">
+  
+  <p class="clearfix"><span class="filter-name">A-Line</span><a href="#" class="remove">x</a></p>
+  <p class="clearfix"><span class="filter-name">V-Neck</span><a href="#" class="remove">x</a></p>
+
+  <% if params[:sleeve] %>
+    <p class="clearfix">
+    <span class="filter-name"><%= params[:sleeve] %></span>
+    <a href="Javascript:void(0)" class="remove" filter-remove="sleeve">x</a>
+    </p>
+  <% end %>
+
+  <% if params[:neckline] %>
+    <p class="clearfix">
+      <span class="filter-name"><%= params[:neckline] %></span>
+      <a href="Javascript:void(0)" class="remove" filter-remove="neckline">x</a>
+    </p>
+  <% end %>
+
+  <% if params[:silhouette] %>
+    <p class="clearfix">
+      <span class="filter-name"><%= params[:silhouette] %></span>
+      <a href="Javascript:void(0)" class="remove" filter-remove="silhouette">x</a>
+    </p>
+  <% end %>
+
+  <% if params[:fabric] %>
+    <p class="clearfix">
+      <span class="filter-name"><%= params[:fabric] %></span>
+      <a href="Javascript:void(0)" class="remove" filter-remove="fabric">x</a>
+    </p>
+  <% end %>
+
+  <% if params[:color] %>
+    <p class="clearfix">
+    <span class="filter-name"><%= params[:color] %></span>
+    <a href="Javascript:void(0)" class="remove" filter-remove="length">x</a></p>
+  <% end %>
+
+  <% if params[:length] %>
+    <p class="clearfix">
+      <span class="filter-name"><%= params[:length] %></span>
+      <a href="Javascript:void(0)" class="remove" filter-remove="length">x</a>
+    </p>
+  <% end %>
+
+  <% if params[:train] %>
+    <p class="clearfix">
+      <span class="filter-name"><%= params[:train] %></span>
+      <a href="Javascript:void(0)" class="remove" filter-remove="train">x</a>
+    </p>
+  <% end %>
+
+  <% if params[:finish] %>
+    <p class="clearfix">
+      <span class="filter-name"><%= params[:finish] %></span>
+      <a href="Javascript:void(0)" class="remove" filter-remove="finish">x</a>
+    </p>
+  <% end %>
+
+  <% if params[:price] %>
+    <p class="clearfix">
+      <span class="filter-name"><%= params[:price] %></span>
+      <a href="Javascript:void(0)" class="remove" filter-remove="price">x</a>
+    </p>
+  <% end %>
+
+</div>

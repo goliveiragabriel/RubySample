@@ -1,0 +1,46 @@
+<table class="table-index">
+  <tr>
+    <th>ID</th>
+    <th>Data</th>
+    <th>Favoritado</th>
+    <th>Usuário</th>
+    <th>Tipo</th>
+    <th>Comentário</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bookmarks.each do |bookmark| %>
+  <tr>
+    <td><%= bookmark.id %></td>
+    <td><%= l bookmark.created_at %></td>
+    <td>
+      <% url = bookmark.bookmarkable.class.to_s == "Dress" ? dress_bookmarks_path(bookmark.bookmarkable) : vendor_bookmarks_path(bookmark.bookmarkable) %>
+      <%= link_to bookmark.bookmarkable.name, url %>
+    </td>
+    <td><%= bookmark.user.name %></td>
+    <td><%= bookmark.bookmarkable_type %></td>
+    <td><%= bookmark.comments %></td>
+    <% if can? :edit, bookmark %>
+      <% bookmarkable = bookmark.bookmarkable %>
+      <% url = bookmarkable.class.to_s == "Dress" ? edit_dress_bookmark_path(bookmarkable, bookmark) : edit_vendor_bookmark_path(bookmarkable, bookmark)  %>
+      <td><%= link_to '', url, class: "edit-button" %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <% if can? :destroy, bookmark %>
+      <% bookmarkable = bookmark.bookmarkable %>
+      <% url = bookmarkable.class.to_s == "Dress" ? dress_bookmark_path(bookmarkable, bookmark) : vendor_bookmark_path(bookmarkable, bookmark)  %>
+      <td><%= link_to '', url, confirm: 'Você tem certeza?', method: :delete, class: "remove-button sprites" %></td>
+    <% else %>
+    <td></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+<br/>
+<%= link_to "Voltar", :back, class: "button-link size-button fleft" %>
+<% if @dress || @vendor %>
+  <%= link_to "Todos os Favoritos", bookmarks_path, class: "button-link fleft size-button" %>
+<% end %>

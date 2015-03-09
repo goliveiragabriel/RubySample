@@ -1,0 +1,43 @@
+<%= title "Editando " << @feed_entry.title %>
+<div class="edit feeds">
+  <%= form_for(@feed_entry) do |f| %>
+    <%= f.error_messages %>
+
+    <div class="field">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :url %><br/>
+      <%= f.text_field :url %>
+    </div>
+    <div class="field">
+      <%= f.label :img_url %><br />
+      <%= f.text_field :img_url %>
+    </div>
+    <div class="field">
+      <%= f.label :published_at %><br />
+      <%= f.datetime_select :published_at %>
+    </div>
+    <div class="field">
+      <%= f.label :guid %><br />
+      <%= f.text_field :guid %>
+    </div><br/>
+    <div class="field fleft">
+      <%= f.label :summary %><br />
+      <%= f.text_area :summary %>
+    </div>
+    <div class="field fleft">
+      <%= f.label :content %><br />
+      <%= f.text_area :content %>
+    </div><br/>
+    <div class="clearfix"></div>
+    <div class="actions form-row">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+
+  <%= link_to 'Voltar', feed_entries_path, class: "button-link size-button fleft" %>
+  <%= link_to 'Mostrar', @feed_entry, class: "button-link size-button fleft" %>
+</div>

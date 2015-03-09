@@ -1,0 +1,137 @@
+<section class="first-child">
+  <h3>Decote:</h3>
+  <ul>
+    <% Dress::NECKLINE.each_with_index do |f, i| %>
+      <li>
+        <span style="display:none;">
+          <%= check_box_tag "filters[neckline_#{i}]", f, params["neckline_#{i}"] == "1",  %><%= t(f) %>
+        </span>
+        <a href="#"><%= t (f) %></a>
+        <span>(<%= count_matches(@dresses, 'neckline', f) %>)</span>
+      </li>
+    <% end %>
+    <li><a class="tooltip" href="#">Sereia <span>(88)</span>
+      <span class="tiptext"><img src='/assets/tip-img.jpg' />Justo acima da cintura e abre a saia até o chão em uma linha conhnua. Este formato lembra da letra 'A'. Chama atenção para o busto e esconde os quadris. É indicado para mulheres com quadris largos e baixa estatura. Também uma boa opção para as mulheres de figura alongada.</span></a>
+    </li>
+  </ul>
+</section>
+<% if false %>
+  <!--<section>
+    <h3>Cor:</h3>
+    <ul>
+      <% Dress::COLOR.each_with_index do |f, i| %>
+        <li>
+          <span style="display:none;">
+            <%= check_box_tag "filters[color_#{i}]", f, params["color_#{i}"] == "1",  %><%= t(f) %>
+          </span>
+          <a href="#"><%= t(f) %></a>
+          <span>(<%= count_matches(@dresses, 'color', f) %>)</span>
+        </li>
+      <% end %>
+    </ul>
+  </section> -->
+<% end %>
+<section>
+  <h3>Manga:</h3>
+  <ul>
+    <% Dress::SLEEVE.each_with_index do |f, i| %>
+      <li>
+        <span style="display:none;">
+          <%= check_box_tag "filters[sleeve_#{i}]", f, params["sleeve_#{i}"] == "1",  %><%= t(f) %>
+        </span>
+        <a href="#"><%= t(f) %></a>
+        <span>(<%= count_matches(@dresses, 'sleeve', f) %>)</span>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section>
+  <h3>Silhueta:</h3>
+  <ul>
+    <% Dress::SILHOUETTE.each_with_index do |f, i| %>
+      <li>
+        <span style="display:none;">
+          <%= check_box_tag "filters[silhouette_#{i}]", f, params["silhouette_#{i}"] == "1",  %><%= t(f) %>
+        </span>
+        <a href="#"><%= t(f) %></a>
+        <span>(<%= count_matches(@dresses, 'silhouette', f) %>)</span>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section>
+  <h3>Tecido:</h3>
+  <ul>
+    <% Dress::FABRIC.each_with_index do |f, i| %>
+      <li>
+        <span style="display:none;">
+          <%= check_box_tag "filters[fabric_#{i}]", f, params["fabric_#{i}"] == "1",  %><%= t(f) %>
+        </span>
+        <a href="#"><%= t(f) %></a>
+        <span>(<%= count_matches(@dresses, 'fabric', f) %>)</span>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section>
+  <h3>Comprimento:</h3>
+  <ul>
+    <% Dress::LENGTH.each_with_index do |f, i| %>
+      <li>
+        <span style="display:none;">
+          <%= check_box_tag "filters[length_#{i}]", f, params["length_#{i}"] == "1",  %><%= t(f) %>
+        </span>
+        <a href="#"><%= t(f) %></a>
+        <span>(<%= count_matches(@dresses, 'length', f) %>)</span>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section>
+  <h3>Acabamento:</h3>
+  <ul>
+    <% Dress::FINISH.each_with_index do |f, i| %>
+      <li>
+        <span style="display:none;">
+          <%= check_box_tag "filters[finish_#{i}]", f, params["finish_#{i}"] == "1",  %><%= t(f) %>
+        </span>
+        <a href="#"><%= t(f) %></a>
+        <span>(<%= count_matches(@dresses, 'finish', f) %>)</span>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section>
+  <h3>Cauda:</h3>
+  <ul>
+    <% Dress::TRAIN.each_with_index do |f, i| %>
+      <li>
+        <span style="display:none;">
+          <%= check_box_tag "filters[train_#{i}]", f, params["train_#{i}"] == "1",  %><%= t(f) %>
+        </span>
+        <a href="#"><%= t(f) %></a>
+        <span>(<%= count_matches(@dresses, 'train', f) %>)</span>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section class="last-child">
+  <h3>Preço:</h3>
+  <ul>
+    <% for i in 1..5 %>
+      <li>
+        <span style="display:none;">
+          <%= check_box_tag "filters[price_#{i}]", i, params["price_#{i}"] == "1",  %><%= "$"*i %>
+        </span>
+        <a href="#"><%= "$"*i %></a>
+        <span>(<%= count_matches(@dresses, 'price', i) %>)</span>
+      </li>
+    <% end %>
+  </ul>
+</section>

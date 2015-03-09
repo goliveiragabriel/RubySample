@@ -1,0 +1,18 @@
+<div class="side-bar-results clearfix">
+  <% url = "#{vendor_seo_path(vendor)}?vid=#{@vendor.id}#t" %>
+  <a href="<%= url %>" >
+    <div class="left-side"> 
+      <%= image_tag(vendor.cover_photo, alt: vendor.name, height: "48", width: "48") %>
+    </div>
+    <div class="right-side">
+        <h3><%= truncate(vendor.name, :length => 30, :separator => ' ') %></h3>
+        <p><%= truncate(vendor.address, :length => 22) %></p>
+        <div class="rating clearfix">
+          <% rating = vendor.rating_average.round(1) %>
+          <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium" } %>
+          <br />
+          <span class="total-stories">&#40; <%= pluralize(vendor.number_reviews, "Recomendação") %> &#41;</span>
+        </div>
+    </div>
+  </a>
+</div>

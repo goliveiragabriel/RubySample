@@ -1,0 +1,28 @@
+<%= title "Visita de #{@appointment.user.name} para #{@appointment.dress.vendor.name}" %>
+<div class="show">
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <b>Data:</b>
+	  <%= @appointment.formated_data %>
+	</p>
+
+	<p>
+	  <b>Dress:</b>
+	  <%= @appointment.dress.name %>
+	</p>
+
+	<p>
+	  <b>User:</b>
+	  <%= @appointment.user.name %>
+	</p>
+
+	<p>
+	  <b>Vendor:</b>
+	  <%= @appointment.dress.vendor.name %>
+	</p>
+
+
+	<%= link_to 'Edit', edit_appointment_path(@appointment) %> |
+	<%= link_to 'Back', appointments_path %>
+</div>

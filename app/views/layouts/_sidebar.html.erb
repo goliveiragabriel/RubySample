@@ -1,0 +1,111 @@
+<aside class="sidebar">
+
+  <section class="review-of-the-day">
+    <h3>Recomendação do dia</h3>
+    <% @review = Rails.env.development? ? Review.first : Review.where(review_of_the_day: Date.today).first %>
+    <a href="/<%= @review.vendor.slug %>" class="daily-review">
+      <%= render "layouts/reviewoftheday" %>
+    </a>
+  </section>
+  
+  <% content_for :scripts do %>
+    <script type="text/javascript">
+
+      var clicks = 0;
+      var type = "home";
+      $(document).ready(function(){
+        $(".daily-review ").click(function(){
+          clicks = 1;
+          $.ajax({
+            type: 'POST',
+            url: "/reviewoftheday",
+            data: "number_of_clicks=" + clicks + "&tipo=" + type
+          });
+          clicks = 0;
+        });
+      });
+
+    </script>
+  <% end %>
+
+  <section class="not-listed">
+    <%= render "searches/vendor_not_listed" %>
+  </section>
+
+  <% if false && session[:user_city] == "São Paulo" %>
+      <% content_for :adUnits do %>
+        <script type='text/javascript'>
+          googletag.cmd.push(function() {
+            googletag.defineSlot('/7756904/HomePage_Sidebar_SaoPaulo_300x250_1', [300, 250], 'div-gpt-ad-1337542684849-4').addService(googletag.pubads());
+            
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+          });
+        </script>
+      <% end %>
+      <!-- HomePage_Sidebar_SaoPaulo_300x250_1 -->
+      <div class="ad-block">
+      <div id='div-gpt-ad-1337542684849-4' style='width:300px; height:250px;'>
+      <script type='text/javascript'>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1337542684849-4'); });
+      </script>
+      </div></div>
+
+      <% if false %>
+      <!-- HomePage_Sidebar_SaoPaulo_300x250_2 -->
+      <div class="ad-block">
+      <div id='div-gpt-ad-1337542684849-5' style='width:300px; height:250px;'>
+      <script type='text/javascript'>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1337542684849-5'); });
+      </script>
+      </div></div>
+      <% end %>
+  <% elsif false %>
+      <% content_for :adUnits do %>
+        <script type='text/javascript'>
+          googletag.cmd.push(function() {
+            googletag.defineSlot('/7756904/HomePage_Sidebar_OtherCities_300x250_1', [300, 250], 'div-gpt-ad-1337542684849-2').addService(googletag.pubads());
+            
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+          });
+        </script>
+      <% end %>
+      <!-- HomePage_Sidebar_OtherCities_300x250_1 -->
+      <div class="ad-block">
+      <div id='div-gpt-ad-1337542684849-2' style='width:300px; height:250px;'>
+      <script type='text/javascript'>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1337542684849-2'); });
+      </script>
+      </div></div>
+      <% if false %>
+      <!-- HomePage_Sidebar_OtherCities_300x250_2 -->
+      <div class="ad-block">
+      <div id='div-gpt-ad-1337542684849-3' style='width:300px; height:250px;'>
+      <script type='text/javascript'>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-1337542684849-3'); });
+      </script>
+      </div></div>
+      <% end %>
+  <% end %>
+
+  <% if false %>
+  <section class="galleries">
+  <h3>Inspire-se</h3>
+    <a href="http://blog.bemcasados.art.br/" target="_blank">
+    <ul class="clearfix">
+      <li><%= image_tag "gallery-image.jpg", {alt: ""} %></li>
+      <li><%= image_tag "gallery-image2.jpg", {alt: ""} %></li>
+      <li><%= image_tag "gallery-image3.jpg", {alt: ""} %></li>
+      <li><%= image_tag "gallery-image4.jpg", {alt: ""} %></li>
+      <li><%= image_tag "gallery-image5.jpg", {alt: ""} %></li>
+      <li><%= image_tag "gallery-image6.jpg", {alt: ""} %></li>
+      <li><%= image_tag "gallery-image7.jpg", {alt: ""} %></li>
+      <li><%= image_tag "gallery-image8.jpg", {alt: ""} %></li>
+      <li><%= image_tag "gallery-image9.jpg", {alt: ""} %></li>
+    </ul>
+    </a>
+  </section>
+  <% end %>
+
+</aside>

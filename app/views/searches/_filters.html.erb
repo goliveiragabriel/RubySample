@@ -1,0 +1,102 @@
+<section class="form-section first-child">
+  <% if @search.service_type? %>
+    <%= f.hidden_field :service_type %>
+  <% else %>
+
+    <h3 class="heading"><a id="show-filter" rel="popover" class="btn" data-content="Vou te ajudar a encontrar o fornecedor perfeito para você. Comece usando nossa barra de busca, selecionando uma categoria de fornecedor." href="#" data-original-title="<%= current_user ? current_user.male? ? 'Seja bem-vindo, ' + current_user.first_name + '!' : 'Seja bem-vinda, ' + current_user.first_name + '!' : 'Seja bem-vinda!' %>">Serviço</a></h3>
+    <div class="form-row">
+      <%= f.select :service_type, Vendor::SERVICE_TYPES_LIST, :include_blank => "Todos Fornecedores", :html => {id: "service-selection"} %>
+    </div>
+  <% end %>
+
+  <h3>
+    <% if @search.vendors.size > 0 %>
+      <% if @search.service_type? %>
+        <a id="show-filter" rel="popover" data-content="Notei que você está buscando <b><%= t @search.service_type %></b>. Se preferir refine sua busca pelo endereço também." data-original-title="<%= current_user ? current_user.male? ? 'Seja bem-vindo, ' + current_user.first_name + '!' : 'Seja bem-vinda, ' + current_user.first_name + '!' : 'Seja bem-vinda!' %>" class="btn" href="#"> Perto de:</a>
+      <% else %>
+         <a id="pop-vendor" rel="popover" data-content="Que legal, você já utilizou um dos nossos filtros, se preferir aqui você pode filtrar sua busca pelo endereço também." data-original-title="Endereço do Fornecedor" class="btn" href="#"> Perto de:</a>
+      <% end %>
+    <% else %>
+      <a id="pop-vendor" rel="popover" data-content="Que legal, você utilizou um dos nossos filtros se preferir refine sua busca pelo endereço também." data-original-title="Endereço do Fornecedor" class="btn" href="#"> Perto de:</a>
+    <% end %>
+  </h3>
+  <div class="form-row">
+    <%= f.text_field :address, placeholder: "Endereço ou CEP 05500-000" %>
+  </div>
+
+  <% if @search.name? %>
+    <%= f.hidden_field :name %>
+  <% else %>
+    <h3>
+      <% if @search.vendors.size > 0 %>
+        <a id="pop-vendor" class="btn" data-content="Ou use uma palavra-chave para encontrar exatamente aquele fornecedor que está procurando." data-original-title="Nome do Fornecedor" rel="popover" href="#" >Palavra chave:</a> 
+      <% else %>
+        <a id="pop-vendor" rel="popover" class="btn" data-content="Que legal, se preferir refine sua busca pela Palavra chave também." data-original-title="Nome do Fornecedor" href="#" >Palavra chave:</a> 
+      <% end %>
+    </h3>
+    <div class="form-row">
+      <%= f.text_field :name, placeholder: "Nome do fornecedor" %>
+    </div>
+  <% end %>
+
+</section>
+
+<% if @search.address? %>
+  <section class="form-section">
+    <% if @search.service_type == 'Church' %>
+      <a id="pop-price" data-content="Você pode refinar os resultados por distância selecionando a opção desejada e clicando em filtrar." data-original-title="Qual a distância?" rel="popover" class="btn btn-primary" href="#"><h3>Distância:</h3></a>
+    <% else %>
+      <h3>Distância:</h3>
+    <% end %>
+    <div class="form-row inline-label">
+      <%= f.radio_button :distance, 10 %>
+      <%= f.label :distance, "10 km" %>
+    </div>
+    <div class="form-row inline-label">
+      <%= f.radio_button :distance, 25 %>
+      <%= f.label :distance, "25 km" %>
+    </div>
+    <div class="form-row inline-label">
+      <%= f.radio_button :distance, 50 %>
+      <%= f.label :distance, "50 km" %>
+    </div>
+    <div class="form-row inline-label">
+      <%= f.radio_button :distance, 75 %>
+      <%= f.label :distance, "75 km" %>
+    </div>
+    <div class="form-row inline-label">
+      <%= f.radio_button :distance, 1000 %>
+      <%= f.label :distance, "Qualquer" %>
+    </div>
+  </section>
+<% end %>
+
+<% if @search.service_type != "Church" %>
+<section class="form-section" id="search-filter-price">
+  <h3>
+      <a id="pop-price" rel="popover" class="btn btn-primary" href="#" >Faixa de Preço:</a>
+  </h3>
+  <div class="form-row inline-label">
+    <%= f.radio_button :price, 1 %>
+    <%= f.label :price, "$" %>
+  </div>
+  <div class="form-row inline-label">
+    <%= f.radio_button :price, 2 %>
+    <%= f.label :price, "$$" %>
+  </div>
+  <div class="form-row inline-label">
+    <%= f.radio_button :price, 3 %>
+    <%= f.label :price, "$$$" %>
+  </div>
+  <div class="form-row inline-label">
+    <%= f.radio_button :price, 4 %>
+    <%= f.label :price, "$$$$" %>
+  </div>
+  <div class="form-row inline-label">
+    <%= f.radio_button :price, "qualquer" %>
+    <%= f.label :price, "Qualquer" %>
+  </div>
+</section>
+<% end %>
+
+<%= render "#{@search.service_type.downcase.pluralize}/filter" if @search.service_type? %>

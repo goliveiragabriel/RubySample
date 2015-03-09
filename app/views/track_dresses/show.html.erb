@@ -1,0 +1,16 @@
+<%= title "Track de " << @track_dress.dress.name %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @track_dress.user_id %>
+</p>
+
+<p>
+  <b>Dress:</b>
+  <%= @track_dress.dress_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_track_dress_path(@track_dress) %> |
+<%= link_to 'Back', track_dresses_path %>

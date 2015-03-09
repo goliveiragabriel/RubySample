@@ -1,0 +1,47 @@
+<% if vendor.featured > 0 %>
+<div class="results featured clearfix">
+    <a href="<%= vendor_seo_path(vendor)%>#t">
+    <div class="ribbon">Featured</div>
+<% else %>
+  <div class="results clearfix">
+  <% if vendor.discount %>
+    <a id="pop-discount" rel="popover" data-content="Ótimo, dentro destes critérios encontramos <b><%= pluralize(@search.vendors.size, 'fornecedor')%></b>. Fique sempre atenta, pois alguns fornecedores possuem cortesias especiais para você. Procure pela faixa de cortesia ao lado da foto." class="btn" href="<%= vendor_seo_path(vendor)%>#t">
+  <% else %>
+    <a id="pop-info-vendor" rel="popover" data-content="Ótimo, dentro destes critérios encontramos <b><%= pluralize(@search.vendors.size, 'fornecedor') %></b> para você!" class="btn" href="<%= vendor_seo_path(vendor)%>#t">
+  <% end %>
+<% end %>
+<% if vendor.discount %>
+  <div class="discount">Discount</div>
+<% end %>
+  <div class="left-side">
+    <%= image_tag(vendor.cover_photo, alt: vendor.name, height: "99", width: "99") %>
+    <div class="rating clearfix">
+      <% rating = vendor.rating_average.round(1) %>
+      <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "medium" } %>
+      <div class="total_stories">&#40; <%= pluralize(vendor.number_reviews, "Recomendação") %> &#41;</div>
+    </div>
+  </div>
+  <div class="right-side">
+    <h3>
+        <%= truncate(vendor.name, :length => 30, :separator => ' ') %>
+      <% if false %>
+        <% service_type = vendor.type.downcase %>
+        <span class="filter-name" id="service-icon"><span class="<%= service_type %>"><%= service_type %></span></span>
+      <% end %>
+    </h3>
+    <address>
+      <% phone = vendor.phone %>
+      <% address = truncate(vendor.address, length: 50, separator: ' ') %>
+      <%= address %>
+      <% unless phone && phone.empty? %> 
+        <span>|</span>
+        <% address_size = "#{address} | #{phone}".length %>
+        <%= raw "<br />" if address_size > 28 && address_size < 52 %>
+        <%= phone %>
+      <% end %> 
+    </address>
+    <p><%= truncate(strip_tags(vendor.description), :length => 160, :separator => ' ') %></p>
+  </div>
+  <div class="<%= vendor.featured > 0 ? 'featured-bubble' : 'bubble' %>"><%= vendor_counter + 1 %></div>
+  </a>
+</div>

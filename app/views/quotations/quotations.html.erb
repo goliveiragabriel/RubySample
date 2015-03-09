@@ -1,0 +1,60 @@
+<% title "Orçamentos Disponíveis" %>
+
+<div id="page-notification">
+  <% if flash[:alert] %>
+    <p class="flash-error"><%= flash[:alert] %></p>
+  <% end %>
+  <% if flash[:notice] %>
+    <p class="flash-notice"><%= flash[:notice] %></p>
+  <% end %>
+  <%= yield %>
+</div>
+
+<table class="quotation-index">
+  <tr>
+    <th><%= sortable "created_at", "Data" %></th>
+    <th><%= sortable "id", "ID"%></th>
+    <th><%= sortable "user_id", "ID User" %></th>
+    <th><%= sortable "vendor_id", "ID Fornecedor" %></th>
+    <th>Nome</th>
+    <th>E-mail</th>
+    <th>Telefone</th>
+    <th>Comentários</th>
+    <th>Fornecedor</th>
+    <th><%= sortable "number_guests", "Convidados" %></th>
+    <th><%= sortable "wedding_date", "Data do Casamento" %></th>
+    <th>Email enviado em:</th>
+    <th><%= sortable "status", "Status" %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @quotations.each do |quotation| %>
+  <tr>
+    <td><%= l quotation.created_at %></td>
+    <td><%= quotation.id %></td>
+    <td><%= quotation.user_id %></td>
+    <td><%= quotation.vendor_id  %></td>
+    <td><%= quotation.user.first_name %></td>
+    <td><%= quotation.email %></td>
+    <td><%= quotation.telephone %></td>
+    <td><%= quotation.comments %></td>
+    <td><%= quotation.vendor.name %></td>
+    <td><%= quotation.number_guests %></td>
+    <td><%= l quotation.wedding_date %></td>
+    <td><%= quotation.sent_at %></td>
+    <td><%= quotation.status %></td>
+    <td>
+        <% if !quotation.vendor.email.blank? %>
+            <%= link_to "", send_email_quotation_path(quotation),data: { confirm: 'Você deseja enviar email para o fornecedor ' << quotation.vendor.name << ' Email:' << quotation.vendor.email },:class => "send-button sprites" %>
+        <% end %>
+    </td>
+    <td class="show"><%= link_to '', quotation, :class => "show-button sprites" %></td>
+    <td><%= link_to '', edit_vendor_quotation_path( quotation.vendor.id, quotation), :class => "edit-button" %></td>
+    <td class="remove"><%= link_to '', quotation, method: :delete, data: { confirm: 'Voce tem certeza?' }, :class => "remove-button sprites"%></td>
+  </tr>
+<% end %>
+</table>
+<%= paginate @quotations %>
+<br />
+<%= link_to 'Voltar', root_url, class: 'button-link quotation-button' %></p>

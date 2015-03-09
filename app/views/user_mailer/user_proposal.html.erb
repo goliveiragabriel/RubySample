@@ -1,0 +1,61 @@
+<div align="center" style="padding:20px 0 0;background-color:#066E7F;line-height:150%;">
+  <table width="600" align="center" border="0" cellpadding="0" cellspacing="0" style="background-color: #fff;font-family: Arial,​Helvetica,​sans-serif; color: #7A7A7A;border-radius:13px;width:495pt;border: 1px solid #066E7F; ">
+    <tbody >
+      <div align="center">
+        <table width="576">
+          <tr style="height:120px">
+            <td valign="top">
+              <a title="Bem casados" href="http://www.bemcasados.art.br"><img src="http://www.bemcasados.art.br/assets/images/logo2.png" width="94" height="50" alt="Bem Casados" style="border:none;padding-top:10px;"/></a>
+            </td>    
+          </tr>
+          <tr style="height:12px;"><td><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/10/spacer.gif" height="10" /></td></tr>
+          <tr>
+            <div align="center" style="border-top:50px;line-height:150%">
+              <p style="text-align: justify;"> Olá <%= @user.name %>, <br/>
+                Você solicitou através da Bem Casados um orçamento para o evento abaixo:<br/>
+                Fornecedor: <%= @vendor.name %> (<%= t @vendor.type %>) <br/>
+                Data: <%= @quotation.wedding_date.strftime("%d, %B %Y") %> <br/>
+                Convidados: <%= @quotation.number_guests %> <br/>
+                <% if @quotation.comments %>
+                Observações:
+                  <span style="font-style:italic">"<%= @quotation.comments %>"</span><br/><br/>
+                <% end %>
+              </p>
+              <p style="text-align: justify">
+                Estou à disposição para esclarecer qualquer dúvida,
+              </p>
+            </div>
+          </tr>
+          <tr style="text-align:center;">
+          <div>
+              <p style="margin-top:35px;  ">Um abraço,</p>
+              <p style="color:#0C7587; font-weight:bold;margin:0;">Isabel Wamser</p>
+              <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/08/lacinho.jpg" width="90px"/><br/>
+              www.bemcasados.art.br
+            </div>
+          </tr>
+          <tr style="">
+            <p style="text-align:right;">
+                <a href="https://www.facebook.com/BemCasadosArtBr" target="_blank" style="display: inline-block;background: url('http://www.bemcasados.art.br/assets/images/social-icons2.png') 0 -25px no-repeat; width:23px;height:23px;" >
+                </a>
+                <a href="http://twitter.com/BemCasadosArtBr" target="_blank" style="display: inline-block;background: url('http://www.bemcasados.art.br/assets/images/social-icons2.png') -30px -25px no-repeat; width:23px;height:23px;">
+                </a>
+                <a href="http://pinterest.com/bemcasados/" style="display: inline-block;background: url('http://www.bemcasados.art.br/assets/images/social-icons2.png') -117px -25px no-repeat; width:23px;height:23px;">
+                </a>
+            </p>
+          </tr>
+        </table>
+      </div>
+    </tbody>
+  </table>
+  <table width="600" align="center" style="font-family: Arial,​Helvetica,​sans-serif;color: #fff;">
+    <tbody>
+      <tr>
+        <p style="margin:0; padding-left: 20px;color: #fff;">Essa mensagem foi enviada para <span><a href="#" style="color: #fff;"> <%= !@vendor.email.blank? ? !@vendor.email2.blank? ? 'não possui email' : @vendor.email : @vendor.email2%></a></span></p>
+        <p style="margin: 5px 0 0 0; padding-left: 20px;color: #fff;font-size:10px;">
+        <span style="font-size:10px"> Deseja cancelar a sua inscrição ? Entre em contato com <a href="#" style="color: #fff">contato@bemcasados.art.br </a></span><br/>
+        Copyright &copy; 2012, Bem Casados. Todos os direitos reservados.</p>
+      </tr>
+    </tbody>
+  </table>
+</div>

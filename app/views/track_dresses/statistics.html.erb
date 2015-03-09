@@ -1,0 +1,211 @@
+<% if @dress %>
+  <%= title "Estatística de #{@dress.name}" %>
+  <%= content_for :scripts do %>
+  	<script type="text/javascript" charset="utf-8">
+  		var chart1;
+  		var data = new Date();
+  		$(document).ready(function(){
+          chart1 = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container-column',
+                type: 'line'
+            },
+            title: {
+                text: 'Número de acessos semanal',
+                style: {
+                  color: '#595959',
+                  fontWeight: 'bold',
+                }
+            },
+            xAxis: {
+              type: 'datetime',
+              dateTimeLabelFormats: {
+                  week: '%e of %b'   
+              }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total de acessos',
+                    style: {
+                      color: '#595959',
+                      fontWeight: 'bold',
+                    }
+
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                backgroundColor: '#FFFFFF',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                shadow: true
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.y +' acessos';
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+                series: [{
+                  name: 'Acessos',
+                  data: [
+                    <%= @track_dresses.where(:created_at => 6.days.ago..5.days.ago).count %>,
+                    <%= @track_dresses.where(:created_at => 5.days.ago..4.days.ago).count %>,
+                    <%= @track_dresses.where(:created_at => 4.days.ago..3.days.ago).count %>,
+                    <%= @track_dresses.where(:created_at => 3.days.ago..2.days.ago).count %>,
+                    <%= @track_dresses.where(:created_at => 2.days.ago..DateTime.yesterday).count %>,
+                    <%= @track_dresses.where(:created_at => DateTime.yesterday..DateTime.now.beginning_of_day).count %>,
+                    <%= @track_dresses.where(:created_at => DateTime.now.beginning_of_day..DateTime.now ).count %> ],
+                  pointStart: Date.UTC(data.getFullYear(), data.getMonth(), data.getDate()-6),
+                  pointInterval: 24 * 3600 * 1000 // one day                  
+          }]
+          });
+  	});
+  	</script>
+  <% end %>
+  <div id="container-column" style="width: 100%; height: 400px"></div>
+  <div id="report" style="width: 100%;text-align:center;">
+  	<h3>Usuários que mais acessaram</h3>
+  	<h6> Top 10 </h6>
+  	<table>
+  	  <tr> 
+  	    <th> Nome</th>
+  	    <th> Email</th>
+  	    <th> Número de Acessos</th>
+  	  </tr>
+
+  	  <% @tf.each do |t_freq| %>
+  	    <tr>
+  	      <td><%= t_freq.first_name << ' ' << t_freq.last_name %></td>
+  	      <td><%= t_freq.email %></td>
+  	      <td><%= t_freq.freq %></td>
+  	    </tr>
+  	  <% end %>
+  	</table>
+  </div>
+<% elsif @user %>
+  <%= title "Estatísticas | Vestidos vistos por #{@user.name}" %>
+
+  <% content_for :scripts do %>
+  
+    <script type="text/javascript" charset="utf-8">
+      var pie_silhouette;
+      var pie_neckline;
+      var pie_finish;
+      var pie_price;
+      $(document).ready(function(){
+        pie_price = new Highcharts.Chart({
+           chart: {
+              renderTo: 'pie-chart-price',
+           },
+           title: {
+              text: 'Vestidos mais acessados por preço',
+              style: {
+                color: '#595959',
+                fontWeight: 'bold',
+              }
+
+           },
+           xAxis: {
+              categories: ['$', '$$', '$$$', '$$$$', '$$$$$']
+           },
+           yAxis: {
+              title: {
+                 text: 'Cliques'
+              }
+           },
+           series: [{
+              type: 'pie',
+              name: 'Total de cliques',
+              data: [
+              ["$", <%= @track_dresses.where("dresses.price = ?", Dress::PRICE[0]).count %> ],
+              ["$$", <%= @track_dresses.where("dresses.price = ?", Dress::PRICE[1]).count %> ],
+              ["$$$", <%= @track_dresses.where("dresses.price = ?", Dress::PRICE[2]).count %> ],
+              ["$$$$", <%= @track_dresses.where("dresses.price = ?", Dress::PRICE[3]).count %> ],
+              ["$$$$$", <%= @track_dresses.where("dresses.price = ?", Dress::PRICE[4]).count %> ],
+              ]
+           }]
+         }); // End Price Pie Chart
+        pie_price = new Highcharts.Chart({
+           chart: {
+              renderTo: 'pie-chart-finish',
+           },
+           title: {
+              text: 'Vestidos mais acessados por silhueta',
+              style: {
+                color: '#595959',
+                fontWeight: 'bold',
+              }
+
+           },
+           xAxis: {
+              categories: ["Sereia","Evase", "Tubinho", "Romano", "Princesa", "Baile"]
+
+           },
+           yAxis: {
+              title: {
+                 text: 'Cliques'
+              }
+           },
+           series: [{
+              type: 'pie',
+              name: 'Total de cliques',
+              data: [
+              ["<%= Dress::SILHOUETTE[0] %>" , <%= @track_dresses.where("dresses.silhouette = ?", Dress::SILHOUETTE[0]).count %> ],
+              ["<%= Dress::SILHOUETTE[1] %>" , <%= @track_dresses.where("dresses.silhouette = ?", Dress::SILHOUETTE[1]).count %> ],
+              ["<%= Dress::SILHOUETTE[2] %>" , <%= @track_dresses.where("dresses.silhouette = ?", Dress::SILHOUETTE[2]).count %> ],
+              ["<%= Dress::SILHOUETTE[3] %>" , <%= @track_dresses.where("dresses.silhouette = ?", Dress::SILHOUETTE[3]).count %> ],
+              ["<%= Dress::SILHOUETTE[4] %>" , <%= @track_dresses.where("dresses.silhouette = ?", Dress::SILHOUETTE[4]).count %> ],
+              ["<%= Dress::SILHOUETTE[5] %>" , <%= @track_dresses.where("dresses.silhouette = ?", Dress::SILHOUETTE[5]).count %> ],
+              ]
+           }]
+         }); // End Finish Pie Chart
+
+      })
+    </script>
+  
+  <% end %>
+  <div id="pie-chart-price" style="width: 50%" class="fleft"></div>
+  <div id="pie-chart-finish" style="width: 50%" class="fleft"></div>
+  <div class="clearfix"></div>
+  <div id="report" style="width: 100%;text-align:center;margin-top:10px;">
+    <h3>Vestidos mais acessados</h3>
+    <h6> Top 10 </h6>
+    <table>
+      <tr> 
+        <th> Nome</th>
+        <th> Marca</th>
+        <th> Silhueta</th>
+        <th> Decote</th>
+        <th> Tecido</th>
+        <th> Acabamento</th>
+        <th> Preço</th>
+        <th> Número de Acessos</th>
+      </tr>
+
+      <% @tf.each do |t_freq| %>
+        <tr>
+          <td><%= link_to t_freq.name, dress_path(t_freq.id) %></td>
+          <td><%= t_freq.brand %></td>
+          <td><%= t_freq.silhouette %></td>
+          <td><%= t_freq.neckline %></td>
+          <td><%= t_freq.fabric %></td>
+          <td><%= t_freq.finish %></td>
+          <td><%= price_to_dollar(t_freq.price) %></td>
+          <td><%= t_freq.freq %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+  <%= link_to "Voltar", :back, class: "button-link size-button" %>

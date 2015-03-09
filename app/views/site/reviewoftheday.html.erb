@@ -1,0 +1,68 @@
+<div style="width: 300px;">
+	<section class="review-of-the-day">
+		<% vendor = @review.vendor %>
+		<% user = @review.user %>
+		<% rating = vendor.rating_average.round(1) %>
+		<% rating_review = user.average_rating(vendor) %>
+	<a href="/<%= vendor.slug %>" class="daily-review" target="_parent">
+		<div>
+			<div class="top-side">
+					<%= image_tag (vendor.cover_photo), alt: vendor.name, height: "99", width: "99"%>
+					<div>
+						<h3>
+							<%= truncate(vendor.name, :length => 30, :separator => ' ') %>
+						</h3>
+						<% translated = t vendor.type %>
+						<p>
+							<%= translated %>
+						</p>
+					</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="bottom-side">
+				<div class="left-side">
+					<% if @review.anonymous || @review.user.profile_picture.nil? %>
+						<% image = @review.anonymous_picture %>
+					<% else %>
+						<% image = user.profile_picture_url(:thumb) %>
+					<% end %>
+					<%= image_tag image %>
+				</div>
+				<div class="right-side">
+					<h4>
+						<% if @review.anonymous %>
+							<%= truncate("Anônimo", :length => 17, :separator => ' ') %>
+						<% else %>
+							<%= truncate(@review.user.name, :length => 17, :separator => ' ') %>
+						<% end %>
+					</h4>
+					<div class="rating-wrap">
+						<div class="rating clearfix">
+						      <%= render :partial => "shared/average_stars", :locals => { :rating => rating_review, :size => "mini" } %>
+						</div>
+					</div>
+					<span> <%= truncate(@review.title, :length => 50, :separator => ' ') %></span>
+					<p><%= truncate(@review.content, :length => 210, :separator => ' ')  %></p>
+				</div>
+			</div>
+		</div>
+		</a>
+	</section>
+</div>
+<%= content_for :scripts do %>
+	<script type="text/javascript">
+		var clicks = 0;
+		var type = "iframe";
+		$(document).ready(function(){
+			$(".daily-review").click(function(){
+				clicks += 1;
+				$.ajax({
+					type: 'POST',
+					url: "/reviewoftheday",
+					data: "number_of_clicks=" + clicks + "&tipo=" + type
+				});
+				clicks = 0;
+			});
+		});
+	</script>
+<% end %>

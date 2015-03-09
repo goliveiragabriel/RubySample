@@ -1,0 +1,19 @@
+<p>Olá <%= @vendor.name %>,</p>
+
+<p>nós da Bem Casados recebemos o seguinte orçamento em nosso site e encaminhamos imediatamente à você:
+<p><b>Cliente</b>: <%= @user.name %></p>
+<p><b>Telefone de Contato</b>: <%= @quotation.telephone %></p>
+<p><b>E-mail de Contato</b>: <%= @quotation.email %></p>
+<p><b>Data do Casamento</b>: <%= l(@quotation.wedding_date) %></p>
+<p><b>Número de convidados</b>: <%= @quotation.number_guests %></p>
+<p><b>Comentários</b>:</p> 
+<p><%= @quotation.comments %></p>
+
+<p>Qualquer dúvida ou sugestão entre em contato conosco.</p>
+<p>Atenciosamente,<br/>
+Bem-Casados <br/>
+<%= link_to "www.bemcasados.art.br", "http://www.bemcasados.art.br" %>
+</p>
+
+
+

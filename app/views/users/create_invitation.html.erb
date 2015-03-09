@@ -1,0 +1,68 @@
+<div class="content-wrapper">
+  <div class="content-iframe" id="invitation">
+    <div class="share_with_friends">
+
+      Compartilhe o link abaixo com seus amigos e ganhe pontos! <br />
+      <u><b><%= @referral_url %></b></u> <br /><br />
+
+      <% if current_user.authentications.size > 0 %> 
+        Se preferir, convide seus amigos diretamente no Facebook! <br /><br />
+        <div id="jfmfs-container"></div>
+
+        <%= content_for :scripts do %> 
+          <script type="text/javascript" src="http://connect.facebook.net/pt_BR/all.js"></script>
+          <script type="text/javascript">
+            FB.init({appId: '<%= @app_id %>', xfbml: true, cookie: true});
+          </script>
+          <script>
+              FB.getLoginStatus(function(response) {
+                  if (response.authResponse) {
+                      // logged in and connected user, someone you know
+                      init();
+                  } else {
+                      // no user session available, someone you dont know
+                  }
+              });
+
+              function login() {
+                  FB.login(function(response) {
+                      if (response.authResponse) {
+                          console.log('Welcome!  Fetching your information.... ');
+                          FB.api('/me', function(response) {
+                              console.log('Good to see you, ' + response.name + '.');
+                              FB.logout(function(response) {
+                                  console.log('Logged out.');
+                              });
+                          });
+                      } else {
+                          console.log('User cancelled login or did not fully authorize.');
+                      }
+                      }, {scope: 'email'});
+              }
+
+              function init() {
+                FB.api('/me', function(response) {
+                  $("#jfmfs-container").jfmfs({max_selected: 1});
+                });
+              }
+           </script>
+           <script type="text/javascript">
+              $('#send-message-fb').live("click", function(){
+                var friendSelector = $("#jfmfs-container").data('jfmfs');
+                var friendIds = friendSelector.getSelectedIds();
+                FB.ui({
+                  method: 'send',
+                  name: 'Cadastre-se na Bem Casados e acumule pontos junto comigo!',
+                  link: '<%= @referral_url %>',
+                  to: friendIds,
+                  picture: 'https://s3-sa-east-1.amazonaws.com/bemcasados-arquivos/logo_square.png',
+                  description: 'O mais completo site de casamentos do Brasil!'
+                });
+              });
+           </script>
+        <% end %>
+      <% end %>
+      
+    </div>
+  </div>
+</div>

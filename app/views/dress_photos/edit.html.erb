@@ -1,0 +1,27 @@
+<% title "Editando fotos de #{@dress.name}" %>
+
+<div class="new">
+<%= image_tag(@dress_photo.image_url(:thumb)) if @dress_photo.persisted? %>
+  <%= form_for([@dress, @dress_photo]) do |f| %>
+    <%= f.error_messages %>
+
+    <div class="field">
+      <%= f.label :name %> <br />
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :cover, "Capa ?" %> <br />
+      <%= f.radio_button :cover, true %> Sim <br />
+      <%= f.radio_button :cover, false %> Não
+    </div>
+
+    <div class="actions form-row">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+<br/>
+<%= link_to 'Voltar', dress_dress_photos_path, class: "button-link size-button fleft" %>
+<%= link_to 'Ver mais detalhes', dress_dress_photo_path(@dress, @dress_photo), class: "button-link size-button fleft" %>
+</div>

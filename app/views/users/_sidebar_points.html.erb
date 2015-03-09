@@ -1,0 +1,40 @@
+<div class="left-menu">
+  <div class="header">
+    <h3 class="<%= @user.user_merits_info.closed ? 'closed' : 'opened' %>"><%= link_to '', user_merits_info_update_closed_path %></h3>
+    <span><h3>Pontuação:</h3> <%= pluralize(@user.user_merits_info.points,'ponto') %> </span>
+  </div>
+  <div class="wrap-points <%= @user.user_merits_info.closed ? 'closed' : '' %>">
+    <div class="progress-bar">
+      <div class="current-progress" style="width:<%= current_progress_merits(@user) %>%">
+      <span class="score"> <%= true ? 200 : Merit::MAXSCORE["#{current_user.user_merits_info.merit.merits_type}"] %> </span>
+      </div>
+    </div>
+    <h4> <%= "Dicas para ganhar pontos:" if @user.user_merits_info.merit.hints.size >0 %> </h4>
+    <ul class="hints">
+      <% @user.user_merits_info.merit.hints.each do |info| %>
+        <% unless info.content.eql?("Indique um amigo") %>
+          <li><a href="#"><%= info.content %></a></li>
+        <% else %>
+          <% fancybox_class = current_user.authentications.size > 0 ? "lightbox_invitation" : "lightbox_invitation2" %> 
+          <li><%= link_to info.content, create_invitation_users_path, class: fancybox_class %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<!--       <ul class="left-menu">
+        <li><a href="#vendors" class="vendor first-child">Fornecedores Favoritos <span>(<%= profile_sidebar_count("favorites_vendors") %>)</span></a></li>
+        <% if can? :read, Dress %>
+	        <li><a href="#accessories" class="accessories">Vestidos Favoritos <span>(<%= profile_sidebar_count("favorites_dresses") %>)</span></a></li>
+	        <li><a href="#appointments" class="appointments">Visitas <span>(<%=profile_sidebar_count("appointments")%>)</span></a></li>
+        <% end %>
+        <li><a href="#proposals" class="proposals">Propostas <span>(<%= profile_sidebar_count("quotations") %>)</span></a></li>
+        <li><a href="#reviews" class="review">Reviews <span>(<%= profile_sidebar_count("reviews") %>)</span></a></li>
+        <li><a href="#guide" class="last-child appointments">Guia de Organização</a></li>
+      </ul>
+
+ -->
+<!--<iframe src="http://localhost:3000/fornecedores/banners/vendor-teste-123456" width="130px" height="140px" id="banners-vendors-vendor-teste" scrolling="no" frameborder="0"></iframe>-->
+
+
+

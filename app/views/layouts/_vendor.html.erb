@@ -1,0 +1,18 @@
+  <% rating = vendor.rating_average.round(1) %>
+	<div class="vendors-reviews">
+		<div class="left-side">
+				<%= link_to (image_tag (vendor.cover_photo), alt: vendor.name, height: "50", width: "50"), vendor_seo_path(vendor) %>
+				<div class="rating clearfix">
+				      <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "mini" } %>
+				</div>
+		</div>
+		<div class="right-side">
+			<h3>
+				<%= link_to "#{truncate(vendor.name, :length => 25, :separator => ' ')}", vendor_seo_path(vendor), class: "vendor-link" %>
+			</h3>
+			<% translated = t vendor.type %>
+			<p>
+				<%= link_to( translated, searches_path("search[service_type]" => vendor.type), method: :post, class: "categoria-link"  ) %>
+			</p>
+		</div>
+	</div>

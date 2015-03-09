@@ -1,0 +1,96 @@
+<div class="content-wrapper">
+  <div class="content-iframe">
+    <div class="form-wrapper">
+      <%= form_for(@user, :html => {:multipart => true}) do |f| %>
+        <%= f.error_messages %>
+
+        <div class="form-row clearfix">
+          <%= f.label :first_name, "Nome" %><br />
+          <span class="input-shadow"><%= f.text_field :first_name %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :last_name, "Sobrenome" %><br />
+          <span class="input-shadow"><%= f.text_field :last_name %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :email, "Sobrenome" %><br />
+          <span class="input-shadow"><%= f.text_field :email %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :genre, "Sexo" %><br />
+          <%= f.radio_button :genre, "male" %> <%= f.label :genre, "Masculino" %>
+          <%= f.radio_button :genre, "female" %> <%= f.label :genre, "Feminino" %>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :birth_date, "Data de nascimento" %><br />
+          <span class="input-shadow"><%= f.text_field :birth_date, class: "datepicker_bday" %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :relationship_status, "Relacionamento" %><br />
+          <%= f.select :relationship_status, User::RELANTIONSHIP, {:include_blank => true} %>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :significant_other, "com" %><br />
+          <span class="input-shadow"><%= f.text_field :significant_other %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :wedding_date, "Data do casamento" %><br />
+          <span class="input-shadow"><%= f.text_field :wedding_date, class: "datepicker" %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :number_guests, "Número estimado de convidados" %><br />
+          <span class="input-shadow"><%= f.text_field :number_guests %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :profile_picture, "Trocar a foto do perfil" %><br />
+          <%= image_tag(@user.profile_picture_url(:normal)) if @user.profile_picture? %><br />
+          <%= f.file_field :profile_picture %>
+        </div>
+
+        <% if false %>
+          <div class="field">
+            <p><%= f.label :cpf %><br />
+            <%= f.text_field :cpf %></p>
+          </div>
+
+          <div class="form-row clearfix">
+            <%= f.label :password, "Senha" %><br />
+            <span class="input-shadow"><%= f.password_field :password %></span>
+          </div>
+
+          <div class="form-row clearfix">
+            <%= f.label :password_confirmation, "Confirmação da Senha" %><br />
+            <span class="input-shadow"><%= f.password_field :password_confirmation %></span>
+          </div>
+        <% end %>
+        
+        <% if false & can?(:manage, @users) %>
+          <div class="field">
+            <p><%= f.label :role %>: 
+            <%= f.select :role, User::ROLES, {:include_blank => true} %></p>
+          </div>
+          <div class="field">
+            <p>
+              <%= f.label :mailing, "Deseja Ocultar o usuário do envio de futuros emails?" %> 
+              <%= f.radio_button :mailing, false %> Sim
+              <%= f.radio_button :mailing, true %> Não
+            </p>
+          </div>
+        <% end %>
+        <div class="form-row">
+          <%= f.submit "Atualizar" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

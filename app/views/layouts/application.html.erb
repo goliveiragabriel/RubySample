@@ -1,0 +1,33 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6" lang="pt-BR"> <![endif]-->
+<!--[if IE 7 ]> <html class="ie ie7" lang="pt-BR"> <![endif]-->
+<!--[if IE 8 ]> <html class="ie ie8" lang="pt-BR"> <![endif]-->
+<!--[if IE 9 ]> <html class="ie ie9" lang="pt-BR"> <![endif]-->
+<!--[if gt IE 9]><!--><html lang="pt-BR"><!--<![endif]-->
+
+<%= render 'layouts/head' %>
+
+<body id="main" dir="ltr">
+
+<%= render 'layouts/header' %>
+
+<%= content_tag :div, class: "banner-wrapper #{params[:controller]}", id: "t" do %>
+  <h2 class="page-heading"><%= yield :title2 %></h2>
+  <%= yield :tabs %>
+<% end %>
+
+<div class="body clearfix">
+  <%= yield %>
+</div>
+
+<%= render 'layouts/footer' %>
+
+<div id="close_lightbox"></div>
+
+<%= javascript_include_tag "application" %>
+<%= render 'layouts/analytics' if Rails.env.production? %>
+<%= render 'layouts/tracker' if Rails.env.production? %>
+<%= yield :scripts %>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<% title @vendor.nil? ? @user.nil? ? "Tracks disponíveis"  : "Tracks do usuário #{@user.name}" : "Tracks de #{@vendor.name}" %>
+
+<span class="nro-resultados"> <%= pluralize(@tracks.size, "resultado") %></span>
+
+<div id="page-notification">
+  <% if flash[:alert] %>
+    <p class="flash-error"><%= flash[:alert] %></p>
+  <% end %>
+  <% if flash[:notice] %>
+    <p class="flash-notice"><%= flash[:notice] %></p>
+  <% end %>
+  <%= yield %>
+</div>
+
+
+<div class="search-vendor">
+    <%= form_tag tracks_path, :method => 'get' do %>
+      <div style="margin-bottom: 10px;">
+        <span style="display:block;">Buscar por </span>
+        <%= radio_button_tag "tipo", "ip", params[:tipo] %>
+        IP
+        <%= radio_button_tag "tipo", "user", params[:tipo]%>
+        Usuário
+        <%= radio_button_tag "tipo", "vendor", params[:tipo] %>
+        Fornecedor
+      </div>
+      <div class="fleft">
+        <%= text_field_tag :search, params[:search] %>
+
+      </div>
+      <div class="fleft form-row">
+        <%= submit_tag "Procurar", :name => nil %>
+      </div>
+    <% end %>
+</div>
+
+<table class="table-index tracks-index">
+  <tr>
+    <th><%= sortable "created_at", "Data" %></th>
+    <th>Id</th>
+    <th><%= sortable "user_id", "ID usuário" %></th>
+    <th>Name</th>
+    <th><%= sortable "ip", "IP" %></th>
+    <th><%= sortable "vendor_id", "Vendor ID" %></th>
+    <th>Fornecedor</th>
+    <th><%= sortable "action", "Action" %></th>
+    <th>URL</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tracks.each do |track| %>
+  <% vendor = track.vendor %>
+  <tr>
+    <td><%= track.created_at %></td>
+    <td><%= track.id %></td>
+    <td><%= track.user_id %></td>
+    <td><%= link_to track.user.name ? track.user.name : "", user_tracks_path(track.user) %></td>
+    <td><%= link_to track.ip, ip_search_tracks_path(track.ip.gsub(".", "-")) %></td>
+    <td><%= track.vendor_id %></td>
+    <td><%= link_to track.vendor.name, tracks_fornecedor_path(track.vendor) %></td>
+    <td><%= track.action %></td>
+    <td><%= track.track_detail.nil? ? "" : track.track_detail.url %></td>
+    <td><%= link_to '', track, class: "show-button sprites" %></td>
+    <td><%= link_to '', edit_track_path(track), class: "edit-button" %></td>
+    <td><%= link_to '', track, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "remove-button sprites" %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+
+<%= paginate @tracks %>
+   <%= link_to 'Voltar', :back , class: 'button-link size-button fleft' %>
+<% if  !@vendor.nil? %>
+  <%= link_to content_tag(:span, 'Fornecedor'), vendor_seo_path(@vendor), class: 'button-link size-button fleft sprites-links vendor-profile' %>
+  <%= link_to content_tag(:span, 'Tracks'), tracks_path, class: 'button-link size-button fleft sprites-links show-all' %>
+  <%= link_to content_tag(:span, 'Estatísticas'), statistics_tracks_fornecedor_path(@vendor), class: 'button-link size-button fleft sprites-links estatisticas' %>
+<% elsif params[:user_id] %>
+    <%= link_to content_tag(:span, 'Tracks'), tracks_path, class: 'button-link size-button sprites-links show-all fleft' %>
+    <%= link_to content_tag(:span, 'Estatísticas'), statistics_tracks_user_path(params[:user_id]), class: 'button-link size-button fleft sprites-links estatisticas' %>
+<% else %>
+    <%= link_to content_tag(:span, "Estatísticas"), statistics_tracks_path, class: 'button-link size-button fleft estatisticas sprites-links' %>
+<% end %>

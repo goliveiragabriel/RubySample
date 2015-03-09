@@ -1,0 +1,53 @@
+<div class="content-wrapper">
+  <div class="content">
+    <div class="form-wrapper">
+
+      <%= form_for(@proposal, :html => {:multipart => true}) do |f| %>
+        <%= f.error_messages %>
+
+        <p>Breve descrição aqui...</p>
+        <br />
+
+        <div class="form-row clearfix">
+          <%= f.label :vendor_name, "Busque pelo nome da sua empresa" %><br />
+          <%= f.text_field :vendor_name, data: {autocomplete_source: vendors_proposals_path} %>
+        </div>
+        <%= f.hidden_field :vendor_id %>
+
+        <% if false %>
+        <div class="form-row clearfix">
+          <%= f.label :description, "Insira um resumo do orçamento" %><br />
+          <span class="input-shadow"><%= f.text_area :description %></span>
+        </div>
+        <% end %>
+
+        <div class="form-row clearfix">
+          <%= f.label :vendor_email, "Email de contato" %> <br />
+          <span class="input-shadow"><%= f.text_field :vendor_email %> </span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :date, "Data de elaboração do orçamento" %><br />
+          <span class="input-shadow"><%= f.text_field :date, class: "datepicker" %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :validity, "Validade do orçamento (em dias)" %><br />
+          <span class="input-shadow"><%= f.text_field :validity %></span>
+        </div>
+
+        <div class="form-row clearfix">
+          <%= f.label :document, "Escolher arquivo (*.pdf, *.doc, *.ppt, *.txt)" %><br />
+          <%= f.file_field :document %>
+        </div>
+
+        <div class="form-row">
+          <%= f.submit "Enviar" %>
+        </div>
+      <% end %>
+
+    </div>
+    <%= render 'layouts/banner' %>
+  </div>
+  <%= render 'layouts/sidebar' %>
+</div>

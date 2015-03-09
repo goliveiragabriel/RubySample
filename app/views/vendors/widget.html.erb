@@ -1,0 +1,122 @@
+<%= content_for :scripts do %> 
+  <%= javascript_include_tag "/widget.js" %>
+<% end %>
+
+<%= render partial: "shared/tabs", :locals => { t: "Página dos Fornecedores", title: "Também quero o selo de 'Fornecedor Recomendado'", current: "Fornecedor Recomendado" } %>
+
+<div class="new-badge">
+	<p>O selo de “Fornecedor Recomendado” é a nossa forma de valorizar os fornecedores que as noivas mais adoram. Ao contrário de outros prêmios, a Bem Casados não influencia os resultados. Para nós, a opinião das noivas é o que conta!</p>
+	<p>
+		<b>Para exibir o selo você precisa satisfazer três critérios:</b>
+		<ul>
+			<li>Avaliação Geral superior a 4 estrelas;</li>
+			<li>3 ou mais recomendações na Bem Casados;</li>
+			<li>Ao menos uma recomendação nos últimos 6 meses.</li>
+		</ul>
+	</p>
+	<% if false %>
+	<div class="widget-tasks">
+		<ul>
+			<li class="step-one <%= params[:v] ? 'completed' : 'current' %>">
+				<p>
+					<span>1</span>-
+					Selecione o seu nome
+				</p>
+				<div class="hint">
+					Se não encontrar seu nome na lista, consiga mais recomendações ou entre em contato.
+				</div>
+			</li>
+			<li class="step-two <%= params[:v] ? 'current' : '' %> ">
+				<p>
+					<span>2</span>-
+					Escolha o design
+				</p>
+				<div class="hint">
+					Os designs com estrelas serão automaticamente atualizados sempre que uma noiva recomendar sua empresa.
+				</div>
+			</li>
+			<li class="step-three">
+				<p>
+					<span>3</span>-
+					Selecione a posição
+				</p>
+				<div class="hint">
+					Se você optou pelo dinâmico, esta deve ser a posição em que ele será colocado no seu website.
+				</div>
+			</li>
+			<li class="step-four">
+				<p>
+					<span>4</span>-
+					Gere o código
+				</p>
+				<div class="hint">
+					Clique em gerar e, em seguida, no botão visualizar.
+				</div>
+			</li>
+		</ul>
+	</div>
+	<% end %>
+	<div class="desc">
+	</div>
+	<div style="width:100%">
+		<form action="#" id="snippet-create">
+			<div class="field tipo">
+				<span class="step-one"></span>
+				<div class="header">
+					<h4> Escolha o design </h4>
+					<p>Os designs com estrelas serão automaticamente atualizados sempre que uma noiva recomendar sua empresa.</p>
+				</div>
+				<a href="#" class="widgetType dinamico tipsy_banner_dinamico" id="continue" >
+					<%= image_tag "bemcasados_widget2.png", style: "width:100%;" %>
+				</a>
+				<a href="#" class="widgetType tipsy_banner_estatico estatico" id="continue" >
+					<%= image_tag "bemcasados_widget1.png", style: "width:100%;" %>
+				</a>
+				<%= select_tag "widgetType", "<option>Dinâmico</option><option>Estático</option>".html_safe if false %>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="field vendor" style="display:none;">
+				<%= label_tag "Fornecedor" if false %><br/>
+				<span class="step-two"></span>
+				<div class="header">
+					<h4>Selecione o seu nome</h4>
+					<p>Se não encontrar seu nome na lista, consiga mais recomendações ou entre em <a href="mailto:contato@bemcasados.art.br"> contato</a>.</p>
+				</div>
+				<% if params[:v] %>
+					<%= select_tag "vendorWidget", options_from_collection_for_select( @vendors, "slug", "name", params[:v] ), :disabled => true %>		
+				<% else %>
+					<%= select_tag "vendorWidget", options_from_collection_for_select( @vendors, "slug", "name" ) %>
+				<% end %>
+				<a href="#" class="next" id="continue">Avançar >></a>
+			</div>
+			<div class="field posicao" style="display:none">
+				<span class="step-three"></span>
+				<div class="header">
+					<h4> Selecione a Posição</h4>
+					<p>Se você optou pelo dinâmico, esta deve ser a posição em que ele será colocado no seu website.</p>
+				</div>
+				<%= select_tag "widgetPosition", "<option value=2>Topo Direita</option><option value=3>Topo Esquerda</option><option value='0'>Direita</option><option value='1'>Esquerda</option>".html_safe %>
+			</div>
+			<div class="field buttons" style="display:none">
+				<%= submit_tag "Gerar código", :id => "gerarWidget" %>
+			</div>
+		</form>
+		<div id="view" style="display:none;">
+			<span class="step-four"></span>
+			<div class="header">
+				<h4>Visualização</h4>
+				<p style="display:none;">Veja como ficou e copie o código para a sua página (Se você precisar de ajuda para colocá-lo no seu site, entre em <a href="mailto:contato@bemcasados.art.br">contato</a>, estamos a disposição para ajudar).</p>
+			</div>
+			<div class="clearfix"></div>
+			<div class="field codigo" style="display:none">
+				<%= text_area_tag "snippet", nil, :rows => 10, :cols => 30 %>
+			</div>
+			<div class="preview">
+			</div>
+		</div>
+		<a id="clipboard" href="#">Copiar o código</a>
+		<a href='#' id='create-preview'>Visualizar</a>
+  		<%= submit_tag "Gerar outro selo", :id=> "resetWidget",:name => "reset", :type => "reset" %>
+	</div>
+</div>

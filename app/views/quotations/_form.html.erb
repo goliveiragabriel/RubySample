@@ -1,0 +1,71 @@
+<% vendor = @quotation.vendor %>
+
+<div class="content-wrapper">
+  <div class="content-iframe">
+    <div class="form-wrapper">
+      <%= form_for(@quotation, html: {id: "quotation-form"}) do |f| %>
+          <!-- Notification errors -->
+          <div id="page-notification">
+            <% if flash[:alert] %>
+              <p class="flash-error"><%= flash[:alert] %></p>
+            <% end %>
+            <% if flash[:notice] %>
+              <p class="flash-notice"><%= flash[:notice] %></p>
+            <% end %>
+            <%= yield %>
+          </div>
+
+          <h3> Orçamento Personalizado de <%= vendor.name %></h3>
+          <div class="form-row clearfix">
+            <%= f.label "E-mail *" %> <br/>
+            <span class="input-shadow-long"> 
+              <%= f.text_field :email, class: "required" %>
+            </span>
+          </div>
+          <div class="form-row clearfix">
+            <%= f.label :telephone, "Telefone de Contato" %><br/>
+            <% if current_user.telephone.blank? %>
+              <span class="input-shadow-long"><%= f.text_field :telephone %>
+            <% else %>
+              <span class="input-shadow-long"><%= f.text_field :telephone, :value => current_user.telephone %>
+            <% end %></span>
+          </div>
+          <div class="form-row clearfix">
+            <%= f.label :wedding_date, "Data do Casamento *" %><br />
+            <span class="input-shadow-long">
+              <% if current_user.wedding_date %>
+                <%= f.text_field :wedding_date, :value => l(current_user.wedding_date), class: "long datepicker required" %>
+              <% else %>
+                <%= f.text_field :wedding_date, class: "long datepicker required" %>
+              <% end %>
+            </span>
+          </div>
+          <div class="form-row clearfix">
+            <%= f.label :number_guests, "Número de Convidados *" %>
+            <span class="input-shadow-long"><%= f.number_field :number_guests, :value => current_user.number_guests, class: "long required" %></span>
+          </div>
+          <div class="form-row clearfix">
+            <%= f.label :comments, "Comentários" %><br/>
+            <span class="input-shadow-long">
+              <%= f.text_area :comments, class: 'long', :rows => 6, :placeholder => "Descreva detalhes e dúvidas para #{vendor.name} sobre o que deseja para o #{ t vendor.type } de seu casamento." %>
+            </span>
+          </div>
+          <% if current_user.admin? %>
+            <div class="form-row clearfix">
+              <%= f.label :status, "Status" %><br/>
+              <span class="input-shadow-long"><%= f.select :status, Quotation::QUOTATION_STATUS_LIST, class: 'long' %></span>
+            </div>
+          <% end %>
+          <%= f.hidden_field :vendor_id, :value => vendor.id %>
+          <p class="require">* Campos obrigatórios. </p>
+ 
+          <div class="form-row">
+            <%= f.submit "Solicitar" %>
+          </div>
+          
+        <% end %>
+     </div>
+    <% if false %><%= render 'layouts/banner' %><% end %>
+   </div>
+  <% if false %><%= render 'layouts/sidebar' %><% end %>
+</div>

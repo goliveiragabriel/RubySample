@@ -1,0 +1,107 @@
+<% title "Cadastro" %>
+<div class="content-wrapper">
+  <div class="content">
+    <div class="form-wrapper"><%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+
+      <table>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :first_name, "Nome" %>
+              <span class="input-shadow"><%= f.text_field :first_name %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :last_name, "Sobrenome" %>
+              <span class="input-shadow"><%= f.text_field :last_name %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :birth_date, "Data de nascimento" %>
+              <span class="input-shadow"><%= f.text_field :birth_date, class: "datepicker_bday" %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :genre, "Sexo" %>
+              <span class="form-row inline-label clearfix">
+                <%= f.radio_button :genre, "male" %> <%= f.label :genre, "Masculino" %>
+                <%= f.radio_button :genre, "female" %> <%= f.label :genre, "Feminino" %>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+                <%= f.label :relationship_status, "Relacionamento"  %>
+                <span class="input-shadow"><%= f.select :relationship_status, User::RELANTIONSHIP, {:include_blank => true} %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix" id="user_significant_other" style="display: none;">
+                <%= f.label :significant_other, "com" %> 
+                <span class="input-shadow"><%= f.text_field :significant_other %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :wedding_date, "Data do casamento" %>
+              <span class="input-shadow"><%= f.text_field :wedding_date, class: "datepicker" %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :number_guests, "Número estimado de convidados" %>
+              <span class="input-shadow"><%= f.text_field :number_guests %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :email %>
+              <span class="input-shadow"><%= f.text_field :email %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :cpf, "CPF" %>
+              <span class="input-shadow"><%= f.text_field :cpf %></span>
+            </div>
+          </td>
+        </tr>
+        <% if resource.password_required? %>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :password, "Senha" %>
+              <span class="input-shadow"><%= f.password_field :password %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :password_confirmation, "Confirmação da Senha" %>
+              <span class="input-shadow"><%= f.password_field :password_confirmation %></span>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+
+      <div class="form-row row-submit clearfix">
+        <%= f.submit "Cadastrar" %>
+      </div>
+
+    <% end %></div>
+    <%= render 'layouts/banner' %>
+  </div>
+  <%= render 'layouts/sidebar' %>
+</div>

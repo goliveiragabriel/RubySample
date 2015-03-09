@@ -1,0 +1,96 @@
+<% vendor = @review.vendor.becomes(Vendor) %>
+
+<div class="content-wrapper">
+  <div class="content-iframe">
+    <div class="form-wrapper">
+      <%= form_for(@review, html: {id: "review-form"}) do |f| %>
+      <%= f.error_messages %>
+
+      <div class="form-row clearfix">
+        <%= f.label :title, "Dê um título bem descritivo à sua avaliação" %><br />
+        <span class="input-shadow-long"><%= f.text_field :title, class:"long" %></span>
+      </div>  
+
+      <div class="form-row clearfix">
+        <%= f.label :nota, "Dê a sua nota para este fornecedor" %><br />
+        <span class="detailed-rating-input-shadow">
+        <div class="detailed-rating-form clearfix">
+          <table>
+            <tbody>
+              <tr>
+                <th>Qualidade
+                    <span class="tipsy_help", title="Qualidade do serviço, espaço, materiais, equipamentos utilizados e instalação">Help</span>
+                </th>
+                <td><span class="rating_ajaxfull"><%= ratings_for vendor, :dimension => :quality, :show_user_rating => true %></span></td>
+              </tr>
+              <tr>
+                <th>Profissionalismo
+                  <span class="tipsy_help", title="Funcionários e atendimento profissional, comunicação com os noivos foi clara e cumpriram com o combinado">Help</span>
+                </th>
+                <td><span class="rating_ajaxfull"><%= ratings_for vendor, :dimension => :professionalism, :show_user_rating => true %></span></td>
+              </tr>
+              <tr>
+                <th>Custo-benefício
+                  <span class="tipsy_help", title="O preço pago vale a qualidade do serviço?">Help</span>
+                </th>
+                <td><span class="rating_ajaxfull"><%= ratings_for vendor, :dimension => :price, :show_user_rating => true %></span></td>
+              </tr>
+              <tr>
+                <th>Flexibilidade
+                  <span class="tipsy_help", title="Quanto o fornecedor consegue ser flexível e se adaptar ao que você pediu">Help</span>
+                </th>
+                <td><span class="rating_ajaxfull"><%= ratings_for vendor, :dimension => :flexibility, :show_user_rating => true %></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </span>
+      </div>    
+      
+      <div class="form-row clearfix">
+        <%= f.label :content, "Detalhes e comentários da sua experiência (opcional)" %><br />
+        <span class="input-shadow-long">
+          <%= f.text_area :content, class:"long",
+                          placeholder: "Ao compartilhar suas experiências, você ajuda outros casais a fazerem melhores escolhas para o casamento dos seus sonhos. Obrigado!"  %></span>
+      </div>
+      
+      <div class="form-row clearfix">
+        <%= f.label :reviewer_type, "Qual foi o seu envolvimento no evento?" %><br />
+        <span class="input-shadow"><%= f.select :reviewer_type, Review::REVIEWER_TYPE_LIST, {:include_blank => true}  %></span>
+      </div>
+      
+      <div class="form-row clearfix">
+        <%= f.label :date, "Quando foi o evento?" %><br />
+        <span class="input-shadow"><%= f.text_field :date, class: "datepicker" %></span>
+      </div>
+      
+      <div class="form-row inline-label clearfix">
+        <%= f.check_box :anonymous %>
+        <%= f.label :anonymous, "Marque esta caixa para postar sua avaliação como anônimo" %><br />
+      </div>
+      
+      <div class="form-row clearfix" id="review_anonymous_picture" style="display: none;">
+        <%= f.label :anonymous_picture, "Selecione uma foto para postar como anônimo" %><br />
+        <%= radio_button_tag "review[anonymous_picture]", "anonymous_man.jpg", (current_user ? current_user.male? : false) %>
+        <%= image_tag "anonymous_man.jpg" %>
+        <%= radio_button_tag "review[anonymous_picture]", "anonymous_woman.jpg", (current_user ? current_user.female? : false) %>
+        <%= image_tag "anonymous_woman.jpg" %>
+      </div>
+
+      <div class="form-row inline-label clearfix">
+        <%= f.check_box :terms_of_service %>
+        <%= f.label :terms_of_service, "Certifico que esta avaliação é baseada apenas em minha própria experiência e que não recebi incentivo ou pagamento da empresa para escrevê-la. Estou ciente que o Bem Casados não tolerará avaliações falsas." %><br />
+      </div>
+      
+      <%= f.hidden_field :vendor_id %>
+      
+      <div class="form-row">
+        <%= f.submit "Enviar" %>
+      </div>
+      <% end %>
+    </div>
+    
+    <% if false %><%= render 'layouts/banner' %><% end %>
+  </div>
+  <% if false %><%= render 'layouts/sidebar' %><% end %>
+</div>

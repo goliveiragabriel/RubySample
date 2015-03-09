@@ -1,0 +1,27 @@
+<% title "Adicionando mais fotos para #{@vendor.name}" %>
+
+<div class="new">
+	1) Faça upload das novas fotos <br /><br />
+
+
+	<%= form_for([@vendor, @photo]) do |f| %>
+	  <%= f.error_messages %>
+
+	  <div id="status-message"></div>
+	  <div id="uploadify-queue"></div>
+	  <div class="field">
+	    <%= render "uploadify" %>
+	    <%= f.file_field :image %>
+	  </div>
+	  <div id="fotos"></div>
+
+	<% end %>
+
+	<br /><br /> 
+
+	2) Edite as informações clicando <%= link_to 'aqui', bulk_edit_vendor_photos_path(@vendor) %>
+
+	<br /><br /> 
+
+	<%= link_to 'Voltar', vendor_photos_path, class: "button-link size-button" %>
+</div>

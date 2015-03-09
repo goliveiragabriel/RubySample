@@ -1,0 +1,9 @@
+<% if flash[:alert] %>
+<a class="lightbox_points" href="#lightbox_points" style="display:none"></a>
+
+<div style="display:none" >
+  <div id="lightbox_points" style="background-color: #066E7F;padding:10px;color:#fff">    
+      <%= flash[:alert] %>
+  </div>
+</div>
+<% end %>

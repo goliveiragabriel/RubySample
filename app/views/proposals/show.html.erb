@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Vendor:</b>
+  <%= @proposal.vendor_id %>
+</p>
+
+<p>
+  <b>Quotation:</b>
+  <%= @proposal.quotation_id %>
+</p>
+
+<p>
+  <b>Document:</b>
+  <%= @proposal.document %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @proposal.description %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @proposal.date %>
+</p>
+
+<p>
+  <b>Validity:</b>
+  <%= @proposal.validity %>
+</p>
+
+
+<%= link_to 'Edit', edit_proposal_path(@proposal) %> |
+<%= link_to 'Back', proposals_path %>

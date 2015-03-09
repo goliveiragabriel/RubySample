@@ -1,0 +1,190 @@
+<div align="center" style="padding:20px 0 0;background-color:#066E7F;">
+  <table width="600" align="center" border="0" cellpadding="0" cellspacing="0" style="background-color: #fff;font-family: Arial,​Helvetica,​sans-serif; color: #7A7A7A;border-radius:13px;width:495pt;border: 1px solid #066E7F; ">
+    <tbody >
+      <div align="center">
+        <table width="576">
+          <tr style="height:120px">
+            <td valign="top">
+              <a title="Bem casados" href="http://www.bemcasados.art.br"><img src="http://www.bemcasados.art.br/assets/images/logo2.png" width="94" height="50" alt="Bem Casados" style="border:none;padding-top:10px;"/></a>
+            </td>    
+          </tr>
+          <tr style="height:12px;"><td><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/10/spacer.gif" height="10" /></td></tr>
+          <tr>
+            <div align="center" style="border-top:50px;line-height:150%">
+              <p style="text-align: justify;"> 
+                <%= @vendor.name %>,
+              </p>
+              <p style="text-align: justify;">A Bem Casados agendou uma visita do <b><%= @appointment.dress.name %></b> para o dia <b> <%= @appointment.formated_data %>. </b> </p>
+            </div>
+          </tr>
+          <tr style="text-align:center">
+             <%= image_tag @appointment.dress.cover_photo(:small), :style => "border: 1px solid #e3e3e3;padding: 10px;border-radius:13px;" %>
+          </tr>
+          <tr>
+              <p style="text-align: center;">Pedimos que verifique a sua disponibilidade e entre em contato com <%= @user.male? ? "o noivo" : "a noiva" %> abaixo. </p>
+          </tr>
+          <tr>
+            <table width="100%" align="center" height="35" style="background-color: #00ADC8;border-radius: 18px 18px 0 0;display:block;">
+              <tbody>
+                <tr>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td width="13" valign="middle" style="">
+                    <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/09/star.png" style="margin:1px 0 0 5px;" alt="Informações"/>
+                  </td>
+                  <td valign="bottom">
+                    <span style="color:#FFFFFF;font-size: 18px;margin:5px 0 0 0;"> Informa&ccedil;&otilde;es <%= @user.male? ? "do noivo " : "da noiva " %> </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </tr>
+          <tr>
+            <table width="100%" style="border-left: 1px dashed #CCCCCC;border-right: 1px dashed #CCCCCC;border-bottom: 1px dashed #CCCCCC;padding: 2px;border-radius: 0 0 18px 18px;margin-bottom:10px; text-align:center;" align="center">
+                <tr>
+                  <th></th>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Telefone</th>
+                </tr>
+                <tr>
+                  <td>
+                    <%= image_tag @user.absolute_path_picture, :height => "40"%>
+                  </td>
+                  <td><%= @user.name %></td>
+                  <td><%= @user.email %></td>
+                  <td><%= @appointment.telephone %></td>
+                </tr>
+            </table>
+          </tr>
+          <% if @favourite_dresses.size > 0 %>
+            <tr>
+              <table width="100%" align="center" height="35" style="background-color: #00ADC8;border-radius: 18px 18px 0 0;display:block;margin-top:10px;">
+                <tbody>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <td width="13" valign="middle" style="">
+                      <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/09/star.png" style="margin:1px 0 0 5px;" alt="Informações"/>
+                    </td>
+                    <td valign="bottom">
+                      <span style="color: #FFFFFF;font-size: 18px;margin:5px 0 0 0;"> Vestidos Favoritos </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </tr>
+            <tr>
+              <table width="100%" style="border-left: 1px dashed #CCCCCC;border-right: 1px dashed #CCCCCC;border-bottom: 1px dashed #CCCCCC;padding: 2px;border-radius: 0 0 18px 18px;margin-bottom:10px; text-align:center;" align="center">
+                <tr>
+                  <th></th>
+                  <th></th>    
+                  <th></th>    
+                </tr>
+                  <% @favourite_dresses.each_with_index do |favourite_dress, index| %>
+                    <% if index == 0 || index == 3 %>
+                      <tr>
+                    <% end %>
+                      <td>
+                        <div style="box-shadow: 3px 2px 5px #CCCCCC;padding: 10px;min-height:215px;border: 1px solid #e3e3e3; border-radius:13px;">
+<!--                           <img src="https://bemcasados-site.s3-sa-east-1.amazonaws.com/dress_photo/4/small_vestido-andre-store-vestido-de-noiva-2513f-2.jpg" />
+ -->
+                           <%= image_tag favourite_dress.bookmarkable.cover_photo(:small) %>
+                          <p style="margin-bottom:0;"><%= truncate(favourite_dress.bookmarkable.name, :length => 20, :separator => ' ') %></p>
+                          <p style="margin-bottom:0;margin-top:0;"><%= truncate(favourite_dress.bookmarkable.brand, :length => 20, :separator => ' ') %></p>
+                          <p style="margin:0;"><%= favourite_dress.bookmarkable.price_to_dollar%></p>
+                        </div>
+                      </td>
+                    <% if index == 2 || index == 5 %>
+                      </tr> 
+                    <% end %>
+                  <% end %>
+              </table>
+
+            </tr>
+          <% elsif @track_dresses.size > 0 %>
+              <tr>
+                <table width="100%" align="center" height="35" style="background-color: #00ADC8;border-radius: 18px 18px 0 0;display:block;margin-top:10px;">
+                  <tbody>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <td width="13" valign="top" style="">
+                        <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/09/star.png" style="margin:1px 0 0 5px;" alt="Informações"/>
+                      </td>
+                      <td valign="bottom">
+                        <span style="color: #FFFFFF;font-size: 18px;margin:5px 0 0 0;"> Vestidos Mais acessados </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </tr>
+              <tr>
+                <table width="100%" style="border-left: 1px dashed #CCCCCC;border-right: 1px dashed #CCCCCC;border-bottom: 1px dashed #CCCCCC;padding: 2px;border-radius: 0 0 18px 18px;margin-bottom:10px; text-align:center;" align="center">
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <% @track_dresses.each_with_index do |track_dress, index| %>
+                    <% if index == 0 || index == 3 %>
+                      <tr>
+                    <% end %>
+                      <td>
+                        <div style="box-shadow: 3px 2px 5px #CCCCCC;padding: 10px;min-height:215px;border: 1px solid #e3e3e3; border-radius:13px;">
+<!--                           <img src="https://bemcasados-site.s3-sa-east-1.amazonaws.com/dress_photo/4/small_vestido-andre-store-vestido-de-noiva-2513f-2.jpg" />
+ -->
+                           <%= image_tag track_dress.cover_photo(:small) %>
+                          <p style="margin-bottom:0"><%= truncate(track_dress.name, :length => 20, :separator => ' ') %></p>
+                          <p style="margin-bottom:0;margin-top:0"><%= truncate(track_dress.brand, :length => 20, :separator => ' ') %></p>
+                          <p style="margin0"><%= track_dress.price_to_dollar %></p>
+                        </div>
+                      </td>
+                    <% if index == 2 || index == 5 %>
+                      </tr> 
+                    <% end %>
+                  <% end %>
+              </table>
+
+              </tr>
+          <% end %>
+          <tr style="text-align:center;">
+          <div>
+              <p style="margin-top:35px;  ">Muito obrigado pelo carinho,</p>
+              <p style="color:#0C7587; font-weight:bold;margin:0;">Equipe Bem Casados</p>
+              <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/08/lacinho.jpg" width="90px"/><br/>
+              www.bemcasados.art.br
+            </div>
+          </tr>
+          <tr style="">
+            <p style="text-align:right;">
+                <a href="https://www.facebook.com/BemCasadosArtBr" target="_blank" style="display: inline-block;" >
+                  <img width="23" height="23" src="http://clients.xhtmlchop.com/blog30568/jg5naykfc30568/wp-content/themes/30568/images/fb.png" alt="Facebook" style="border:none" />
+                </a>
+                <a href="http://twitter.com/BemCasadosArtBr" target="_blank" style="display: inline-block;">
+                  <img width="23" height="23" src="http://clients.xhtmlchop.com/blog30568/jg5naykfc30568/wp-content/themes/30568/images/tweet_03.png" alt="Twitter" style="border:none" />
+                </a>
+                <a href="http://pinterest.com/bemcasados/" style="display: inline-block;">
+                  <img width="23" height="23" src="http://clients.xhtmlchop.com/blog30568/jg5naykfc30568/wp-content/themes/30568/images/pinterest.png" alt="Pinterest" style="border:none" />
+                </a>
+            </p>
+          </tr>
+        </table>
+      </div>
+    </tbody>
+  </table>
+  <table width="600" align="center" style="font-family: Arial,​Helvetica,​sans-serif;color: #fff;">
+    <tbody>
+      <tr>
+        <p style="margin:0; padding-left: 20px;color: #fff;">Essa mensagem foi enviada para <span><a href="#" style="color: #fff;"> <%= @vendor.email %></a></span></p>
+        <p style="margin: 5px 0 0 0; padding-left: 20px;color: #fff;font-size:10px;">Copyright &copy; 2012, Bem Casados. Todos os direitos reservados.</p>
+      </tr>
+    </tbody>
+  </table>
+</div>

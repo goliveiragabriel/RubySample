@@ -1,0 +1,24 @@
+// Place all the styles related to the Banners controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.banner-iframe .banner{
+	background: url('/images/banner.png') 0 0 no-repeat;
+	height: 110px;
+	width: 100px;
+}
+.banner-iframe .rating-bar{
+ 	background: url("images/stars.png") repeat-x scroll 0 -40px transparent;
+ 	display: inline-block;
+ 	height: 20px;
+ 	position: absolute;
+ 	top: 53px;
+ 	width: 100px;
+}
+.banner-iframe .rating{
+ 	background: url("images/stars.png") repeat-x scroll 0 0 transparent;
+ 	display: inline-block;
+ 	height: 20px;
+ 	position: absolute;
+}
+ 	

@@ -1,0 +1,11 @@
+$("#result-listing").html("<%= escape_javascript(render("dresses")) %>");
+$('a[rel="gallery"]').fancybox({
+	'transitionIn'  :   'elastic',
+	'transitionOut' :   'elastic',
+	'showNavArrows' :   true,
+	'scrolling'        : 'no',
+	'titleShow'        : false,
+	'overlayOpacity'   : 0.5,
+	'overlayColor'     : '#000',
+	'padding'          : 0
+});

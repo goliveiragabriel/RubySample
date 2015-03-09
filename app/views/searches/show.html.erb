@@ -1,0 +1,89 @@
+<% render(partial: "shared/tabs", :locals => { t: "Lojas", title: @search.title }) if false %>
+<% title @search.title, "Resultados da busca" %>
+
+<div class="page-content store-search clearfix">
+<div class="content">
+
+  <% if false %>
+  <div class="breadcrumb home">
+    <ul>
+      <li>
+        <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+          <a href="http://www.bemcasados.art.br" itemprop="url">
+            <span itemprop="title">Início</span>
+          </a>
+          <span> &#187;</span>&nbsp;
+        </div>
+      </li>
+      <li>
+        <span>Busca</span>&nbsp;
+      </li>
+    </ul>
+  </div>
+  <% end %>
+
+  <aside class="sidebar" id="sidebar-filters">
+    <%= link_to "Iniciar Nova Busca", root_url, class: "new-search" %>
+
+    <div class="search-filter">
+      <% if @search.service_type.blank? && @search.name.blank? %>
+        <h2 class="heading"><a id="show-filter" class="btn" rel="popover" data-content="Percebi que você está buscando fornecedores <b> <%= @search.address.blank? ? '' : 'em ' + @search.address %></b>.Nessa área você poderá ver quais filtros estão ativos no momento. Para remover estes filtros basta clicar no 'X' ao lado dele." href="#" data-original-title="<%= current_user ? current_user.male? ? 'Seja bem-vindo, ' + current_user.first_name + '!' : 'Seja bem-vinda, ' + current_user.first_name + '!' : 'Seja bem-vinda!' %>">Refine sua busca</a></h2>
+      <% elsif @search.vendors.count > 0 %>
+        <h2 class="heading">Refine sua busca</h2>
+      <% elsif @search.vendors.count == 0 %>
+        <h2 class="heading">
+          <a id="show-filter" class="btn" rel="popover" data-content="Nessa área você poderá ver quais filtros estão ativos no momento. Percebi que você está buscando <b><%= @search.service_type.blank? ? '' : t(@search.service_type) %> </b> <%= @search.address.blank? ? '' : 'em ' + @search.address %>. Aqui você pode refinar a sua busca. Selecione um filtro em clique em 'Filtrar'." href="#" data-original-title="<%= current_user ? current_user.male? ? 'Seja bem-vindo, ' + current_user.first_name + '!' : 'Seja bem-vinda, ' + current_user.first_name + '!' : 'Seja bem-vinda!' %>">Refine sua busca</a>
+        </h2>
+      <% end %>
+      <div class="filters-wrapper">
+        <%= render "active_filters" if @search.filtered? %>
+        <%= form_for @search, :html => { :id => "search-filter-form" } do |f| %>
+          <%= render :partial => "filters", :locals => { :f => f } %>
+          <section class="form-section last-child" id="search-filter-price"></section>
+          <%= f.hidden_field :sort_by %>
+          <div class="form-row row-submit">
+              <%= f.submit "Filtrar", :name => nil %>
+              <%= f.submit "Limpar", :name => nil, :type => "reset" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </aside>
+
+  <div class="search-results">
+    <h2><%= pluralize(@vendors_size, "resultado") %></h2>
+    <div class="sorting clearfix"> <span>Ordenar por:</span>
+      <ul class="clearfix">
+        <li class="alphabetical <%= 'selected' if @search.sort_by.eql?('name ASC')%>">
+          <%= link_to "A - Z", search_path(@search, c: "name", t: "ASC"), class: "search-sort" %>
+        </li>
+        <% if @search.address? %>
+          <li class="distance <%= 'selected' if @search.sort_by.eql?('distance ASC')%>">
+            <%= link_to "Distância", search_path(@search, c: "distance", t: "ASC"), class: "search-sort" %>
+          </li>
+        <% end %>
+        <li class="stars <%= 'selected' if @search.sort_by.eql?('rating_average DESC')%>">
+          <%= link_to "Estrelas", search_path(@search, c: "rating_average", t: "DESC"), class: "search-sort" %>
+        </li>
+        <li class="review <%= 'selected' if @search.sort_by.start_with?('number_reviews DESC')%>">
+          <%= link_to "# Recomendações", search_path(@search, c: "number_reviews", t: "DESC"), class: "search-sort" %>
+        </li>
+      </ul>
+    </div>
+    <%= render partial: "vendor", collection: @vendors %>
+    <%= paginate @vendors, :window => 3 %>
+  </div>
+  <%= render 'bottom_banners' if false %>
+</div>
+
+<aside class="sidebar">
+  <div class="google-map"> 
+    <%= render partial: "map", :locals => { :markers => @markers } %>
+  </div>
+  <%= render 'shared/like_box' %>
+  <%= render 'vendor_not_listed' %>
+  <%= render 'sidebar_banners' %>
+</aside>
+</div>
+

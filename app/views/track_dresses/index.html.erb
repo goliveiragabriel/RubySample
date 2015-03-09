@@ -1,0 +1,67 @@
+<!-- Para dar mais flexibilidade implementarei tabelas diferentes -->
+<% if @dress %>
+<%= title "Visualizações de #{@dress.name} " %>
+    <table class="table-index">
+      <tr>
+        <th></th>
+        <th>Acessado em:</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    <% @track_dresses.each do |track_dress| %>
+      <tr>
+        <td><%= image_tag track_dress.user.profile_picture_url(:thumb)  %></td>
+        <td><%= track_dress.created_at.strftime("%d, %B %Y %H:%m") %></td>
+        <td><%= link_to "#{track_dress.user.name}", user_track_dresses_path(track_dress.user) %></td>
+        <td><%= track_dress.user.email %></td>
+        <td><%= track_dress.user.telephone %></td>
+        <td><%= link_to '', track_dress, class: "show-button sprites" %></td>
+        <td><%= link_to '', edit_track_dress_path(track_dress), class: "edit-button " %></td>
+        <td><%= link_to '', track_dress, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "remove-button sprites" %></td>
+      </tr>
+    <% end %>
+    </table>
+
+    <br />
+
+    <%= link_to "Voltar", :back, class: "button-link size-button fleft" %>
+    <%= link_to "Página do Vestido", dress_path(@dress), class: "button-link size-button fleft" %>
+    <%= link_to content_tag(:span, 'Estatísticas'), statistics_track_dresses_path(@dress), class: "button-link size-button fleft sprites-links estatisticas" %>
+<% elsif @user %>
+    <%= title "Vestidos vistos por #{@user.name}" %>
+
+    <table class="table-index">
+      <tr>
+        <th></th>
+        <th>Acessado em:</th>
+        <th>Nome</th>
+        <th>Vestido</th>
+        <th>Marca</th>
+        <th>Preço</th>
+        <th></th>
+        <th></th>
+      </tr>
+    <% @track_dresses.each do |track_dress| %>
+      <tr>
+        <td><%= image_tag track_dress.dress.cover_photo(:thumb)  %></td>
+        <td><%= track_dress.created_at.strftime("%d, %B %Y %H:%M") %></td>
+        <td><%= track_dress.user.name %></td>
+        <td><%= link_to track_dress.dress.name, dress_track_dresses_path(track_dress.dress)  %></td>
+        <td><%= track_dress.dress.brand %></td>
+        <td><%= price_to_dollar(track_dress.dress.price) %></td>
+        <td><%= link_to '', track_dress, class: "show-button sprites" %></td>
+        <td><%= link_to '', edit_track_dress_path(track_dress), class: "edit-button " %></td>
+        <td><%= link_to '', track_dress, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "remove-button sprites" %></td>
+      </tr>
+    <% end %>
+    </table>
+
+    <br />
+
+    <%= link_to "Voltar", :back, class: "button-link size-button fleft" %>
+    <%= link_to content_tag(:span, 'Estatísticas'), user_statistics_track_dresses_path(@user), class: "button-link size-button fleft sprites-links estatisticas" %>
+<% end %>

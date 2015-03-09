@@ -1,0 +1,23 @@
+<%= content_for(:title) { title || t } %>
+<% if t == "Vestidos" %>
+	<% tabs = %w{Vestidos Acessórios Lojas} %>
+	<%= content_for :tabs do %>
+	  <ul>
+	    <li><%= link_to(tabs[0], dresses_path, class: (current == tabs[0] ? "active" : "inactive")) %></li>
+	    <li><%= link_to(tabs[1], "#", class: (current == tabs[1] ? "active" : "inactive")) %></li>
+	    <li><%= link_to(tabs[2], searches_path("search[service_type]" => "Garment"), method: :post, class: (current == tabs[2] ? "active" : "inactive")) %></li>
+	  </ul>
+	<% end %>
+<% else %>
+	<% tabs = ["Faça Parte", "Personalize seu perfil", "Fornecedor Recomendado", "Orçamento Instantâneo"] %>
+	<%= content_for :tabs do %>
+	  <ul>
+	    <li><%= link_to(tabs[0], "/contato/cadastro", class: (current == tabs[0] ? "active" : "inactive")) %></li>
+	    <li><%= link_to(tabs[1], "/contato/atualizacao", class: (current == tabs[1] ? "active" : "inactive")) %></li>
+	    <li><%= link_to(tabs[2], "/fornecedores/widget", class: (current == tabs[2] ? "active" : "inactive")) %></li>
+	    <% if current_user && current_user.admin? %>
+	    	<li><%= link_to(tabs[3], "/fornecedores/orcamento", class: (current == tabs[3] ? "active" : "inactive")) %></li>
+	    <% end %>
+	  </ul>
+	<% end %>
+<% end %>

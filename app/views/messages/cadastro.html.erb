@@ -1,0 +1,180 @@
+<%= render partial: "shared/tabs", :locals => { t: "Página dos Fornecedores", title: "Cadastro de Fornecedor", current: "Faça Parte" } %>
+
+<div class="content-wrapper" id="signup">
+
+
+    <table class="plans">
+      <tr>
+        <th></th>
+        <th>Básico</th>
+        <th>Destaque</th>
+        <th>Destaque Pro</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="pricing free"><h3><span>Grátis</span></h3></td>
+        <td class="pricing"><h3><span class="pricing">R$39,90/mês</span></h3></td>
+        <td class="pricing"><h3><span class="pricing">R$79,90
+        /mês</span></h3></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><a class="user-button vendor-submit" id="free" href="#" onclick="_gaq.push(['_trackEvent', 'Planos', 'Free']);" >Cadastrar</a></td>
+        <td><a class="user-button vendor-submit" id="destaque" href="#" onclick="_gaq.push(['_trackEvent', 'Planos', 'Destaque']);">Assinar</a></td>
+        <td><a class="user-button vendor-submit" id="pro" href="#" onclik="_gaq.push(['_trackEvent', 'Planos', 'Pro']);">Assinar</a></td>
+      </tr>
+      <tr>
+        <td>Perfil de Publicidade <span class="tipsy_help" title="Anuncie o seu serviço."></span></td>
+        <td><span class="check"></span></td>
+        <td><span class="check"></span></td>
+        <td><span class="check"></span></td>
+      </tr>
+      <tr>
+        <td>Review das Noivas <span class="tipsy_help" title="Essa ferramenta permite a noiva avaliar a qualidade do serviço, profissionalismo, flexibilidade e custo-benefício."></span></td>
+        <td><span class="check"></span></td>
+        <td><span class="check"></span></td>
+        <td><span class="check"></span></td>
+      </tr>
+      <tr>
+        <td>Orçamento Instantâneo <span class="tipsy_help" title="Esse é um modelo genérico de orçamento que vai ajudar as noivas a conhecer o preço médio dos serviços de forma muito rápida e prática!"></span></td>
+        <td><span class="uncheck"></span></td>
+        <td><span class="check"></span></td>
+        <td><span class="check"></span></td>
+      </tr>
+      <tr>
+        <td>Relatório Mensal de Acesso <span class="tipsy_help" title="Receba mensalmente relatório de acesso à sua página de perfil. Uma ferramenta desenvolvida especialmente para vocês, fornecedores." ></span></td>
+        <td><span class="uncheck"></span></td>
+        <td><span class="uncheck"></span></td>
+        <td><span class="check"></span></td>
+      </tr>
+      <tr>
+        <td>Destaque na Busca <span class="tipsy_help" title="Sempre à frente. Apareça melhor posicionado nos resultados de nossa busca."></span></td>
+        <td><span class="uncheck"></span></td>
+        <td><span class="uncheck"></span></td>
+        <td><span class="check"></span></td>
+      </tr>
+    </table>
+
+
+    <div class="form-wrapper">
+      <%= form_for(@message, :html => {:multipart => true}) do |f| %>
+        <%= f.error_messages %>
+        <p>Preencha as suas informações e envie-nos o seu cadastro que em breve a nossa equipe entrará em contato com você.</p>
+        <table class="info">
+          <tr>
+            <td>
+              <div class="form-row clearfix">
+                <%= f.label :nome_fantasia %>
+              <span class="input-shadow"><%= f.text_field :nome_fantasia, :required => true, :name => "name" %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :razao_social %>
+              <span class="input-shadow"><%= f.text_field :razao_social %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :endereco, "Endereço" %>
+              <span class="input-shadow"><%= f.text_field :endereco %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :cnpj, "CNPJ" %>
+              <span class="input-shadow"><%= f.text_field :cnpj %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :site %>
+              <span class="input-shadow"><%= f.text_field :site %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :telefone %>
+              <span class="input-shadow"><%= f.text_field :telefone %></span>
+            </div>
+          </td>
+        </tr>
+        <tr><td><br /><br /></td></tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :contato, "Nome do contato" %>
+              <span class="input-shadow"><%= f.text_field :contato %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :email, "Email" %>
+              <span class="input-shadow"><%= f.text_field :email, :required => true, :name => "email" %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :cargo %>
+              <span class="input-shadow"><%= f.text_field :cargo %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix" id="proposal">
+              <%= f.label :proposal, 'Orçamento Padrão(*.pdf,*.docx,*.doc, *.ppt)' %>
+              <span class="input-shadow"><%= f.file_field :proposal %></span>
+            </div>
+          </td> 
+        </tr>
+        <tr><td><br /><br /></td></tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :content, "Comentários" %>
+              <span class="input-shadow"><%= f.text_area :content, style: "width:550px;height:100px;" %></span>
+            </div>
+          </td>
+        </tr>        
+        <% if false %>
+          <tr>
+            <td>
+              <div class="form-row clearfix">
+                <%= check_box_tag :termo, :name => "termo" %>
+                <%= label_tag :termo do |g| %>
+                 Li e aceito o <%= link_to "termo de adesão", termo_messages_path, class: "lightbox_contactform" %>
+                <% end %>
+              </div>
+            </td> 
+          </tr>
+        <% end %>
+      </table>
+
+      <%= f.hidden_field :type %>
+      <%= f.hidden_field :featured %>
+
+      <div class="form-row row-submit clearfix">
+        <%= f.submit "Enviar", :id => 'form-button' %>
+      </div>
+
+
+      <p>Quaisquer dúvidas entre em contato conosco através do email <%= mail_to 'contato@bemcasados.art.br' %></p>
+    <% end %>
+    </div>
+    <div class="backlog">
+      Você escolheu o plano <p></p>
+      <%= link_to 'Mudar o plano', "/contato/cadastro", class: 'user-button vendor-submit' %>
+    </div>
+
+  <%= render 'layouts/banner' %>
+  <% if false %>
+  <%= render 'layouts/sidebar' %>
+  <% end %>
+</div>

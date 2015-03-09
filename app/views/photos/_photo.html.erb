@@ -1,0 +1,5 @@
+<% if @photo_counter && photo_counter == 0 %>
+	<%= link_to image_tag(photo.image_url(:thumb), alt: photo.name, rel: "v:photo"), photo.image_url %>
+<% else %>
+	<%= link_to image_tag(photo.image_url(:thumb), alt: photo.name), photo.image_url %>
+<% end %>

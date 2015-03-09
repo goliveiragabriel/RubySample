@@ -1,0 +1,41 @@
+<%= render partial: "shared/tabs", :locals => { t: "Vestidos", title: "Vestidos", current: "Vestidos" } %>
+
+<div class="page-content dress-search clearfix">
+  <div class="breadcrumb">
+  <ul>
+    <li><a href="/">Início</a> <span>&#187;</span></li>
+    <li><span>Vestidos de casamento</span></li>
+  </ul>
+</div>
+  <div class="content">
+    <aside class="sidebar">
+      <div class="search-filter">
+        <h2 class="heading">Filtros</h2>
+        <div class="filters-wrapper">
+          <%= render "active_filters" if false %>
+          <%= form_for dresses_path, :method => 'get', :html => { :id => "search-filter-form" } do |f| %>
+            <%= render :partial => "filters", :locals => { :f => f } %>
+          <% end %>
+        </div>
+      </div>
+    </aside>
+    <div class="search-results">
+      <!--
+      <div class="sorting clearfix"> <span>Order by:</span>
+        <ul class="clearfix">
+          <li class="popular selected"><a href="#">Most Popular</a></li>
+          <li class="new-result"><a href="#">New</a></li>
+          <li class="shared"><a href="#">Most Shared</a></li>
+        </ul>
+      </div>
+      -->
+      <div id="result-listing">
+        <%= render "dresses" %>
+      </div>
+    </div>
+  </div>
+  <aside class="sidebar">
+    <%= render 'shared/like_box' %>
+    <%= render 'sidebar_banners' %>
+  </aside>
+</div>

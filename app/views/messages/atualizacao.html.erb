@@ -1,0 +1,70 @@
+<%= render partial: "shared/tabs", :locals => { t: "Página dos Fornecedores", title: "Personalize seu perfil", current: "Personalize seu perfil" } %>
+
+<div class="content-wrapper">
+  <div class="content">
+    <div class="form-wrapper">
+      <%= form_for @message do |f| %>
+        <%= f.error_messages %>
+
+        <p>Nossas amigas noivas e alguns fornecedores parceiros frequentemente sugerem a adição de novos fornecedores ao site.</p>
+        <p>Se você já está listado e gostaria de modificar seu perfil, fale com a gente via <%= mail_to "contato@bemcasados.art.br" %> ou pelo formulário abaixo:</p>
+        <br />
+
+        <table>
+          <tr>
+            <td>
+              <div class="form-row clearfix">
+                <%= f.label :nome_fantasia %>
+              <span class="input-shadow"><%= f.text_field :nome_fantasia %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :telefone %>
+              <span class="input-shadow"><%= f.text_field :telefone %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+           <div class="form-row clearfix">
+              <%= f.label :contato, "Nome do contato" %>
+              <span class="input-shadow"><%= f.text_field :contato %></span>
+            </div>
+          </td>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :cargo %>
+              <span class="input-shadow"><%= f.text_field :cargo %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+           <div class="form-row clearfix">
+              <%= f.label :email %>
+              <span class="input-shadow"><%= f.text_field :email %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-row clearfix">
+              <%= f.label :content, "Comentários" %>
+              <span class="input-shadow"><%= f.text_area :content, style: "width:550px;height:100px;" %></span>
+            </div>
+          </td>
+        </tr> 
+      </table>
+
+      <%= f.hidden_field :type %>
+
+      <div class="form-row row-submit clearfix">
+        <%= f.submit "Enviar" %>
+      </div>
+
+    <% end %></div>
+    <%= render 'layouts/banner' %>
+  </div>
+  <%= render 'layouts/sidebar' %>
+</div>

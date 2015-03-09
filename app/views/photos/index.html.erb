@@ -1,0 +1,44 @@
+<% title "Fotos de #{@vendor.name}" %>
+
+<table class="table-index">
+  <tr>
+    <th>ID</th>
+    <th>Foto</th>
+    <th>Capa</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @photos.each do |photo| %>
+  <tr>
+    <td><%= photo.id %></td>
+    <td><%= image_tag(photo.image_url(:thumb), alt: photo.name) %></td>
+    <td><%= photo.cover %></td>
+    <% if can? :read, photo %>
+      <td><%= link_to '', vendor_photo_path(@vendor, photo), class: 'show-button sprites' %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <% if can? :update, photo %>
+      <td><%= link_to '', edit_vendor_photo_path(@vendor, photo), class: 'edit-button' %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <% if can? :destroy, photo %>
+      <td><%= link_to '', vendor_photo_path(@vendor, photo), :data => { :confirm => 'Você tem certeza?' }, method: :delete, class: 'remove-button sprites' %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if can? :update, Photo %>
+  <%= link_to '', new_vendor_photo_path, class: "add-button sprites fleft" %>
+  <%= link_to('Editar fotos em massa', bulk_edit_vendor_photos_path(@vendor), class: "button-link size-button fleft") if @vendor.photos.size > 0 %> 
+<% end %>
+<div class="clearfix"> </div>
+<%= link_to 'Voltar', vendor_path(@vendor), class: "button-link size-button" %>

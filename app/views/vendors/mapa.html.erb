@@ -1,0 +1,3 @@
+<%= gmaps("markers" => {"data" => @marker }, 
+    "map_options" => { :container_class => "map_container", "auto_zoom" => true,
+    "raw" => '{ overviewMapControl: true, overviewMapControlOptions: {opened: true} }' }) %>

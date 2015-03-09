@@ -1,0 +1,93 @@
+<div class="header-wrapper <%= is_home? ? 'resize' : 'fixed'  %>">
+
+  <div class="toolbar-wrappper">
+    <div class="toolbar clearfix">
+      <ul class="socials clearfix">
+        <li class="facebook"><a href="https://www.facebook.com/BemCasadosArtBr" target="_blank" title="Facebook">Facebook</a></li>
+        <li class="twitter"><a href="http://twitter.com/BemCasadosArtBr" target="_blank" title="Twitter">Twitter</a></li>
+        <li class="rss"><a href="http://blog.bemcasados.art.br/feed/" target="_blank" title="RSS">RSS</a></li>
+        <% if false %>
+          <li class="youtube"><a href="http://www.youtube.com.br" target="_blank" title="Youtube">Youtube</a></li>
+        <% end %>
+        <li class="pinterest"><a href="http://pinterest.com/bemcasados/" target="_blank" title="Pinterest">Pinterest</a></li>
+      </ul>
+
+      <% unless is_home? %>
+        <%= render 'layouts/search' %>
+      <% end %>
+
+      <div class="clearfix"></div>
+      <% if user_signed_in? %>
+        
+        <div class="user-area-wrapper">
+          <ul class="user-area logged-in clearfix">
+            <% if current_user.profile_picture %>
+              <li class="profile-picture"><%= image_tag current_user.profile_picture_url(:small), alt: "avatar" %></li>
+            <% end %>
+             <li class="user-points">
+                  <a href="#" class="">
+
+                  <span><%= current_user.welcome_message %></span>
+                  <!-- Insere as dicas de ajuda do gamification embaixo da barra de progresso -->
+
+                  <% if false %>
+                    <% current_achievement = current_user.user_merits_info.achievements.where('status = ?', Achievement::STATUS[1]).first %>
+                    <a rel='tipsy' title="<%= current_user.user_merits_info.achievements.count > 0 && !current_achievement.nil? ? current_achievement.message : ''  %>" class="points-hint">
+                  <% end %>
+
+                  <a rel='tipsy' title="<%= session[:gamification] %>" class="points-hint">
+
+                  <div class="progress-bar">
+                    <div class="current-progress" style="width: <%= current_progress_merits(current_user)%>%"></div>
+                    <span class="score"><%= true ? 200 : Merit::MAXSCORE["#{current_user.user_merits_info.merit.merits_type}"] %></span>
+                  </div>  
+
+                </a>
+            </li>
+            <li class="notification"><a href="/perfil"></a></li>
+            <li class="logout"><%= link_to "Sair", destroy_user_session_path, :method => :delete, class: "button-link profile-user" %></li>
+            <% if false %>
+              <li><h3 class="close-hint"><a href="#">Fechar barra</a></h3></a>
+              <li><h3 class="open-hint"><a href="#">Abrir barra</a></h3></a>
+            <% end %>        
+          </ul>
+        </div>
+
+        <% else %>
+          <div class="user-area-wrapper" style="right:0px;">
+            <ul class="user-area logged-out clearfix">
+              <% flash.each do |name, msg| %>
+                <%= content_tag :li, msg, :id => "flash_#{name}" %>
+              <% end %>
+              <li><%= link_to "Cadastro", new_user_registration_path, title: "Cadastro" %></li>
+              <li><%= link_to "Login", new_user_session_path(popup: 1), title: "Login", class: "lightbox" %></li>
+              <li><span>ou</span></li>
+              <li><a href="<%= user_omniauth_authorize_path(:facebook) %>" title="Facebook" class="facebook">Login com Facebook</a></li>
+            </ul>
+          </div>
+        <% end %> 
+    </div>
+  </div> <!-- .toolbar-wrappper ends -->
+
+  <% if false %>
+    <div class="head-search">
+      <div class="form">
+        <div class="search-wrapper">
+            <%= render 'layouts/search' %>
+          </div>
+      </div>
+    </div>
+  <% end %>
+
+  <header>
+    <h1 class="logo"><%= link_to "bem casados", root_url,  title: "bem casados" %></h1>
+    <nav class="main-navigation">
+      <ul class="clearfix">
+        <li class="current"><%= link_to "Início", root_url, title: "Início" %></li>
+        <li><a href="http://blog.bemcasados.art.br/" title="Blog">Blog</a></li>
+        <li><a href="/blog/quiz-das-noivas-teste-seu-estilo">Quiz</a></li>
+        <li><%= link_to "Meu Casamento", perfil_path %></li>
+      </ul>
+    </nav>
+  </header>
+</div>

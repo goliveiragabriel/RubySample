@@ -1,0 +1,2 @@
+module UserMeritsInfoHelper
+end

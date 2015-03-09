@@ -1,0 +1,40 @@
+<p>
+  <b>Name:</b>
+  <%= @address.name %>
+</p>
+
+<p>
+  <b>Street:</b>
+  <%= @address.street %>
+</p>
+
+<p>
+  <b>Complement:</b>
+  <%= @address.complement %>
+</p>
+
+<p>
+  <b>District:</b>
+  <%= @address.district %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @address.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @address.state %>
+</p>
+
+<p>
+  <b>Zipcode:</b>
+  <%= @address.zipcode %>
+</p>
+
+<br />
+<% if can? :update, @address %>
+  <%= link_to 'Editar Endereço', edit_vendor_address_path(@vendor, @address), class: "button-link size-button fleft" %>
+<% end %>
+<%= link_to 'Voltar', vendor_addresses_path, class: "button-link size-button fleft" %>

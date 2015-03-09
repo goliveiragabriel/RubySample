@@ -1,0 +1,56 @@
+<div class="" style="width:300px;">
+	<div class="banner-wrapper">
+		<%= form_for(@search, html: {class: 'jqtransform', id: "search-blog-form", :target => "_parent" }) do |f| %>
+          <div id="categoryTextbox" class="categoryTextbox search-blog"> Selecione o serviço</div>
+          <div id="categoryPopup" class="roundedBorder popup-blog">
+            <div style="margin:10px 0px;">
+              <div style="width:49%;float:left;border-right:1px solid #dddddd;">
+                <ul class="categoryBox">
+                  <li class="categoryPopupItem categoryPopupItem1" id="categoryPopupItem1" data-value="Venue" data-value-port="Espaço para Eventos" onclick="catselect.select('1')"><span>Espaço para Eventos</span></li>
+                   <li class="categoryPopupItem categoryPopupItem2" id="categoryPopupItem2" data-value="Catering" data-value-port="Gastronomia" onclick="catselect.select('2')"><span>Gastronomia</span></li>
+                  <li class="categoryPopupItem categoryPopupItem3" id="categoryPopupItem3" data-value="Photography" data-value-port="Fotografia" onclick="catselect.select('3')"><span>Fotografia</span></li>
+                  <li class="categoryPopupItem categoryPopupItem4" id="categoryPopupItem4" data-value="Invitation" data-value-port="Convite de Casamento" onclick="catselect.select('4')"><span>Convite de Casamento</span></li>
+                  <% if false %>
+<!--                  <li class="categoryPopupItem categoryPopupItem5" id="categoryPopupItem5" data-value="Travel" data-value-port="Viagem de Lua de Mel" onclick="catselect.select('5')"><span>Viagem de Lua de Mel</span></li>
+                  <li class="categoryPopupItem categoryPopupItem6" id="categoryPopupItem6" data-value="Band" data-value-port="Banda" onclick="catselect.select('6')"><span>Música</span></li>
+                  <li class="categoryPopupItem categoryPopupItem8" id="categoryPopupItem8" data-value="Gift" data-value-port="Lembrancinha de casamento" onclick="catselect.select('8')"><span>Lembrancinha de casamento</span></li>
+                  <li class="categoryPopupItem categoryPopupItem16" id="categoryPopupItem16" data-value="Planner" data-value-port="Assessoria de casamento" onclick="catselect.select('16')"><span>Assessoria de casamento</span></li>
+ -->                  
+                  <% end %>
+                </ul>
+              </div>
+              <div style="width:50%;float:left">
+                <ul class="categoryBox">
+                  <% if false %>
+<!--                   <li class="categoryPopupItem categoryPopupItem9" id="categoryPopupItem9" data-value="Beauty" data-value-port="Beleza & Saúde" onclick="catselect.select('9')"><span>Beleza & Saúde</span></li>
+                  <li class="categoryPopupItem categoryPopupItem10" id="categoryPopupItem10" data-value="Jewelry" data-value-port="Alianças & Jóias" onclick="catselect.select('10')"><span>Alianças & Jóias</span></li> -->
+                  <% end %>
+                  <li class="categoryPopupItem categoryPopupItem11" id="categoryPopupItem11" data-value="Garment" data-value-port="Vestidos & Trajes" onclick="catselect.select('11')"><span>Vestidos & Trajes</span></li>
+                   
+                  <li class="categoryPopupItem categoryPopupItem12" id="categoryPopupItem12" data-value="Decoration" data-value-port="Decoração" onclick="catselect.select('12')"><span>Decoração</span></li>
+                   <li class="categoryPopupItem categoryPopupItem13" id="categoryPopupItem13" data-value="Cake" data-value-port="Bolos & Doces" onclick="catselect.select('13')"><span>Bolos & Doces</span></li>
+                   <% if false %>
+<!--                  <li class="categoryPopupItem categoryPopupItem14" id="categoryPopupItem14" data-value="Registry" data-value-port="Lista de Presentes" onclick="catselect.select('14')"><span>Lista de Presentes</span></li>
+ -->                  
+                    <% end %>
+                  <li class="categoryPopupItem categoryPopupItem17" id="categoryPopupItem17" data-value="Church" data-value-port="Igrejas" onclick="catselect.select('17')"><span>Igrejas</span></li>
+                  <% if false %>
+<!--                   <li class="categoryPopupItem categoryPopupItem15" id="categoryPopupItem15" data-value="Other" data-value-port="Outros Serviços" onclick="catselect.select('15')"><span>Outros Serviços</span></li>
+ -->                  
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+        	</div>
+          <% if false %>
+            <%= f.select :service_type, Vendor::SERVICE_TYPES_LIST, :include_blank => "Selecione o serviço", :html => {id: "service-selection"} %>
+          <% else %>
+            <%= f.hidden_field :service_type %>
+          <% end %>
+          <span id="search_name" >
+            <%= f.text_field :name, placeholder: "Nome do fornecedor" %>
+          </span>
+          <%= hidden_field_tag 'service_menu_submit', "2" %>
+          <%= f.submit "Buscar", {name: nil, class: "search"} %>
+    <% end %>
+</div>

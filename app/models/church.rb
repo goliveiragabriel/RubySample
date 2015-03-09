@@ -1,0 +1,3 @@
+class Church < Vendor
+
+end

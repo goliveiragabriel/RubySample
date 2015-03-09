@@ -1,0 +1,120 @@
+<div align="center" style="padding:20px 0 0;background-color:#066E7F;line-height:150%;">
+  <table width="600" align="center" border="0" cellpadding="0" cellspacing="0" style="background-color: #fff;font-family: Arial,​Helvetica,​sans-serif; color: #7A7A7A;border-radius:13px;width:495pt;border: 1px solid #066E7F; ">
+    <tbody >
+      <div align="center">
+        <table width="576">
+          <tr style="height:120px">
+            <td valign="top">
+              <a title="Bem casados" href="http://www.bemcasados.art.br"><img src="http://www.bemcasados.art.br/assets/images/logo2.png" width="94" height="50" alt="Bem Casados" style="border:none;padding-top:10px;"/></a>
+            </td>    
+          </tr>
+          <tr style="height:12px;"><td><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/10/spacer.gif" height="10" /></td></tr>
+          <tr>
+            <div align="center" style="border-top:50px;line-height:150%">
+              <p style="text-align: justify;"> 
+                <%= @vendor.name %>, você recebeu novas recomendações no site da Bem Casados. Para ganhar ainda mais destaque, visite nossa página: <a href="http://www.bemcasados.art.br/<%= @vendor.slug %>?b=1" > http://www.bemcasados.art.br/<%= @vendor.slug %></a>.</p>
+            </div>
+          </tr>
+          <tr>
+            <table width="100%" align="center" height="35" style="background-color: #00ADC8;border-radius: 18px 18px 0 0;display:block;">
+              <tbody>
+                <tr>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td width="13" valign="middle" style="">
+                    <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/09/star.png" style="margin:1px 0 0 5px;" alt="Informações"/>
+                  </td>
+                  <td valign="bottom">
+                    <span style="color:#FFFFFF;font-size: 18px;margin:5px 0 0 0;">Recomendações das noivas </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </tr>
+          <tr>
+            <table width="100%" style="border-left: 1px dashed #CCCCCC;border-right: 1px dashed #CCCCCC;border-bottom: 1px dashed #CCCCCC;padding: 2px;border-radius: 0 0 18px 18px;margin-bottom:10px; text-align:center;" align="center">
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+              <% @vendor.reviews.each do |review| %>
+                <% user = review.user %>
+                <% rating = user.average_rating(@vendor) %>
+                <tr>
+                  <td>
+                    <% if review.anonymous || review.user.profile_picture.nil? %>
+                      <% image = review.anonymous_picture %>
+                    <% else %>
+                      <% image = review.user.profile_picture_url %>
+                    <% end %>
+                    <%= image_tag image if false %>
+                    <img src="https://bemcasados-site.s3-sa-east-1.amazonaws.com/user/18/normal_perfil2.jpg" style="background-color: #FFFFFF;border: 1px solid #E6E6E6; border-radius: 6px 6px 6px 6px;padding:8px;width:79px;" />
+                  </td>
+                  <td valign="top">
+                    <table style="text-align:left">
+                      <tr>
+                        <h4 style="color: #006F83;font: bold 14px Arial,Helvetica,sans-serif;display:inline"><%= review.anonymous? ? "Depoimento anônimo" : user.name %></h4>
+                        <p style="font-size: 10px; font-style: italic; display:inline;"><%= review.noiva? ? "Casou" : "Evento" %> em <%= l review.date %></p>
+                      </tr>
+                      <tr style="font-weight: bold;"><%= review.title %></tr>
+                      <tr><%= truncate(review.content, :length => 150, :separator => '' ) %></tr>
+                    </table>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <div class="rating_bar" style="background: url('http://www.bemcasados.art.br/assets/images/stars.png') repeat-x scroll 0 -40px transparent;display: inline-block;width: 95px;">
+                          <div style="width:<%= 100*rating/5 %>%;background: url('http://www.bemcasados.art.br/assets/images/stars.png') repeat-x scroll 0 0 transparent;height: 20px;"></div>
+                        </div>
+                      </tr>
+                      <tr style="font-style: italic">
+                        Compartilhou em <%= l review.created_at %>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </tr>
+          <tr style="text-align: right;">
+            <div style="width: 150px; float:right;">
+              <a href="http://www.bemcasados.art.br/<%= @vendor.slug %>?b=1" alt="Perfil Fornecedor" style="padding: 8px;font: bold 12px/1 Arial, Helvetica, sans-serif;color:#fff;display: block;background-color:#00adc8;text-align: center;border-radius: 4px;-o-border-radius: 4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;text-decoration:none;">Ver no site</a>
+            </div>
+          </tr>
+
+          <tr style="text-align:center;">
+          <div>
+              <p style="margin-top:35px;  ">Muito obrigado pelo carinho,</p>
+              <p style="color:#0C7587; font-weight:bold;margin:0;">Equipe Bem Casados</p>
+              <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/08/lacinho.jpg" width="90px"/><br/>
+              www.bemcasados.art.br
+            </div>
+          </tr>
+          <tr style="">
+            <p style="text-align:right;">
+                <a href="https://www.facebook.com/BemCasadosArtBr" target="_blank" style="display: inline-block;background: url('http://www.bemcasados.art.br/assets/images/social-icons2.png') 0 -25px no-repeat; width:23px;height:23px;" >
+                </a>
+                <a href="http://twitter.com/BemCasadosArtBr" target="_blank" style="display: inline-block;background: url('http://www.bemcasados.art.br/assets/images/social-icons2.png') -30px -25px no-repeat; width:23px;height:23px;">
+                </a>
+                <a href="http://pinterest.com/bemcasados/" style="display: inline-block;background: url('http://www.bemcasados.art.br/assets/images/social-icons2.png') -117px -25px no-repeat; width:23px;height:23px;">
+                </a>
+            </p>
+          </tr>
+        </table>
+      </div>
+    </tbody>
+  </table>
+  <table width="600" align="center" style="font-family: Arial,​Helvetica,​sans-serif;color: #fff;">
+    <tbody>
+      <tr>
+        <p style="margin:0; padding-left: 20px;color: #fff;">Essa mensagem foi enviada para <span><a href="#" style="color: #fff;"> <%= @vendor.email2 %></a></span></p>
+        <p style="margin: 5px 0 0 0; padding-left: 20px;color: #fff;font-size:10px;">
+        <span style="font-size:10px"> Deseja cancelar as nossas newsletters? Entre em contato com <a href="#" style="color: #fff">contato@bemcasados.art.br </a></span><br/>
+        Copyright &copy; 2012, Bem Casados. Todos os direitos reservados.</p>
+      </tr>
+    </tbody>
+  </table>
+</div>

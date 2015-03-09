@@ -1,0 +1,21 @@
+<table class="table-index">
+	<tr>
+		<th></th>
+		<th>Marca</th>
+		<th>Vestido</th>
+		<th>Visitas</th>
+		<th>Tracks</th>
+	</tr>
+
+	<% @dresses.each do |dress| %>
+		<tr>
+			<td><%= link_to image_tag(dress.cover_photo(:thumb)), dress_path(dress) %></td>
+			<td> <%= dress.brand %> </td>
+			<td> <%= dress.name %> </td>
+			<td> <%= link_to "", dress_appointments_path(dress), class: "sprites appointment-button" %> </td>
+			<td> <%= link_to "", dress_track_dresses_path(dress), class: "sprites track-button" %> </td>
+		</tr>
+	<% end %>
+
+</table>
+<%= link_to "Voltar", :back, class: "button-link size-button" %>

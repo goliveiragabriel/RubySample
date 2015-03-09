@@ -1,0 +1,3 @@
+class Jewelry < Vendor
+
+end

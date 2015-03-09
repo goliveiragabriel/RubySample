@@ -1,0 +1,8 @@
+<div id="church-venues">
+	<h3>Espaços para eventos próximos à <%= @vendor.name %>:</h3>
+	<% venues_ids = @vendor.addresses.first.nearbys(5).collect{|a| a.vendor_id}.uniq %>
+	<% venues = Vendor.where(active: true).where(type: "Venue").where('id in (?)', venues_ids) %>
+  <section class="most-revieweds">
+  	<%= render partial: "layouts/vendor", collection: venues %>
+  </section>
+</div>

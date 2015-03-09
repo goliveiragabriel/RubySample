@@ -1,0 +1,3 @@
+class Registry < Vendor
+
+end

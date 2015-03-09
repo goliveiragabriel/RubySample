@@ -1,0 +1,18 @@
+<% if location == "reviews" %>
+	<ul>
+	<% Vendor::SERVICE_TYPES_LIST.each do |category| %>
+	  <% if selected_category(category[1]) %>
+	  	<li><%= link_to( content_tag(:span, "",class: "check") + category[0], searches_path("search[service_type]" => category[1]), method: :post, class: category[1].downcase + " reviewed"  ) %></li>
+	  <% else %>
+		<li><%= link_to( category[0], searches_path("search[service_type]" => category[1]), method: :post, class: category[1].downcase  ) %></li>
+	  <% end %>
+	<% end %>
+	</ul>
+<% else %>
+	<ul>
+	<% Vendor::SERVICE_TYPES_LIST.each do |category| %>
+		<li><%= link_to( category[0], searches_path("search[service_type]" => category[1]), method: :post, class: category[1].downcase  ) %></li>
+	<% end %>
+	</ul>
+<% end %>
+

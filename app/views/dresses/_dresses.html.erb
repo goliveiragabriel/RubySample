@@ -1,0 +1,14 @@
+<% number_featured_sections = (@featured_dresses.size/3.0).ceil %>
+<% excess_featured_spots = 3*number_featured_sections - @featured_dresses.size %>
+<% @featured_dresses = @featured_dresses | @regular_dresses.shift(excess_featured_spots) %>
+<% number_featured_sections.times do %>
+  <section class="results featured">
+    <%= render @featured_dresses.shift(3) %>
+  </section>
+<% end %>
+<% number_sections = (@regular_dresses.size/3.0).ceil %>
+<% number_sections.times do %>
+  <section class="results">
+    <%= render @regular_dresses.shift(3) %>
+  </section>
+<% end %>

@@ -1,0 +1,30 @@
+<table class="faq">
+  <tbody>
+
+    <tr class="even">
+      <th>DJ </th>
+      <td><%= @vendor.dj? ? "sim"  : "não" %></td>
+    </tr>
+
+    <tr>
+      <th>Banda </th>
+      <td><%= @vendor.banda? ? "sim"  : "não" %></td>
+    </tr>
+
+    <tr class="even">
+      <th>Coral & Orchestra </th>
+      <td><%= @vendor.coral? ? "sim"  : "não" %></td>
+    </tr>
+
+    <tr>
+      <th>Aluguel de Equipamentos</th>
+      <td><%= @vendor.aluguel? ? "sim"  : "não" %></td>
+    </tr>
+
+    <tr class="even">
+      <th>Faixa de preço</th>
+      <td><%= "$"*@vendor.price.to_i %></td>
+    </tr>
+
+  </tbody>
+</table>

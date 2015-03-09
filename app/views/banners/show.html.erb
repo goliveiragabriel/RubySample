@@ -1,0 +1,17 @@
+<% if false %>
+<div class="content-wrapper">
+  <div class="content-iframe">
+    <div class="banner-iframe">
+		<%= @vendor.name %>
+		<div class="banner">
+			<div class="rating-bar">			
+				<div class="rating" style="width: <%= rating_average_stars(@vendor.rating_average.round(1)) %>%"></div>
+			</div>
+		</div>
+		Reviews: <%= @vendor.number_reviews %>
+	</div>
+  </div>
+</div>
+
+<%= csrf_meta_tag %>
+<% end %>

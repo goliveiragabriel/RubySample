@@ -1,0 +1,39 @@
+<% title "Endereços de #{@vendor.name}" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Street</th>
+    <th>Complement</th>
+    <th>District</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zipcode</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @addresses.each do |address| %>
+  <tr>
+    <td><%= address.name %></td>
+    <td><%= address.street %></td>
+    <td><%= address.complement %></td>
+    <td><%= address.district %></td>
+    <td><%= address.city %></td>
+    <td><%= address.state %></td>
+    <td><%= address.zipcode %></td>
+    <td><%= link_to 'Show', vendor_address_path(@vendor, address) %></td>
+    <td><%= link_to 'Edit', edit_vendor_address_path(@vendor, address) %></td>
+    <td><%= link_to 'Destroy', vendor_address_path(@vendor, address), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if can? :update, Address %>
+  <%= link_to '', new_vendor_address_path, class: "add-button sprites fleft" %>
+<% end %>
+<div class="clearfix"> </div>
+<%= link_to 'Voltar', vendor_path(@vendor), class: "button-link size-button" %>

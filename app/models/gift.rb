@@ -1,0 +1,3 @@
+class Gift < Vendor
+	
+end

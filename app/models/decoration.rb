@@ -1,0 +1,3 @@
+class Decoration < Vendor
+
+end

@@ -1,0 +1,17 @@
+<% if false %>
+<% @propostas_tipo.sort.each do |quotation, propostas| %>
+<div class="heading <%= quotation %>"><h4> <%= t quotation %> </h4></div>
+	<div class="clearfix">
+		<% for proposta in propostas %>
+			<section>
+				<div class="content-proposta">
+	    			<p><a href="#"></a>Na loja <%= link_to proposta.name, vendor_path(proposta.vendor_id) %></a>: Enviada em: <%= l proposta.data_criacao.to_date %> <%= proposta.status %> </p>
+	    		</div>
+	  			<a href="#" class="view-more">Ver proposta</a>
+			</section>
+		<% end %>
+	</div>
+<% end %>
+<% end %>
+
+<div class="heading soon"><h4> Em breve ... </h4></div>

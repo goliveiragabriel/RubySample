@@ -1,0 +1,7 @@
+<% title "Editando endereço de #{@vendor.name}" %>
+
+<%= render 'form' %>
+
+<br/>
+<%= link_to 'Voltar', vendor_addresses_path, class: "button-link size-button fleft" %>
+<%= link_to 'Ver', vendor_address_path(@vendor, @address), class: "button-link size-button fleft" %>

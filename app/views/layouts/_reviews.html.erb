@@ -1,0 +1,32 @@
+<% @reviews.each_with_index do |review, i| %>
+	<% vendor = review.vendor %>
+	<% rating = review.user.average_rating(review.vendor) %>
+	<% if i == 0 %>
+		<div class="review first-child">
+	<% else %>
+		<div class="review">
+	<% end %>
+		<% if review.anonymous || review.user.profile_picture.nil? %>
+			<% image = review.anonymous_picture %>
+		<% else %>
+			<% image = review.user.profile_picture_url(:thumb) %>
+		<% end %>
+		<div class="left-side">
+	      	<%= image_tag image %> 
+			<div class="rating clearfix">
+			      <%= render :partial => "shared/average_stars", :locals => { :rating => rating, :size => "mini" } %>
+			</div>
+		</div>
+		<section class="right-side">
+			<%= link_to "#{review.user.name}", recomendacoes_path(uid: review.user), class: "reviewer" %>
+			<span> avaliou <%= link_to "#{review.vendor.name}", vendor_seo_path(review.vendor) %></span>
+			<% if review.content.size > 300 %>
+				<p><%= truncate(review.content, :length => 300, :separator => ' ')  %></p>
+			<% else %>
+				<p><%= review.content %></p>
+			<% end %>
+		</section>
+		<span class="date">há <%= distance_of_time_in_words_to_now(review.created_at) %></span>
+	</div>
+<% end %>
+<div class="clearfix"></div>

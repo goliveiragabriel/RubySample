@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User merits info:</b>
+  <%= @achievement.user_merits_info_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @achievement.name %>
+</p>
+
+<p>
+  <b>Action type:</b>
+  <%= @achievement.action_type %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @achievement.status %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%= @achievement.message %>
+</p>
+
+<p>
+  <b>Score:</b>
+  <%= @achievement.score %>
+</p>
+
+<p>
+  <b>Child:</b>
+  <%= @achievement.child_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_achievement_path(@achievement) %> |
+<%= link_to 'Back', achievements_path %>

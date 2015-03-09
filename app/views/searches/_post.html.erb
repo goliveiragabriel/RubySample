@@ -1,0 +1,5 @@
+<li>
+  <a href="<%= post.url %>" target="_blank">
+  <%= image_tag post.img_url, {alt: post.title, width:"168", heigth:"118"} %>
+  <span><%= truncate(post.title, :length => 50) %></span></a>
+</li>

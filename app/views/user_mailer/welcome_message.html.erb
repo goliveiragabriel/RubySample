@@ -1,0 +1,23 @@
+<% if !@user.wedding_date.nil? && @user.wedding_date >= Date.today %>
+
+  <p>Olá <%= @user.first_name %>!</p>
+  
+  <p>Meu nome é Isabel e gostaria de dar super boas vindas a você! Criamos a Bem Casados com o objetivo de ajudar casais a organizarem uma festa única e inesquecível e estamos muito felizes em te receber! </p>
+
+  <p>Se você tiver qualquer dúvida sobre o site, dicas ou sugestões, vou adorar saber. Se quiser dicas mais pessoais, não deixe de conferir o nosso <%= link_to "blog", "blog" %>. ;-) </p>
+  
+
+<% else %>
+
+  <p>Olá <%= @user.first_name %>!</p>
+  
+  <p>Meu nome é Isabel e gostaria de dar super boas vindas a você! Criamos a Bem Casados com o objetivo de ajudar casais a organizarem uma festa única e inesquecível e estamos muito felizes em te receber! </p>
+  
+  <p>Se você tiver qualquer dúvida sobre o site, dicas ou sugestões, vou adorar escutar. Se quiser dicas mais pessoais, não deixe de conferir o nosso <%= link_to "blog", "blog" %> ;-)</p>
+ 
+<% end %>
+
+<p>
+Um abraço! <br />
+<%= link_to "www.bemcasados.art.br", "http://www.bemcasados.art.br" %>
+</p>

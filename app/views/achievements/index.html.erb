@@ -1,0 +1,35 @@
+<h1>Listing achievements</h1>
+
+<table>
+  <tr>
+    <th>User merits info</th>
+    <th>Name</th>
+    <th>Action type</th>
+    <th>Status</th>
+    <th>Message</th>
+    <th>Score</th>
+    <th>Child</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @achievements.each do |achievement| %>
+  <tr>
+    <td><%= achievement.user_merits_info_id %></td>
+    <td><%= achievement.name %></td>
+    <td><%= achievement.action_type %></td>
+    <td><%= achievement.status %></td>
+    <td><%= achievement.message %></td>
+    <td><%= achievement.score %></td>
+    <td><%= achievement.child_id %></td>
+    <td><%= link_to 'Show', achievement %></td>
+    <td><%= link_to 'Edit', edit_achievement_path(achievement) %></td>
+    <td><%= link_to 'Destroy', achievement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Achievement', new_achievement_path %>

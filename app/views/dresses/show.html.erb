@@ -1,0 +1,159 @@
+<%= render partial: "shared/tabs", :locals => { t: "Vestidos", title: "#{@dress.brand}", current: "Vestidos" } %>
+
+<div class="page-content dress-page clearfix">
+  <div class="breadcrumb">
+    <ul>
+      <li><a href="/">Início</a> <span>&#187;</span>&nbsp;</li>
+      <li><a href="/vestidos">Vestidos de casamento</a> <span>&#187; </span>&nbsp;</li>
+      <li><span><%= @dress.name %></span>&nbsp;</li>
+    </ul>
+  </div>
+  <div class="content">
+    <aside class="sidebar">
+      <div class="search-filter">
+        <h2 class="heading">Veja também</h2>
+          <div class="filters-wrapper">
+            <%= render :partial => "sidebar_like", :collection => @random_dress, :locals => {:type => "sidebar", :position => @current} %>
+          </div>
+      </div>
+    </aside>
+    <div class="search-results">
+      <h2><%= @dress.brand %></h2>
+      <% if @dress.dress_photos.size > 0 %>
+        <% if @dress.dress_photos.size == 1 %>
+          <div id="dress-gallery_no_thumbs"><%= render @dress.dress_photos %></div>
+        <% else %>
+          <div id="dress-gallery"><%= render @dress.dress_photos %></div>
+        <% end %>
+      <% end %>
+
+      <% if can? :edit, Dress %>
+      <div class="dress-description clearfix">
+        <h3>Admin:</h3>
+        <div style="display:block;">
+          <% if can? :edit, Photo %>
+            <p><%= link_to 'Gerenciar Fotos', dress_dress_photos_path(@dress) %></p>
+          <% end %>
+          <% if can? :edit, Appointment %>
+            <p><%= link_to 'Gerenciar Visitas', dress_appointments_path(@dress) %></p>
+          <% end %>
+          <% if can? :index, Bookmark %>
+            <p><%= link_to 'Ver Favoritos', dress_bookmarks_path(@dress) %></p>
+          <% end %>
+          <% if can? :edit, Dress %>
+            <p><%= link_to 'Editar', edit_dress_path(@dress)%></p>
+          <% end %>
+          <% if can? :index, TrackDress %>
+            <p><%= link_to 'Ver Tracks', dress_track_dresses_path(@dress)%></p>
+          <% end %>            
+        </div>
+      </div>
+      <% end %>
+
+      <div class="dress-description clearfix">
+        <h3>Descrição:</h3>
+        <table>
+          <tbody>
+            <tr class="even">
+              <td>Marca:</td><td><a href="#"><%= @dress.brand %> </a></td>
+            </tr>
+            <tr class="odd">
+              <td>Silhueta:</td><td><a href="#"><%= t(@dress.silhouette) unless @dress.silhouette.blank? %></a></td>
+            </tr>
+            <tr class="even">
+              <td>Decote:</td><td><a href="#"><%= t(@dress.neckline) unless @dress.silhouette.blank? %></a></td>
+            </tr>
+            <tr class="odd">
+              <td>Manga:</td><td><a href="#"><%= t(@dress.sleeve) unless @dress.sleeve.blank? %></a></td>
+            </tr>
+            <!--<tr class="even">
+              <td>Cor:</td><td><a href="#"><%= t(@dress.color) unless @dress.color.blank? %></a></td>
+            </tr> -->
+            <tr class="even">
+              <td>Comprimento:</td><td><a href="#"><%= @dress.length %></a></td>
+            </tr>
+            <tr class="odd">
+              <td>Tecido:</td><td><a href="#"><%= t(@dress.fabric) unless @dress.fabric.blank? %> </a></td>
+            </tr>
+            <tr class="even">
+              <td>Acabamento:</td><td><a href="#"><%= @dress.finish unless @dress.fabric.blank? %> </a></td>
+            </tr>
+            <tr class="odd">
+              <td>Cauda:</td><td><a href="#"><%= @dress.train unless @dress.fabric.blank? %> </a></td>
+            </tr>
+            <tr class="even">
+              <td>Preço:</td><td><a href="#"><%= price_to_dollar(@dress.price) %>  </a></td>
+            </tr>
+            <tr class="odd">
+              <td>Detalhes:</td><td><a href="#"><%= @dress.details %>  </a></td>
+            </tr>
+
+          </tbody>
+        </table>
+        <div class="share">
+            <% if current_user && current_user.dresses.include?(@dress) %>
+              <div class="favourited">
+                <% bookmark = current_user.find_bookmark(@dress) %>
+                <%= link_to 'Favoritado', dress_bookmark_path(@dress, bookmark), method: :delete %>
+              </div>   
+            <% else %>
+              <div class="favourite"> 
+                <%= link_to "Favoritar", new_dress_bookmark_path(@dress), title: "Favorite", class: "lightbox" %>
+              </div>
+            <% end %>
+            <div id="facebook_like_button_holder" dress-id="<%= @dress.id %>" class="tipsy_like" original-title="<%= @dress.share %>" >
+              <iframe src="//www.facebook.com/plugins/like.php?href=http://localhost:3000/vestidos/<%= @dress.id %>&amp;send=false&amp;layout=button_count&amp;width=500&amp;show_faces=false&amp;action=recommend&amp;colorscheme=light&amp;font=arial&amp;height=21&amp;appId=332880850073107" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:30px;" allowTransparency="true"></iframe>
+              <div class="facebook">
+                <a href="#">
+                  Enviar via Facebook
+                </a>
+              </div>
+            </div>
+          <div class="email"><%= mail_to "","Enviar via Email", :subject => "Bem Casados - Conheça #{@dress.name} de #{@dress.brand} " %></div>
+        </div><!-- .share ends here -->
+      </div><!-- .dress description here -->
+
+      <div class="try-wrapper">
+        <h3>Experimente este vestido:</h3>
+        <div class="try border clearfix">
+          <div>
+            <h3><%= @dress.vendor.name %></h3>
+            <p><%= @dress.vendor.address %> (<%= link_to "ver no mapa",  mapa_vendor_path(@dress.vendor), class: "lightbox_gmap" %>)</p>
+            <%= link_to "Marque uma visita", add_appointment_path(@dress.id, @dress.vendor_id), class: "view-more lightbox_appointment" %>
+          </div>
+          <a href="#" class="more">Mais</a>
+        </div>
+      </div><!-- .try-wrapper ends here -->
+      
+      <div class="more-dresses border">
+        <h3>Mais vestidos <%= @dress.silhouette %>: </h3>
+
+        <%= render :partial => "sidebar_like", :collection => Dress.where("silhouette = ?", @dress.silhouette).limit(3), :locals => { :type => "bottom"} %>
+
+        <!--<div class="result"><img src="/assets/dress-gallery/more-dress.jpg" alt="Result Image" height="204" width="139" /><a href="#" class="favourite bookmarked">Favourite</a></div>
+        <div class="result"><img src="/assets/dress-gallery/more-dress.jpg" alt="Result Image" height="204" width="139" /><a href="#" class="favourite bookmarked">Favourite</a></div>
+        <div class="result"><img src="/assets/dress-gallery/more-dress.jpg" alt="Result Image" height="204" width="139" /><a href="#" class="favourite">Favourite</a></div> -->
+      </div><!-- .more-dresses -->
+      <div class="more-dresses border">
+        <h3>Mais vestidos <%= @dress.fabric %>:</h3>
+          <%= render :partial => "sidebar_like", :collection => Dress.where("fabric = ?", @dress.fabric).limit(3), :locals => { :type => "bottom"} %>
+
+        <!-- <div class="result"><img src="/assets/dress-gallery/more-dress.jpg" alt="Result Image" height="204" width="139" /><a href="#" class="favourite">Favourite</a></div>
+        <div class="result"><img src="/assets/dress-gallery/more-dress.jpg" alt="Result Image" height="204" width="139" /><a href="#" class="favourite bookmarked">Favourite</a></div>
+        <div class="result"><img src="/assets/dress-gallery/more-dress.jpg" alt="Result Image" height="204" width="139" /><a href="#" class="favourite">Favourite</a></div> -->
+      </div><!-- .more-dresses -->
+    </div><!-- .search reults ends here -->
+  </div>
+  
+  <!-- content filter wrapper-wrapper Ends -->
+  <aside class="sidebar">
+    <div class="search-filter">
+      <h2 class="heading">Fica ótimo com</h2>
+      <div class="filters-wrapper">
+        <div><a href="#"><img src="/assets/accessories-1.jpg" height="159" width="136" alt="You may also like" /></a></div>
+        <div><a href="#"><img src="/assets/accessories-2.jpg" height="159" width="136" alt="You may also like" /></a></div>
+        <div><a href="#"><img src="/assets/accessories-3.jpg" height="159" width="136" alt="You may also like" /></a></div>
+      </div>
+    </div>
+  </aside>
+</div>

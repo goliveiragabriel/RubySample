@@ -1,0 +1,22 @@
+<div class="show">
+	<p>
+	  <b>Nome:</b>	
+	  <%= @dress_photo.name %>
+	</p>
+
+	<p>
+	  <b>É Capa ?</b>
+	  <%= @dress_photo.cover %>
+	</p>
+	<br/>
+    <div id="gallery">
+		<a href="<%= @dress_photo.image_url %>"><img data-big="<%= @dress_photo.image_url(:large) %>" alt="<%= @dress_photo.name %>" src="<%= @dress_photo.image_url(:thumb) %>" /></a>
+	</div>
+	<div class="clearfix"></div>
+	<br />
+	<% if can? :update, @dress_photo %>
+		<%= link_to 'Editar foto', edit_dress_dress_photo_path(@dress, @dress_photo), class: "button-link size-button fleft" %>
+	<% end %>
+	<%= link_to 'Voltar', dress_dress_photos_path, class: "button-link size-button fleft" %>
+	<br/>
+</div>

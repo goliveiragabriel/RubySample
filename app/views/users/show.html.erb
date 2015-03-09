@@ -1,0 +1,279 @@
+<% title "#{current_user.name}" %>
+<div class="page-content personal-page clearfix">
+
+
+  <aside class="sidebar">
+
+    <aside class="menu">
+      <%= render "sidebar_left"%>
+    </aside>
+
+    <% if can? :read, Dress %>
+      <aside class="points">
+    <% else %>
+      <aside class="points" style="top:270px;">
+    <% end %>
+        <%= render "sidebar_points" %>
+      </aside>
+    <div class="clearfix"></div>
+    
+  </aside>      
+
+  <div class="content">
+    <div class="user-profile border">
+      <div class="avatar">
+        <%= image_tag current_user.profile_picture_url(:normal), height: 80, alt: "avatar" %>
+      </div>
+      <div class="user-details">
+        <h2><%= " #{@user.name} & #{@user.significant_other}" %> </h2>
+        <p>
+          <% if @user.wedding_date %>
+            <%= @user.formated_data %> 
+          <% else %>
+            <%= link_to "Insira a data do seu casamento", edit_user_path(@user), class: "lightbox_profile_edit" %>
+          <% end %>
+          // <%= @user.location %>
+          <%= link_to '', edit_user_path(@user), class: "profile-edit lightbox_profile_edit" %>
+        </p>
+      </div>
+    <div class="date-box">
+        <p>
+          <% if @user.wedding_date %>
+            <%= t('datetime.distance_in_words.x_days', :count => @user.days_to_go) %>
+            para</p>
+           <span>o seu casamento!</span>
+          <% else %>
+            Quando você</p><span> vai se casar? </span> 
+          <% end %>
+    </div>
+
+    </div>
+    <section id="guide" class="group">
+      <h3><a href="#">Guia de Organização</a></h3>
+      <div id="wedding-line">
+       <a href="#" id="next"></a>
+       <a href="#" id="prev"></a>
+       <ul id="dates">
+          <% FeedEntry::FEEDS_CATEGORIES_RSS.each_with_index do |tag, f_index | %>
+            <li class="<%= f_index != 7 ? tag[0] : tag[0]%>">
+              <div class="posts-timeline clearfix" >
+                <% @feeds[tag[0]].each_with_index do |post, index| %>
+                  <a href="#" id="post-<%= post.id %>" class="post_line <%= index == 0 && f_index == 0 ? 'clicked' : '' %>" ><span class="post-dot clearfix"></span></a>
+                <% end %>
+              </div> 
+              <% if true %>
+                <a href="#"><%= tag[1][0] %></a>
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if false %>
+            <li><a href="#">Primeira Decisão</a></li>
+            <li><a href="#">Após Definição da Data</a></li>
+            <li><a href="#">6 a 12 meses antes</a></li>
+            <li><a href="#">3 a 6 meses antes</a></li>
+            <li><a href="#">2 meses antes</a></li>
+            <li><a href="#">2 a 3 semanas antes</a></li>
+            <li><a href="#">1 semana antes</a></li>
+            <li><a href="#">Volta da Lua de Mel</a></li>
+          <% end %>
+       </ul>
+       <ul id="issues">
+
+        <% FeedEntry::FEEDS_CATEGORIES_RSS.each do |tag,values| %>
+          <li class="<%= tag %>">
+            <% @feeds[tag].each do |post| %>
+              <div id="post-<%= post.id %>">
+                <a href="<%= post.url %>">
+                  <img src="<%= post.img_url %>" alt="<%= values[0] %>"/>
+                </a>
+                <div class="content">
+                  <h4><a href="<%= post.url %>"><%= post.title %></a></h4>
+                  <p><%= post.summary ? post.summary.html_safe : ' ' %> <a href="<%= post.url %>" class="leiamais" ><span>Leia Mais >></span></a></p>
+                </div>
+              </div>
+            <% end %>
+
+          </li>
+        <% end %>
+
+          <% if false %>
+            <li id="Primeira Decisão">
+              <a href="http://blog.bemcasados.art.br/por-onde-comecar-na-organizacao-do-casamento/"><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/03/j0309636-280x180.jpg" alt="Primeira Decisão" /></a>
+              <div class="content">
+                <h4><a href="http://blog.bemcasados.art.br/por-onde-comecar-na-organizacao-do-casamento/"> Por onde começar a organizar o casamento</a></h4>
+                <p>Acredito que a coisa mais importante para o planejamento de um casamento perfeito é – o planejamento! Escolhi algumas dicas que apesar de simples de entender requerem muita força de vontade e dedicação para que sejam colocadas em prática. A …<a href="http://blog.bemcasados.art.br/por-onde-comecar-na-organizacao-do-casamento/" class="leiamais" target="_blank" ><span>Leia Mais >> </span></a></p>
+              </div>
+            </li>
+            <li id="Após Definição da Data">
+              <a href="http://blog.bemcasados.art.br/ja-tem-data-comecando-a-organizar/" alt="Após a primeira decisão"><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/03/casamento-discutir-definir-inicio-planejamento.jpg" alt="" /></a>
+                <div class="content">
+                  <h4><a href="http://blog.bemcasados.art.br/ja-tem-data-comecando-a-organizar/" >Já tem data? Começando a organizar o casamento</a></h4>
+                  <p>Casamento é um tema muito mágico! Todo mundo se empolga, puxa assunto e quer saber mais sobre como estão os preparativos! Eu lembro que quando eu voltei da viagem de noivado com o anel da mão era batata. Só chegar …<a href="http://blog.bemcasados.art.br/ja-tem-data-comecando-a-organizar/" class="leiamais" target="_blank" alt="Leia Mais"> <span>Leia Mais >></span></a></p>
+                </div>
+            </li>
+            <li id="6 a 12 meses antes">
+              <a href="http://blog.bemcasados.art.br/escolhendo-os-padrinhos-e-madrinhas-de-casamento/" alt="6 a 12 meses antes"><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/07/vestido-de-noiva-modelo-combina-voc%C3%AA-corpo-sereia.jpg" alt="" /></a>
+                <div class="content">
+                  <h4><a href="http://blog.bemcasados.art.br/vestido-de-noiva-encontre-o-modelo-que-mais-te-valoriza/">Vestido de Noiva: encontre o modelo que mais te valoriza</a></h4>
+                  <p>O momento mais importante em todo casamento é a entrada da noiva. Por isso a escolha do vestido perfeito é fundamental.  Sou Taiana Natale, estilista de noivas, e escreverei uma série de posts para ajudar a orientar diversas pessoas a …<a href="http://blog.bemcasados.art.br/vestido-de-noiva-encontre-o-modelo-que-mais-te-valoriza/" class="leiamais" target="_blank" alt="Leia Mais"> <span>Leia Mais >></span></a></p>
+                </div>
+            </li>
+            <li id="3 a 6 meses antes">
+              <a href="http://blog.bemcasados.art.br/a-lista-de-presentes-do-casamento/" alt="3 a 6 meses antes"><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/09/Lista-de-casamento.jpg" alt="" /></a>
+                <div class="content">
+                  <h4><a href="http://blog.bemcasados.art.br/a-lista-de-presentes-do-casamento/" >A Lista de Presentes do Casamento</a></h4>
+                  <p>A lista de casamento é uma maravilha inventada para trazer mais praticidade aos noivos e convidados do casamento. Mas, afinal de contas, como montá-la? Como entregá-la aos convidados? O primeiro passo é escolher as lojas de sua preferência. O ideal …<a href="http://blog.bemcasados.art.br/a-lista-de-presentes-do-casamento/" class="leiamais" target="_blank" alt="Leia Mais"> <span>Leia Mais >></span></a></p>
+                </div>
+            </li>
+            <li id="2 meses antes">
+              <a href="http://blog.bemcasados.art.br/10-coisas-que-as-noivas-nao-podem-esquecer/" alt="2 meses antes"><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/11/10-coisas-que-a-noiva-nao-pode-esquecer1.jpg" alt="" /></a>
+                <div class="content">
+                  <h4><a href="http://blog.bemcasados.art.br/10-coisas-que-as-noivas-nao-podem-esquecer/" >10 detalhes que as noivas não podem esquecer!</a></h4>
+                  <p>1. Ter um cabide bonito para pendurar o vestido É um pequeno detalhe, mas quando o fotógrafo tira a foto clássica de seu vestido pendurado antes de você colocá-lo, é bom que ele esteja pendurado em uma peça especial. Para …<a href="http://blog.bemcasados.art.br/10-coisas-que-as-noivas-nao-podem-esquecer/" target="_blank" class="leiamais" alt="Leia Mais"> <span>Leia Mais >></span></a></p>
+                </div>
+            </li>
+            <li id="2 a 3 semanas antes">
+              <a href="http://blog.bemcasados.art.br/9-coisas-que-voce-deve-evitar-na-semana-do-casamento/" alt="2 a 3 semanas antes"><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/08/beleza-e-saude-da-noiva-alimentacao-saudavel.jpg" alt="" /></a>
+                <div class="content">
+                  <h4><a href="http://blog.bemcasados.art.br/9-coisas-que-voce-deve-evitar-na-semana-do-casamento/" >9 coisas que você deve evitar na semana do casamento</a></h4>
+                  <p>Conforme a grande data se aproxima, mais coisas você tem para se preocupar e mais corridos ficam os preparativos. Algumas tarefas vão se acumulando e a última semana pode ser a mais turbulenta. Para que isso não aconteça, planeje tudo …<a href="http://blog.bemcasados.art.br/9-coisas-que-voce-deve-evitar-na-semana-do-casamento/" class="leiamais" target="_blank" alt="Leia Mais"> <span>Leia Mais >></span></a></p>
+                </div>
+            </li>
+            <li id="1 semana antes">
+              <a href="http://blog.bemcasados.art.br/conselhos-para-aproveitar-o-seu-dia-da-noiva/" alt="1 semana antes"><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/08/dia-de-noiva-tratamentos-est%C3%A9ticos.jpg" alt="" /></a>
+                <div class="content">
+                  <h4><a href="http://blog.bemcasados.art.br/conselhos-para-aproveitar-o-seu-dia-da-noiva/" >Conselhos para aproveitar o seu Dia da Noiva.</a></h4>
+                  <p>O grande dia chegou e, em algumas horas, você estará aceitando o amor da sua vida cercada de família e amigos. Para esse dia tão especial, só há uma regra: estar mais linda do que nunca! Aproveite e se deixe … <a href="http://blog.bemcasados.art.br/conselhos-para-aproveitar-o-seu-dia-da-noiva/" class="leiamais" target="_blank" alt="Leia Mais"> <span>Leia Mais >></span></a></p>
+                </div>
+            </li>
+            <li id="Volta da Lua de mel">
+              <a href="http://blog.bemcasados.art.br/cartoes-de-agradecimento-pelos-presentes/" alt="Volta da Lua de mel"><img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/10/Cart%C3%B5es-de-agradecimento-casamento1.jpg" alt="" /></a>
+                <div class="content">
+                  <h4><a href="http://blog.bemcasados.art.br/cartoes-de-agradecimento-pelos-presentes/" >Para retribuir o carinho do noivo</a></h4>
+                  <p>Vocês tiveram a festa dos sonhos, rodeados pelas pessoas mais queridas das suas vidas e acabaram de voltar de uma lua de mel maravilhosa. É hora de começar a nova vida e colocar a casa em ordem… Mas espere! Vocês …<a href="http://blog.bemcasados.art.br/cartoes-de-agradecimento-pelos-presentes/" target="_blank" class="leiamais" alt="Leia Mais"> <span>Leia Mais >></span></a></p>
+                </div>
+            </li>
+          <% end %>
+       </ul>
+       <% if false %>
+         <a href="#" id="next">+</a> <!-- optional -->
+         <a href="#" id="prev">-</a> <!-- optional -->
+       <% end %>
+      </div>
+      <div>
+        <h4 style="text-align:center"> Área de Downloads </h4>
+        <div class="downloads">
+          <div class="organizacao">
+            <a href="https://s3-sa-east-1.amazonaws.com/bemcasados-arquivos/Organizac%CC%A7a%CC%83o+do+Meu+Casamento.xlsx">
+              <% if false %>
+                <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/11/como-planejar-o-casamento.jpg" alt="Guia Organização" />
+              <% end %>
+              <img src="/images/downloads.png" alt="Guia Organização" />
+              <span>Baixar o Guia de Organização</span>
+            </a>
+
+          </div>
+          <div class="fotografo">
+            <a href="https://s3-sa-east-1.amazonaws.com/bemcasados-arquivos/Perguntas+para+o+potencial+foto%CC%81grafo+do+casamento.pdf" alt="Guia Escolha Fotógrafo">
+              <% if false %>
+                <img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/09/fotografo-de-casamento-01.jpg" alt="Guia Fotógrafo" />
+              <% end %>
+              <img src="/images/downloads.png" alt="Guia Organização" />
+              <span>Baixar o Guia de Perguntas para o Fotógrafo</span>
+            </a>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </section>
+
+    <!--.user-profile-->
+    <section id="vendors" class="group">
+      <%= render "favourite_vendors", :collection => @user.bookmarks %>
+    </section><!--  .vendors  -->
+
+
+    <% if can? :read, Dress %>
+    <section id="accessories" class="group">
+      <h3><a href="#">Vestidos Favoritos</a></h3>
+      <div>
+        <div class="row">
+          <% vestidos = @user.dresses.sample(@user.dresses.size) %>
+          <%= render :partial => "favourite_dresses", :collection => vestidos %>
+            <!-- <a href="#" class="more">Mais</a> -->
+        </div>
+      </div>
+    </section>
+
+    <section id="appointments" class="group">
+      <%= render "appointments", :collection => @user.appointments %>
+    </section>
+    <% end %>
+
+    
+    <section id="proposals" class="group">
+      <h3><a href="#">Minhas Propostas</a></h3>
+      <div>
+        <%= render "proposals", :collection => @user.quotations %>
+      </div>
+    </section><!--  .PROPOSALS  -->
+
+    <section id="reviews" class="group">
+      <h3><a href="#">Minhas Reviews</a></h3>
+      <div>
+        <%= render :partial => "shared/reviews", :collection => @user.reviews, :locals => {:type => "user"} %>
+        <div class="categories">
+            <h4>Escreva suas reviews para os fornecedores:</h4>
+            <%= render :partial => "users/category", :locals => {:location => "reviews"} %>
+        </div>
+      </div>
+    </section>
+
+    <% if false %>
+    <section id="guide" class="group">
+      <h3><a href="#">Guia de organização</a></h3>
+      <div>
+        <ul>
+          <li>
+            <a href="https://s3-sa-east-1.amazonaws.com/bemcasados-arquivos/Organizac%CC%A7a%CC%83o+do+Meu+Casamento.xlsx"><span></span>Download da Planilha de Planejamento da Bem Casados</a>
+          </li>
+          <li>
+            <a href="https://s3-sa-east-1.amazonaws.com/bemcasados-arquivos/Perguntas+para+o+potencial+foto%CC%81grafo+do+casamento.pdf" alt="Guia Escolha Fotógrafo"><span></span>Download Guia para o potencial fotógrafo do seu casamento</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <% end %>
+
+  </div>
+  <!-- content filter wrapper-wrapper Ends --> 
+</div>
+<!-- Page Content wrapper-wrapper Ends  --> 
+
+<%= content_for :scripts do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      menu = $(".sidebar");
+      $(window).scroll(function(){
+        if ($(window).scrollTop() > 110) {
+            menu.css("position","fixed");
+            // Comentário para remoção barra
+            menu.css("top","66px");
+            // menu.css("top","3px");
+        } else if ($(window).scrollTop() <= 110) { 
+            menu.css("position","absolute");
+            menu.css("top","0px");
+        }
+
+      });
+
+      $("aside.menu li a").click(function(e){
+        e.preventDefault();
+        var location = $(this).attr('href');
+        window.scrollTo(0, $(location).offset().top - $(".toolbar-wrappper").height());
+      })
+    });
+
+  </script>
+<% end %>

@@ -1,0 +1,59 @@
+<% title 'Usuários' %>
+
+<div id="page-notification">
+  <% if flash[:alert] %>
+    <p class="flash-error"><%= flash[:alert] %></p>
+  <% end %>
+  <% if flash[:notice] %>
+    <p class="flash-notice"><%= flash[:notice] %></p>
+  <% end %>
+  <%= yield %>
+</div>
+
+<table class="table-index">
+  <tr>
+    <th>Foto</th>
+    <th>Nome</th>
+    <th>Sobrenome</th>
+    <th>Sexo</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= image_tag(user.profile_picture_url(:thumb)) if user.profile_picture %></td>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.genre %></td>
+    <td>
+      <% if !user.email.blank? && user.mailing %>
+          <%= link_to '', send_tester_email_user_path(user),data: { confirm: 'Você deseja enviar email para o usuario ' << user.name << ' Email:' << user.email }, class: "send-button sprites" %>
+      <% end %>
+    </td>
+    <% if can? :read, user %>
+      <td><%= link_to '', user, class: "show-button sprites" %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <% if can? :update, user %>
+      <td><%= link_to '', edit_user_path(user), class: "edit-button" %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <% if can? :destroy, user %>
+      <td><%= link_to '', user, confirm: 'Are you sure?', method: :delete, class: "remove-button sprites" %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if can? :create, User %>
+  <%= link_to 'New User', new_user_path %>
+<% end %>

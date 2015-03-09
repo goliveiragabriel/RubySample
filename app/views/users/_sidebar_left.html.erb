@@ -1,0 +1,18 @@
+      <ul class="left-menu">
+        <li><a href="#guide" class="last-child appointments">Guia de organização</a></li>
+        <li><a href="#vendors" class="vendor first-child">Fornecedores Favoritos <span>(<%= profile_sidebar_count("favorites_vendors") %>)</span></a></li>
+        <% if can? :read, Dress %>
+	        <li><a href="#accessories" class="accessories">Vestidos Favoritos <span>(<%= profile_sidebar_count("favorites_dresses") %>)</span></a></li>
+	        <li><a href="#appointments" class="appointments">Visitas <span>(<%=profile_sidebar_count("appointments")%>)</span></a></li>
+        <% end %>
+        <li><a href="#proposals" class="proposals">Propostas <span>(<%= profile_sidebar_count("quotations") %>)</span></a></li>
+        <li><a href="#reviews" class="review">Reviews <span>(<%= profile_sidebar_count("reviews") %>)</span></a></li>
+<!--         <li><a href="#guide" class=" appointments">Guia de Organização</a></li>
+ -->        
+      </ul>
+
+
+<!--<iframe src="http://localhost:3000/fornecedores/banners/vendor-teste-123456" width="130px" height="140px" id="banners-vendors-vendor-teste" scrolling="no" frameborder="0"></iframe>-->
+
+
+

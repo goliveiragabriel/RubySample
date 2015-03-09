@@ -1,0 +1,46 @@
+<%= title "Orçamento de " << @quotation.user.name << " para " << @quotation.vendor.name %>
+<div class="show">
+  <p id="notice"><%= notice %></p>
+  <p>
+    <h3 >Fornecedor <%= @quotation.vendor.name %></h3>
+  </p>
+
+  <div class="info-user">
+    <p>
+      <b>Usuário:</b><br/>
+      <%= @quotation.user.name %>
+    </p>
+    <p>
+      <b>Telefone:</b><br/>
+      <%= @quotation.telephone %>
+    </p>
+
+    <p>
+      <b>Convidados:</b><br/>
+      <%= @quotation.number_guests %>
+    </p>
+
+    <p>
+      <b>Data do Casamento:</b><br/>  
+      <%= l(@quotation.wedding_date) %>
+    </p>
+    <p>
+      <b>Comentários</b><br/>
+      <%= @quotation.comments %>
+    </p>
+    <p>
+    <b>Status</b><br/>
+    <% if @quotation.status.eql? "Aguardando" %>
+      <span style="color: #E03A3A; font-weight: bold;"><%= @quotation.status %></span>
+    <% else %>
+      <span style="color: #05B72C; font-weight: bold;"><%= @quotation.status %></span>
+    <% end %>
+    </p>
+
+  </div>
+  <br/>
+
+
+  <%= link_to 'Voltar', quotations_path, class: "button-link size-button fleft" %>
+  <%= link_to 'Editar', edit_quotation_path(@quotation), class: "button-link size-button fleft" %> 
+</div>

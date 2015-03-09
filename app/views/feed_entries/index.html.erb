@@ -1,0 +1,40 @@
+<%= title "Feeds" %>
+<span class="nro-resultados"> <%= pluralize(@feed_entries.size, "resultado") %></span>
+
+<table class="table-index">
+  <tr>
+    <th>Título</th>
+    <th>Summary</th>
+    <th>Img url</th>
+    <th>Url</th>
+    <th>Publicado em</th>
+    <th>Guid</th>
+    <th>Categorias</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @feed_entries.each do |feed_entry| %>
+  <tr>
+    <td><%= feed_entry.title %></td>
+    <td><%= feed_entry.summary %></td>
+    <td><%= feed_entry.img_url %></td>
+    <td><%= feed_entry.url %></td>
+    <td><%= feed_entry.published_at %></td>
+    <td><%= feed_entry.guid %></td>
+    <td><%= feed_entry.categories %></td>
+    <td><%= link_to '', feed_entry, class: "show-button sprites" %></td>
+    <td><%= link_to '', edit_feed_entry_path(feed_entry), class: "edit-button" %></td>
+    <td><%= link_to '', feed_entry, confirm: 'Você tem certeza?', method: :delete, class: "remove-button sprites" %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @feed_entries %>
+
+<br />
+<%= link_to '', update_from_feed_feed_entries_path, class: "sprites refresh-button fleft" %>  
+
+<%= link_to '', new_feed_entry_path, class: "add-button sprites fleft" %>
+

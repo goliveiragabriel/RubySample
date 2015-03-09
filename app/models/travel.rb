@@ -1,0 +1,3 @@
+class Travel < Vendor
+	
+end

@@ -1,0 +1,118 @@
+<div style="background-color: #066E7F;padding:48px 0 10px 0;" >
+	<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" style="background-color: #fff;font-family: Arial,​Helvetica,​sans-serif; color: #666;box-shadow: 1px 0 6px #141414;border-radius:13px; ">
+		<tbody >
+			<tr>
+				<a title="Bem casados" href="http://www.bemcasados.art.br"><img src="http://www.bemcasados.art.br/assets/images/logo2.png" width="94" height="50" alt="Bem Casados" style="padding-left: 15px;border:none;padding-top:10px;"/></a>
+				<ul style="float:right; list-style: none outside none;padding-right:10px;padding-top:10px;width:60px;height:60px;" >
+					<li style="float:left">
+						<!--<a href="http://www.bemcasados.art.br/perfil" style="background-color: #00ADC8;border-radius: 4px 4px 4px 4px; color: #FFFFFF;font: bold 12px/1 Arial,Helvetica,sans-serif; text-decoration:none;padding: 8px;text-align: center;display:inline-block;"> Novo Perfil</a> 
+						<a href="http://www.bemcasados.art.br/perfil" style="border-radius: 4px 4px 4px 4px; color: #FFFFFF;font: bold 12px/1 Arial,Helvetica,sans-serif; text-decoration:none;padding: 0 10px;text-align: center;display:inline-block;">
+							<!--<img src="https://bemcasados-site.s3-sa-east-1.amazonaws.com/user/79/normal_369324_100001576253382_1261894338_n.jpg" height="80" alt="Perfil" style="border:none"/>
+							<%= image_tag @user.absolute_path_picture, :height => "80" %>
+							 <!--<img src="http://www.bemcasados.art.br/<%= @user.profile_picture_url(:normal) %>" height="80" alt="avatar" /> -
+						</a> --> 
+					</li>
+				</ul>
+			</tr>
+			<tr>
+				<div align="center" style="padding: 0 12px;border-top:50px;">
+<!-- 					<h1>Novidades Bem Casados para Você</h1>
+ -->					
+ 					<p style="text-align: justify;"> 
+ 						<%= @user.male? ? "Querido #{@user.name}," : "Querida #{@user.name}," %>
+ 					</p>
+					<p style="text-align: justify;">A Bem Casados tem orgulho de apresentar duas novidades exclusivas para as noivas: a seção "Meu Casamento" e a “Vitrine” de vestidos de noiva. </p>
+					<p style="text-align: justify;">  Na seção “Meu casamento”, você encontra os seus fornecedores favoritos, as suas recomendações e acompanhará suas propostas para planejar o dia inesquecível da sua vida.Também deixamos o nosso guia para organização de casamento a mão para você fazer o download quando quiser.</p>
+					<p style="text-align: justify;">Na “Vitrine” você pode ver os mais variados modelos de vestidos, separados por filtros de silhueta, decote, tecido etc. Tudo isso para facilitar a sua busca pelo modelo dos seus sonhos. Nesta área você também pode agendar uma visita na loja para fazer provas e ajustes.  </p>
+					<p style="text-align: justify;">A “Vitrine” ainda está em fase de testes, e você foi <%= @user.male? ? "escolhido" : "escolhida" %> para ajudar-nos a melhorar a ferramenta antes do lançamento oficial. Por ser uma área exclusiva, você pode acessar diretamente por este link: <a href="www.bemcasados.art.br/vestidos">www.bemcasados.art.br/vestidos</a> </p>
+					<p style="text-align: justify;">Em breve teremos mais novidades para ajudar a tornar esse dia inesquecível. Não deixe de acompanhar!  </p>
+				</div>
+			</tr>
+			<tr>
+				<table width="90%" align="center" height="35" style="background-color: #00ADC8;border-radius: 18px 18px 0 0;display:block;margin-top:10px;">
+					<tbody>
+						<tr>
+							<td width="13" valign="top" style="">
+								<img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/09/star.png" style="margin:8px 0 0 8px;" alt="Novidades"/>
+							</td>
+							<td valign="top">
+								<h3 style="color: #FFFFFF !important;font-size: 18px;margin:5px 0 0 0;"> Novidades Bem Casados para você: </h3>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</tr>
+			<tr>
+				<table width="90%" style="border-left: 1px dashed #CCCCCC;border-right: 1px dashed #CCCCCC;border-bottom: 1px dashed #CCCCCC;padding: 2px;border-radius: 0 0 18px 18px;margin-bottom:10px;" align="center">
+					<tbody>
+						<tr>
+							<th></th>
+						</tr>
+						<tr>
+<!-- 							<td style="text-align:center">
+								<a href="http://www.bemcasados.art.br/perfil">
+									<img src="https://bemcasados-site.s3-sa-east-1.amazonaws.com/user/79/normal_369324_100001576253382_1261894338_n.jpg" height="80" alt="Perfil" style="border:none"/> 
+									<%= image_tag @user.absolute_path_picture, :height => "80" %>
+									 <!--<img src="http://www.bemcasados.art.br/<%= @user.profile_picture_url(:normal) %>" height="80" alt="avatar" />
+								</a> 
+							</td>
+ -->							<td style="text-align:center">
+								<a href="http://www.bemcasados.art.br/vestidos">
+									<img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/10/vitrine.png" height="383" alt="Vestido" style="border:none">
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</tr>
+			<tr style="text-align:center;">
+<!-- 				<ul style="text-align:justify;padding:0 0 0 20px;">
+					<li>Proin non tincidunt erat.</li>
+					<li>Vestibulum sit amet tempus ipsum.</li>
+					<li>Phasellus gravida laoreet tortor, et porta mi placerat posuere</li>
+				</ul>
+ -->				<div>
+					<p style="margin-top:35px;	">Muito obrigada pelo carinho,</p>
+					<p style="color:#0C7587; font-weight:bold;margin:0;">Taiana Natale</p>
+					<p style="margin:0;">Equipe de estilo</p>
+					<img src="http://wp-uploads.bemcasados.art.br/blog/wp-content/uploads/2012/08/lacinho.jpg" width="90px"/><br/>
+					www.bemcasados.art.br
+				</div>
+			</tr>
+			<tr style="">
+				<ul class="socials" style="display: inline; list-style: none outside none;padding: 0 23px 0 0;float:right;">
+					<li class="fb" style="display: inline-block;">
+						<a href="https://www.facebook.com/BemCasadosArtBr" target="_blank">
+							<img width="23" height="23" src="http://clients.xhtmlchop.com/blog30568/jg5naykfc30568/wp-content/themes/30568/images/fb.png" alt="Facebook" style="border:none" />
+						</a>
+					</li>
+					<li class="twitter" style="display: inline-block;">
+						<a href="http://twitter.com/BemCasadosArtBr" target="_blank">
+							<img width="23" height="23" src="http://clients.xhtmlchop.com/blog30568/jg5naykfc30568/wp-content/themes/30568/images/tweet_03.png" alt="Twitter" style="border:none" />
+						</a>
+					</li>
+<!-- 					<li class="rss" style="display: inline-block;">
+						<img width="23" height="23" src="http://clients.xhtmlchop.com/blog30568/jg5naykfc30568/wp-content/themes/30568/images/rss.png" style="border:none" alt="RSS" style="border:none" />
+					</li>
+					<li class="youtube" style="display: inline-block;">
+						<img width="23" height="23" src="http://clients.xhtmlchop.com/blog30568/jg5naykfc30568/wp-content/themes/30568/images/utube.png" alt="Youtube" style="border:none" />
+					</li>
+ -->					<li class="pinterest" style="display: inline-block;">
+						<a href="http://pinterest.com/bemcasados/">
+							<img width="23" height="23" src="http://clients.xhtmlchop.com/blog30568/jg5naykfc30568/wp-content/themes/30568/images/pinterest.png" alt="Pinterest" style="border:none" />
+						</a>
+					</li>
+				</ul>
+			</tr>
+		</tbody>
+	</table>
+	<table width="600" align="center" style="background-color: font-family: Arial,​Helvetica,​sans-serif;color: #fff;">
+		<tbody>
+			<tr>
+				<p style="margin:0; padding-left: 20px;color: #fff;">Essa mensagem foi enviada para <span><a href="#" style="color: #fff;"> <%= @user.email %>.</a></span>.</p>
+				<p><a style="color: #fff; " href="http://www.bemcasados.art.br/u/<%= @user.id %>/unsubscribe">Cancelar Inscrição.</a></p>
+				<p style="margin: 5px 0 0 0; padding-left: 20px;color: #fff;font-size:10px;">Copyright &copy; 2012, Bem Casados. Todos os direitos reservados.</p>
+			</tr>
+		</tbody>
+	</table>
+</div>

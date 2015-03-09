@@ -1,0 +1,21 @@
+	 <% if type == "bottom" %>
+	  <div class="result">
+	 	<%= link_to image_tag(sidebar_like.cover_photo(:large), :height => "204", :width => "139"), dress_path(sidebar_like) %>		
+        <% if current_user && current_user.dresses.include?(sidebar_like) %>
+            <% bookmark = current_user.find_bookmark(sidebar_like) %>
+            <%= link_to 'Favoritado', dress_bookmark_path(sidebar_like, bookmark), method: :delete, class: "favourite bookmarked" %>
+        <% else %>
+	        <%= link_to "Favoritar", new_dress_bookmark_path(sidebar_like), title: "Favorite", class: "favourite lightbox" %>
+        <% end %>
+	  </div>
+	 <% else %>
+	  <div>
+	  	<% if sidebar_like_counter == position %> 
+
+	 		<%= link_to image_tag(sidebar_like.cover_photo(:small), :height => "159", :width => "136"), dress_path(sidebar_like), class: "current" %>
+	 	<% else %>
+	 		<%= link_to image_tag(sidebar_like.cover_photo(:small), :height => "159", :width => "136"), dress_path(sidebar_like) %>
+	 	<% end %>
+	 </div>
+	 <% end %>
+	  	<!-- <img src="/assets/dress-gallery/1.jpg" height="159" width="136" alt="You may also like" /></a> -->

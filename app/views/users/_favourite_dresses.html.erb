@@ -1,0 +1,5 @@
+<div class="result">
+	<% bookmark = current_user.find_bookmark(favourite_dresses) %>
+	<%= link_to image_tag(favourite_dresses.cover_photo(:normal), :width=>"153px", :height => "225px", alt: "fotos de #{favourite_dresses.brand}"), dress_path(favourite_dresses) %>
+	<%= link_to 'Favoritado', dress_bookmark_path(favourite_dresses, bookmark), method: :delete, class: "favourite bookmarked" %>
+</div>

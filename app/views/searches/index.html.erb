@@ -1,0 +1,44 @@
+<% title 'Listagem das buscas' %>
+
+<table>
+  <tr>
+    <th>Data</th>
+    <th>Serviço</th>
+    <th>Endereço</th>
+    <th>Nome</th>
+    <th>Distância</th>
+    <th>Ordem</th>
+    <th>Price</th>
+    <th>Source</th>
+    <th>Detalhes</th>
+    <th>Capacidade</th>
+  </tr>
+
+<% @searches.each do |search| %>
+  <tr>
+    <td><%= link_to search.created_at.strftime("%d/%m/%Y"), search %></td>
+    <td><%= search.translated_service_type %></td>
+    <td><%= search.address %></td>
+    <td><%= search.name %></td>
+    <td><%= search.distance %></td>
+    <td><%= search.sort_by %></td>
+    <td><%= search.price %></td>
+    <td><%= search.search_source %></td>
+    <td><%= search.filter_details1.to_s(2) %></td>
+    <td><%= search.filter_details2 %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<p><%= link_to 'Exportar todos os resultados para o Excel', url_for(:format => 'xls') %></p>
+<br />
+
+<%= form_tag('/busca/delete_old_searches') do %>
+  <%= label_tag 'Deletar buscas mais antigas que:' %>
+  <%= text_field_tag 'date', "", class: "datepicker" %>
+  <%= submit_tag 'Deletar' %>
+<% end -%>
+
+<p><%= paginate @searches %></p>

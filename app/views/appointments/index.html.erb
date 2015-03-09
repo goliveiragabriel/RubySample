@@ -1,0 +1,40 @@
+<%= title @dress.nil? ? @user.nil? ? "Todas as visitas" : "Visitas de #{@user.name}" : "Visitas para o #{@dress.name}"%>
+<table class="table-index">
+  <tr>
+    <th>Horário</th>
+    <th>Cliente</th>
+    <th>Email</th>
+    <th>Telefone Contato</th>
+    <th>Vestido</th>
+    <th>Fornecedor</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @appointments.each do |appointment| %>
+  <tr>
+    <td><%= appointment.formated_data %></td>
+    <td><%= link_to appointment.user.name, user_appointments_path(appointment.user.id) %></td>
+    <td><%= appointment.user.email %></td>
+    <td><%= appointment.user.telephone %></td>
+    <td><%= link_to appointment.dress.name, dress_appointments_path(appointment.dress.id) %></td>
+    <td><%= appointment.dress.vendor.name %></td>
+    <td><%= link_to '', appointment, class: "show-button sprites" %></td>
+    <td><%= link_to '', edit_appointment_path(appointment), class: "edit-button" %></td>
+    <td><%= link_to '', appointment, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "remove-button sprites" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<% if @dress %>
+  <%= link_to 'Voltar', :back, class: "button-link size-button fleft" %> 
+  <%= link_to 'Todas as Visitas', appointments_path, class: "button-link size-button fleft" %> 
+<% elsif params[:user_id] %>
+  <%= link_to 'Voltar', :back, class: "button-link size-button fleft" %> 
+  <%= link_to 'Todas as Visitas', appointments_path, class: "button-link size-button fleft" %> 
+<% else %>
+  <%= link_to 'Voltar', :back, class: "button-link size-button fleft" %> 
+<% end %>
+<%= link_to '', new_appointment_path, class: "add-button sprites fleft" %>

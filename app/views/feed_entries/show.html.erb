@@ -1,0 +1,42 @@
+<%= title @feed_entry.title %>
+<div class="show">
+  <h3>
+    <b><%= @feed_entry.title %></b>
+  </h3>
+  <div class="info-feed">
+    <p>
+      <b>Guid:</b>
+      <%= @feed_entry.guid %>
+    </p>
+    <p>
+      <b>Url:</b>
+      <%= link_to "#{@feed_entry.url}", @feed_entry.url %>
+    </p>
+    <p>
+      <b>Publicado em:</b>
+      <%= l(@feed_entry.published_at )%>
+    </p>
+    <div class="content-img fleft">
+      <p>
+        <%= image_tag(@feed_entry.img_url) %><br/>
+        <span class="legenda"> Img URL: <br/>
+          <%= @feed_entry.img_url %></span>
+      </p>
+    </div>
+    <p>
+      <b>Summary:</b>
+      <%= @feed_entry.summary %>
+    </p>
+
+    <p>
+      <b>Conteúdo:</b>
+      <%= @feed_entry.content %>
+    </p>
+
+
+  </div>
+
+
+  <%= link_to 'Voltar', feed_entries_path, class: "button-link size-button fleft" %>
+  <%= link_to 'Edit', edit_feed_entry_path(@feed_entry), class: "button-link size-button fleft" %>
+</div>

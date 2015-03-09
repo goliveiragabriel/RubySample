@@ -1,0 +1,22 @@
+<% title "Editando fotos de #{@vendor.name}" %>
+
+<div class="new">
+  <%= form_for :photos, :url => bulk_update_vendor_photos_path do |f| %>
+    <% @vendor.photos.each do |photo| %>
+      <%= fields_for "photos[id][]", photo do |fields| %>
+        <%= photo.id %> <br /> 
+        <%= image_tag(photo.image_url(:thumb), alt: photo.name) %> <br />
+        descrição <%= fields.text_field :name %> <br />
+        <%= fields.check_box :cover %> capa <br />
+        <%= fields.check_box :erase %> deletar <br /><br />
+      <% end %>
+    <% end %>
+    <div class="form-row">
+    <%= submit_tag 'Atualizar todas' %>
+    </div>
+  <% end %>
+
+  <br />
+
+  <%= link_to 'Voltar', vendor_photos_path(@vendor), class: "button-link size-button" %>
+</div>

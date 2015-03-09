@@ -1,0 +1,44 @@
+<%= title "Track de " << @track.vendor.name %>
+<div class="edit">
+  <%= form_for(@track) do |f| %>
+    <% if @track.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@track.errors.count, "error") %> prohibited this track from being saved:</h2>
+
+        <ul>
+        <% @track.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :id %><br />
+      <%= f.number_field :id, :readonly => true %>
+    </div>
+    <div class="field">
+      <%= f.label :user_id %><br />
+      <%= f.number_field :user_id, :readonly => true %>
+    </div>
+    <div class="field">
+      <%= f.label :vendor_id %><br />
+      <%= f.number_field :vendor_id %>
+    </div>
+    <div class="field">
+      <%= f.label :ip %><br />
+      <%= f.text_field :ip %>
+    </div>
+    <div class="field">
+      <%= f.label :action %><br />
+      <span class="input-shadow-long"><%= f.select :action, Track::TRACK_ACTIONS_LIST, class: 'long' %></span>
+    </div>
+    <br/>
+    <div class="actions form-row">
+      <%= f.submit %>
+    </div>
+  <% end %>
+  <%= link_to 'Voltar', tracks_path , class: "button-link size-button fleft"%>
+  <%= link_to 'Mostrar', @track, class: "button-link size-button fleft" %>
+
+</div>

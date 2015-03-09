@@ -1,0 +1,37 @@
+<% @reviews.each do |review| %>
+  <% vendor = review.vendor %>
+  <% user = review.user %>
+  <% rating = vendor.rating_average.round(1) %>
+  <% rating_review = user.average_rating(vendor) %>
+	<div class="daily-review">
+		<div class="top-side">
+				<h3>
+					<%= link_to "#{truncate(vendor.name, :length => 30, :separator => ' ')}", vendor_seo_path(vendor), class: "vendor-link" %>
+				</h3>
+				<% translated = t vendor.type %>
+				<p>
+					<%= link_to( translated, searches_path("search[service_type]" => vendor.type), method: :post, class: "categoria-link"  ) %>
+				</p>
+				<%= link_to (image_tag (vendor.cover_photo), alt: vendor.name, height: "99", width: "99"), vendor_seo_path(vendor) %>
+		</div>
+		<div class="clearfix"></div>
+		<div class="bottom-side">
+			<div class="left-side">
+				<% if review.anonymous || review.user.profile_picture.nil? %>
+					<% image = review.anonymous_picture %>
+				<% else %>
+					<% image = user.profile_picture_url(:thumb) %>
+				<% end %>
+				<%= image_tag image %>
+				<div class="rating clearfix">
+				      <%= render :partial => "shared/average_stars", :locals => { :rating => rating_review, :size => "mini" } %>
+				</div>
+			</div>
+			<div class="right-side">
+				<h4><%= link_to "#{review.user.name}", recomendacoes_path(uid: review.user), class: "reviewer" %></h4>
+				<span> <%= truncate(review.title, :length => 50, :separator => ' ') %></span>
+				<p><%= truncate(review.content, :length => 210, :separator => ' ')  %></p>
+			</div>
+		</div>
+	</div>
+<% end %>
